@@ -204,10 +204,53 @@
       </div>
     </div>
   </div>
-  <script src="assets/js/app.js"></script>
-  <script src="assets/js/script.js"></script>
-
+  <script>
+    // Get the sign-in form element
+    const signInForm = document.getElementById('signin-form');
   
+    // Add an event listener to the form for the form submission
+    signInForm.addEventListener('submit', event => {
+      event.preventDefault(); // Prevent the default form submission
+  
+      // Get the email and password values
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const email = emailInput.value;
+      const password = passwordInput.value;
+  
+      // Create the user data object
+      const userData = {
+        email: email,
+        password: password
+      };
+  
+      // Send the user data to the server for authentication
+      fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response from the server
+          if (data.message === 'Authentication successful') {
+            // Authentication successful, redirect to a success page
+            window.location.href = '/account.html';
+          } else {
+            // Authentication failed, display an error message
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = 'Invalid email or password.';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  </script>
+  
+
 <section class="subscribe-section">
 <div class="container">
 <div class="row align-items-center">
