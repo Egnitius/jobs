@@ -69,9 +69,10 @@ server.on('request', (req, res) => {
 });
 
 // Start the server
-server.listen(port, () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
 // Helper function to get the content type based on the file extension
 function getContentType(extension) {
