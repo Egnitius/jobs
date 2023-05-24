@@ -175,8 +175,8 @@
         <div class="account-information">
           <div class="profile-thumb">
             <img src="assets/img/account.jpg" alt="account holder image">
-            <h3 id="account-name"></h3>
-            <p id="account-job-title"></p>
+            <h3 id="account-name-display"></h3>
+            <p id="account-job-title-display"></p>
           </div>
           <ul>
             <li>
@@ -232,37 +232,33 @@
       </div>
       <div class="col-md-8">
         <div class="account-details">
-          <h3>Basic Information</h3>
+          <h3>Information</h3>
           <form id="account-form">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Your Name</label>
+                  <label>Your Name & Surname:</label>
                   <input type="text" class="form-control" placeholder="Your Name" id="account-name-input">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Your Email</label>
+                  <label>Your Email:</label>
                   <input type="email" class="form-control" placeholder="Your Email" id="account-email-input">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Your Phone</label>
+                  <label>Your Phone number:</label>
                   <input type="tel" class="form-control" placeholder="Your Phone" id="account-phone-input">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Job Title</label>
+                  <label>Job Title:</label>
                   <input type="text" class="form-control" placeholder="Job Title" id="account-job-title-input">
                 </div>
               </div>
-            </div>
-
-            <h3>Address</h3>
-            <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Your Country</label>
@@ -278,7 +274,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Zip Code</label>
-                  <input type="tel" class="form-control" placeholder="City Zip" id="account-zip-input">
+                  <input type="number" class="form-control" placeholder="City Zip" id="account-zip-input">
                 </div>
               </div>
               <div class="col-md-6">
@@ -287,38 +283,101 @@
                   <input type="text" class="form-control" placeholder="Your Region" id="account-region-input">
                 </div>
               </div>
-            </div>
-
-            <h3>Other information</h3>
-            <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Age</label>
-                  <input type="tel" class="form-control" placeholder="Your Age" id="account-age-input">
+                  <label for="aboutme">About Me:</label>
+                  <textarea id="aboutme" class="form-control" placeholder="About Me" name="aboutme" required></textarea>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Work Experience</label>
-                  <input type="number" class="form-control" placeholder="Work Experience" id="account-experience-input">
+                  <label for="education">Education Background:</label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>School/Institute</label>
+                        <input type="text" class="form-control" placeholder="School/Institute" id="education-school-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Qualification</label>
+                        <input type="text" class="form-control" placeholder="Qualification" id="education-qualification-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Year Started</label>
+                        <input type="text" class="form-control" placeholder="Year Started" id="education-year-started-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Year completed</label>
+                        <input type="text" class="form-control" placeholder="Year completed" id="education-year-completed-input">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Language</label>
-                  <input type="text" class="form-control" placeholder="Language" id="account-language-input">
+                  <label for="experience">Work Experience:</label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" class="form-control" placeholder="Position" id="experience-position-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" class="form-control" placeholder="Company" id="experience-company-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" class="form-control" placeholder="Year" id="experience-year-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Reason for leaving</label>
+                        <input type="text" class="form-control" placeholder="Reason for leaving" id="experience-reason-input">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Skill</label>
-                  <input type="text" class="form-control" placeholder="Skills" id="account-skill-input">
+                  <label for="skills">Skills:</label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Skill" id="skill1-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Skill" id="skill2-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Skill" id="skill3-input">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Skill" id="skill4-input">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <h3>Social links</h3>
-            <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <label>Facebook</label>
@@ -333,19 +392,18 @@
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label>Linkedin</label>
-                  <input type="text" class="form-control" placeholder="www.Linkedin.com/user" id="account-linkedin-input">
+                  <label>LinkedIn</label>
+                  <input type="text" class="form-control" placeholder="www.linkedin.com/user" id="account-linkedin-input">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group">
                   <label>Github</label>
-                  <input type="text" class="form-control" placeholder="www.Github.com/user" id="account-github-input">
+                  <input type="text" class="form-control" placeholder="www.github.com/user" id="account-github-input">
                 </div>
               </div>
               <div class="col-md-12">
-                <button type="submit" class="account-btn">Edit</button>
-                <button type="submit" class="account-btn">Save</button>
+                <button type="submit" class="account-btn">Submit</button>
               </div>
             </div>
           </form>
@@ -354,54 +412,95 @@
     </div>
   </div>
 </section>
-
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('account-form').addEventListener('submit', function(event) {
-      event.preventDefault();
+// Function to send form data to server
+function submitForm() {
+  // Get form values
+  var name = document.getElementById('account-name-input').value;
+  var email = document.getElementById('account-email-input').value;
+  var phone = document.getElementById('account-phone-input').value;
+  var jobTitle = document.getElementById('account-job-title-input').value;
+  var country = document.getElementById('account-country-input').value;
+  var city = document.getElementById('account-city-input').value;
+  var zipCode = document.getElementById('account-zip-input').value;
+  var region = document.getElementById('account-region-input').value;
+  var aboutMe = document.getElementById('aboutme').value;
+  var educationSchool = document.getElementById('education-school-input').value;
+  var educationQualification = document.getElementById('education-qualification-input').value;
+  var educationYearStarted = document.getElementById('education-year-started-input').value;
+  var educationYearCompleted = document.getElementById('education-year-completed-input').value;
+  var experiencePosition = document.getElementById('experience-position-input').value;
+  var experienceCompany = document.getElementById('experience-company-input').value;
+  var experienceYear = document.getElementById('experience-year-input').value;
+  var experienceReason = document.getElementById('experience-reason-input').value;
+  var skill1 = document.getElementById('skill1-input').value;
+  var skill2 = document.getElementById('skill2-input').value;
+  var skill3 = document.getElementById('skill3-input').value;
+  var skill4 = document.getElementById('skill4-input').value;
+  var facebook = document.getElementById('account-facebook-input').value;
+  var twitter = document.getElementById('account-twitter-input').value;
+  var linkedin = document.getElementById('account-linkedin-input').value;
+  var github = document.getElementById('account-github-input').value;
 
-      const formData = {
-        name: document.getElementById('account-name-input').value,
-        email: document.getElementById('account-email-input').value,
-        phone: document.getElementById('account-phone-input').value,
-        jobTitle: document.getElementById('account-job-title-input').value,
-        country: document.getElementById('account-country-input').value,
-        city: document.getElementById('account-city-input').value,
-        zip: document.getElementById('account-zip-input').value,
-        region: document.getElementById('account-region-input').value,
-        age: document.getElementById('account-age-input').value,
-        experience: document.getElementById('account-experience-input').value,
-        language: document.getElementById('account-language-input').value,
-        skill: document.getElementById('account-skill-input').value,
-        facebook: document.getElementById('account-facebook-input').value,
-        twitter: document.getElementById('account-twitter-input').value,
-        linkedin: document.getElementById('account-linkedin-input').value,
-        github: document.getElementById('account-github-input').value
-      };
+  // Create data object
+  var data = {
+    name: name,
+    email: email,
+    phone: phone,
+    jobTitle: jobTitle,
+    country: country,
+    city: city,
+    zipCode: zipCode,
+    region: region,
+    aboutMe: aboutMe,
+    education: {
+      school: educationSchool,
+      qualification: educationQualification,
+      yearStarted: educationYearStarted,
+      yearCompleted: educationYearCompleted
+    },
+    experience: {
+      position: experiencePosition,
+      company: experienceCompany,
+      year: experienceYear,
+      reason: experienceReason
+    },
+    skills: [skill1, skill2, skill3, skill4],
+    social: {
+      facebook: facebook,
+      twitter: twitter,
+      linkedin: linkedin,
+      github: github
+    }
+  };
 
-      fetch('/api/saveDetails', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
-          .then(function(response) {
-            if (response.ok) {
-              console.log(response);
-              alert('Form details saved successfully!');
-              window.location.href = '/resume.html'; // Redirect to resume.html
-            } else {
-              throw new Error('Failed to save form details. Please try again.');
-            }
-          })
-          .catch(function(error) {
-            console.error('Error:', error);
-            alert('Failed to save form details. Please try again.');
-          });
-      });
-    });
+  // Send data to server using AJAX
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/submitForm', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        // Success message
+        alert('Form data submitted successfully!');
+        // Clear form fields
+        document.getElementById('account-form').reset();
+      } else {
+        // Error message
+        alert('Failed to submit form data. Please try again.');
+      }
+    }
+  };
+  xhr.send(JSON.stringify(data));
+}
+
+// Event listener for form submission
+document.getElementById('account-form').addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent default form submission
+  submitForm(); // Call submitForm function
+});
 </script>
+
 
 
 <section class="subscribe-section">

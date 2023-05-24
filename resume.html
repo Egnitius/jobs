@@ -28,6 +28,78 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <title></title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Fetch data from details.json
+    $.getJSON("details.json", function(data) {
+      // Update account information
+      $("#name").text(data.name);
+      $("#jobtitle").text(data.jobTitle);
+  
+      // Update account details
+      $("#account-name-input").val(data.name);
+      $("#account-email-input").val(data.email);
+      $("#account-phone-input").val(data.phone);
+      $("#account-job-title-input").val(data.jobTitle);
+      $("#account-country-input").val(data.country);
+      $("#account-city-input").val(data.city);
+      $("#account-zip-input").val(data.zipCode);
+      $("#account-region-input").val(data.region);
+      $("#aboutme").text(data.aboutMe);
+      $("#education-school-input").val(data.education.school);
+      $("#education-qualification-input").val(data.education.qualification);
+      $("#education-year-started-input").val(data.education.yearStarted);
+      $("#education-year-completed-input").val(data.education.yearCompleted);
+      $("#experience-position-input").val(data.experience.position);
+      $("#experience-company-input").val(data.experience.company);
+      $("#experience-year-input").val(data.experience.year);
+      $("#experience-reason-input").val(data.experience.reason);
+      $("#skill1-input").val(data.skills[0]);
+      $("#skill2-input").val(data.skills[1]);
+      $("#skill3-input").val(data.skills[2]);
+      $("#skill4-input").val(data.skills[3]);
+      $("#account-facebook-input").val(data.social.facebook);
+      $("#account-twitter-input").val(data.social.twitter);
+      $("#account-linkedin-input").val(data.social.linkedin);
+      $("#account-github-input").val(data.social.github);
+  
+      // Update resume section
+      $(".social-links").find("a:nth-child(1)").attr("href", data.social.facebook);
+      $(".social-links").find("a:nth-child(2)").attr("href", data.social.twitter);
+      $(".social-links").find("a:nth-child(3)").attr("href", data.social.github);
+      $(".social-links").find("a:nth-child(4)").attr("href", data.social.linkedin);
+      $("#aboutme").text(data.aboutMe);
+  
+      // Update basic info
+      $("#basic-info-list").append("<li><strong>Email:</strong> " + data.email + "</li>");
+      $("#basic-info-list").append("<li><strong>Phone:</strong> " + data.phone + "</li>");
+      $("#basic-info-list").append("<li><strong>Country:</strong> " + data.country + "</li>");
+      $("#basic-info-list").append("<li><strong>City:</strong> " + data.city + "</li>");
+      $("#basic-info-list").append("<li><strong>Zip Code:</strong> " + data.zipCode + "</li>");
+      $("#basic-info-list").append("<li><strong>Region:</strong> " + data.region + "</li>");
+  
+      // Update education info
+      $("#education-info-list").append("<li><strong>School:</strong> " + data.education.school + "</li>");
+      $("#education-info-list").append("<li><strong>Qualification:</strong> " + data.education.qualification + "</li>");
+      $("#education-info-list").append("<li><strong>Year-Started:</strong> " + data.education.yearStarted + "</li>");
+      $("#education-info-list").append("<li><strong>Year-Completed:</strong> " + data.education.yearCompleted + "</li>");
+
+  
+      // Update work experience info
+      $("#experience-info-list").append("<li><strong>Position:</strong> " + data.experience.position + "</li>");
+      $("#experience-info-list").append("<li><strong>Company:</strong> " + data.experience.company + "</li>");
+      $("#experience-info-list").append("<li><strong>Year:</strong> " + data.experience.year + "</li>");
+      $("#experience-info-list").append("<li><strong>Reason for leaving:</strong> " + data.experience.reason + "</li>");
+  
+      // Update skills info
+      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[0] + "</li>");
+      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[1] + "</li>");
+      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[2] + "</li>");
+      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[3] + "</li>");
+    });
+  });
+  </script>  
 </head>
 <body>
 
@@ -148,18 +220,88 @@
   </div>
 </div>
 
-<section class="page-title title-bg11">
-    <div class="d-table">
-      <div class="d-table-cell">
-        <h2>Resume</h2>
-        <div id="account-info"></div>
+<section class="resume-section ptb-100">
+  <div class="container">
+    <div class="resume-area">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="resume-thumb-area text-center">
+            <img src="assets/img/account.jpg" alt="account image">
+            <h3 id="name"></h3>
+            <p id="jobtitle"></p>
+            <div class="social-links">
+              <a href="#" target="_blank">
+                <i class="bx bxl-facebook"></i>
+              </a>
+              <a href="#" target="_blank">
+                <i class="bx bxl-twitter"></i>
+              </a>
+              <a href="#" target="_blank">
+                <i class="bx bxl-github"></i>
+              </a>
+              <a href="#" target="_blank">
+                <i class="bx bxl-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="resume-content about-text">
+            <h3>
+              <i class="bx bx-user-circle"></i>
+              About Me
+            </h3>
+            <p id="aboutme"></p>
+          </div>
+          <div class="resume-content basic-info-text">
+            <h3>
+              <i class="bx bx-book-alt"></i>
+              Basic Info
+            </h3>
+            <ul id="basic-info-list">
+              <!-- Basic info will be dynamically populated here -->
+            </ul>
+          </div>
+          <div class="resume-content basic-info-text">
+            <h3>
+              <i class="bx bx-book-reader"></i>
+              Education Background
+            </h3>
+              <ul id="education-info-list">
+                <!-- Education info will be dynamically populated here -->
+              </ul>
+            </di>
+          </div>
+          <div class="resume-content basic-info-text">
+            <h3>
+              <i class="bx bx-briefcase"></i>
+              Work Experience
+            </h3>
+              <ul id="experience-info-list">
+                <!-- Work experience info will be dynamically populated here -->
+              </ul>
+            </div>
+          </div>
+          <div class="resume-content basic-info-text">
+            <h3>
+              <i class="bx bx-check-shield"></i>
+              Skills
+            </h3>
+              <ul id="skill-info-list">
+                <!-- Skill info will be dynamically populated here -->
+              </ul>
+            </div>
+          </div>
+          <div class="theme-btn">
+            <a id="edit" class="default-btn">
+              EDIT
+            </a>            
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <script>
-   
-  </script>
+  </div>
+</section>
 
 
 <section class="subscribe-section">

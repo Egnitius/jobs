@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const puppeteer = require('puppeteer');
 
 const port = 3000;
 
@@ -111,24 +112,41 @@ const server = http.createServer((req, res) => {
         }
       });
     });
-  } else if (req.method === 'POST' && req.url === '/api/saveDetails') {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk;
+  } else if (req.method === 'POST' && req.url === '/api/submitForm') {
+    let data = '';
+
+    // Collect the request body data
+    req.on('data', (chunk) => {
+      data += chunk;
     });
 
+    // Process the request when the data has been fully received
     req.on('end', () => {
-      const formData = JSON.parse(body);
+      const formData = JSON.parse(data);
 
-      const filePath = path.join(__dirname, 'details.json');
-      fs.writeFile(filePath, JSON.stringify(formData), 'utf8', err => {
+      // Save form data to a file
+      fs.writeFile('details.json', JSON.stringify(formData), (err) => {
         if (err) {
-          console.error('Error writing to details.json:', err);
-          sendErrorResponse(res, 500, 'Failed to save form details');
+          console.error(err);
+          res.statusCode = 500;
+          res.end('Failed to submit form data. Please try again.');
         } else {
-          sendSuccessResponse(res, 'Form details saved successfully!');
+          res.statusCode = 200;
+          res.end('Form data submitted successfully!');
         }
       });
+    });
+  } else  // Handle requests for details.json
+  if (req.url === '/api/getDetails') {
+    const filePath = path.join(__dirname, 'details.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(data);
     });
   } else {
     // Serve the requested file
@@ -164,7 +182,7 @@ const server = http.createServer((req, res) => {
       } else if (req.url === '/sign-in') {
         filePath = path.join(__dirname, 'sign-in.html');
       } else if (req.url === '/sign-up') {
-        filePath = path.join(__dirname, 'sign-up');
+        filePath = path.join(__dirname, 'sign-up.html');
       } else if (req.url === '/terms-condition') {
         filePath = path.join(__dirname, 'terms-condition.html');
       } else {
