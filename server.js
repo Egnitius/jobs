@@ -148,6 +148,47 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(data);
     });
+  } else if (req.method === 'POST' && req.url === '/api/update-details') {
+    let body = '';
+
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      // Parse the received JSON data
+      const updatedData = JSON.parse(body);
+
+      // Read the details.json file
+      fs.readFile('details.json', 'utf8', (err, data) => {
+        if (err) {
+          res.statusCode = 500;
+          res.end('Error reading the details.json file');
+        } else {
+          try {
+            // Parse the existing JSON data
+            const jsonData = JSON.parse(data);
+
+            // Update the JSON data with the received updated data
+            Object.assign(jsonData, updatedData);
+
+            // Write the updated JSON data back to the details.json file
+            fs.writeFile('details.json', JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
+              if (err) {
+                res.statusCode = 500;
+                res.end('Error updating the details.json file');
+              } else {
+                res.statusCode = 200;
+                res.end('Data updated successfully');
+              }
+            });
+          } catch (error) {
+            res.statusCode = 500;
+            res.end('Error parsing the details.json file');
+          }
+        }
+      });
+    });
   } else {
     // Serve the requested file
     let filePath;

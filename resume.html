@@ -100,6 +100,22 @@
     });
   });
   </script>  
+  <style>
+    .account-btn {
+      background-color: navy; /* Button background color */
+      color: #fff; /* Button text color */
+      padding: 10px 20px; /* Button padding */
+      font-size: 16px; /* Button font size */
+      border: none; /* Remove button border */
+      border-radius: 10px; /* Button border radius */
+      cursor: pointer; /* Show cursor as pointer on hover */
+    }
+
+    .account-btn:hover {
+      background-color: red; /* Button background color on hover */
+      transition: 1s;
+    }
+  </style>
 </head>
 <body>
 
@@ -292,17 +308,98 @@
               </ul>
             </div>
           </div>
-          <div class="theme-btn">
-            <a id="edit" class="default-btn">
-              EDIT
-            </a>            
+          <div class="col-md-12"> 
+            <button type="submit" id="edit" class="account-btn">EDIT</button>        
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<script>
+document.getElementById('edit').addEventListener('click', function() {
+  var editButton = document.getElementById('edit');
+  var saveButton = document.createElement('button');
+  saveButton.setAttribute('type', 'submit');
+  saveButton.setAttribute('id', 'save');
+  saveButton.setAttribute('class', 'account-btn');
+  saveButton.textContent = 'SAVE';
 
+  var editableElements = document.querySelectorAll('.editable');
+  editableElements.forEach(function(element) {
+    element.classList.add('editing');
+  });
+
+  editButton.style.display = 'none';
+  editButton.parentElement.appendChild(saveButton);
+
+  saveButton.addEventListener('click', function() {
+    editableElements.forEach(function(element) {
+      element.classList.remove('editing');
+    });
+
+    saveButton.style.display = 'none';
+    saveButton.parentElement.appendChild(editButton);
+
+    // Prompt the user to enter the updated values
+    var name = prompt('Enter Name', document.getElementById('name').textContent);
+    var jobTitle = prompt('Enter Job Title', document.getElementById('jobtitle').textContent);
+    var aboutMe = prompt('Enter About Me', document.getElementById('aboutme').textContent);
+
+    var basicInfoList = Array.from(document.querySelectorAll('#basic-info-list li'))
+      .map(function(li) {
+        return li.textContent;
+      });
+
+    var educationInfoList = Array.from(document.querySelectorAll('#education-info-list li'))
+      .map(function(li) {
+        return li.textContent;
+      });
+
+    var experienceInfoList = Array.from(document.querySelectorAll('#experience-info-list li'))
+      .map(function(li) {
+        return li.textContent;
+      });
+
+    var skillInfoList = Array.from(document.querySelectorAll('#skill-info-list li'))
+      .map(function(li) {
+        return li.textContent;
+      });
+
+    // Create an object with the updated data
+    var updatedData = {
+      name: name,
+      jobTitle: jobTitle,
+      aboutMe: aboutMe,
+      basicInfo: basicInfoList,
+      educationInfo: educationInfoList,
+      experienceInfo: experienceInfoList,
+      skillInfo: skillInfoList
+    };
+
+    // Update the details.json file with the updated data
+    fetch('/api/update-details', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedData)
+    })
+    .then(function(response) {
+      if (response.ok) {
+        console.log('Data updated successfully');
+        alert('Data updated successfully');
+      } else {
+        console.error('Error updating data');
+        alert('Error updating data');
+      }
+    })
+    .catch(function(error) {
+      console.error('Error updating data:', error);
+    });
+  });
+});
+</script>
 
 <section class="subscribe-section">
 <div class="container">

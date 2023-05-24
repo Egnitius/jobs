@@ -1,1 +1,61 @@
-{"name":"Tshepo Paledi","email":"paledi.egnitius@capaciti.org.za","phone":"0155685684","jobTitle":"Web Developer","country":"South Africa","city":"JHB","zipCode":"2017","region":"East","aboutMe":"about me is information on me.","education":{"school":"Rosebank College","qualification":"DISD 313","yearStarted":"2018","yearCompleted":"2020"},"experience":{"position":"Web Developer","company":"Capaciti(eoh)","year":"2023","reason":"N/A"},"skills":["HTML","CSS","JAVASCRIPT","NODE JS"],"social":{"facebook":"www.facebook.com/tshepo","twitter":"www.twitter.com/tshepo","linkedin":"www.linkdin.com/tshepo","github":"www.Github.com/tshepo"}}
+{
+  "name": "Egnitius Paledi",
+  "email": "paledi.egnitius@capaciti.org.za",
+  "phone": "0155685684",
+  "jobTitle": "Web Developer",
+  "country": "South Africa",
+  "city": "JHB",
+  "zipCode": "2017",
+  "region": "East",
+  "aboutMe": "about me is information on me.",
+  "education": {
+    "school": "Rosebank College",
+    "qualification": "DISD 313",
+    "yearStarted": "2018",
+    "yearCompleted": "2020"
+  },
+  "experience": {
+    "position": "Web Developer",
+    "company": "Capaciti(eoh)",
+    "year": "2023",
+    "reason": "N/A"
+  },
+  "skills": [
+    "HTML",
+    "CSS",
+    "JAVASCRIPT",
+    "NODE JS"
+  ],
+  "social": {
+    "facebook": "www.facebook.com/tshepo",
+    "twitter": "www.twitter.com/tshepo",
+    "linkedin": "www.linkdin.com/tshepo",
+    "github": "www.Github.com/tshepo"
+  },
+  "basicInfo": [
+    "Email: paledi.egnitius@capaciti.org.za",
+    "Phone: 0155685684",
+    "Country: South Africa",
+    "City: JHB",
+    "Zip Code: 2017",
+    "Region: East"
+  ],
+  "educationInfo": [
+    "School: Rosebank College",
+    "Qualification: DISD 313",
+    "Year-Started: 2018",
+    "Year-Completed: 2020"
+  ],
+  "experienceInfo": [
+    "Position: Web Developer",
+    "Company: Capaciti(eoh)",
+    "Year: 2023",
+    "Reason for leaving: N/A"
+  ],
+  "skillInfo": [
+    "Year-Completed: HTML",
+    "Year-Completed: CSS",
+    "Year-Completed: JAVASCRIPT",
+    "Year-Completed: NODE JS"
+  ]
+}
