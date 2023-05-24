@@ -111,15 +111,66 @@ const server = http.createServer((req, res) => {
         }
       });
     });
+  } else if (req.method === 'POST' && req.url === '/api/saveDetails') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      const formData = JSON.parse(body);
+
+      const filePath = path.join(__dirname, 'details.json');
+      fs.writeFile(filePath, JSON.stringify(formData), 'utf8', err => {
+        if (err) {
+          console.error('Error writing to details.json:', err);
+          sendErrorResponse(res, 500, 'Failed to save form details');
+        } else {
+          sendSuccessResponse(res, 'Form details saved successfully!');
+        }
+      });
+    });
   } else {
     // Serve the requested file
     let filePath;
     if (req.url === '/') {
       filePath = path.join(__dirname, 'index.html');
     } else {
-      filePath = path.join(__dirname, req.url);
+      // Map additional routes to HTML files
+      if (req.url === '/account') {
+        filePath = path.join(__dirname, 'account.html');
+      } else if (req.url === '/candidate') {
+        filePath = path.join(__dirname, 'candidate.html');
+      } else if (req.url === '/candidate-details') {
+        filePath = path.join(__dirname, 'candidate-details.html');
+      } else if (req.url === '/contact') {
+        filePath = path.join(__dirname, 'contact.html');
+      } else if (req.url === '/faq') {
+        filePath = path.join(__dirname, 'faq.html');
+      } else if (req.url === '/find-job') {
+        filePath = path.join(__dirname, 'find-job.html');
+      } else if (req.url === '/job-details') {
+        filePath = path.join(__dirname, 'job-details.html');
+      } else if (req.url === '/job-grid') {
+        filePath = path.join(__dirname, 'job-grid.html');
+      } else if (req.url === '/post-job') {
+        filePath = path.join(__dirname, 'post-job.html');
+      } else if (req.url === '/privacy-policy') {
+        filePath = path.join(__dirname, 'privacy-policy.html');
+      } else if (req.url === '/reset-password') {
+        filePath = path.join(__dirname, 'reset-password.html');
+      } else if (req.url === '/resume') {
+        filePath = path.join(__dirname, 'resume.html');
+      } else if (req.url === '/sign-in') {
+        filePath = path.join(__dirname, 'sign-in.html');
+      } else if (req.url === '/sign-up') {
+        filePath = path.join(__dirname, 'sign-up');
+      } else if (req.url === '/terms-condition') {
+        filePath = path.join(__dirname, 'terms-condition.html');
+      } else {
+        filePath = path.join(__dirname, req.url);
+      }
     }
-
     // Get the file extension
     const extension = path.extname(filePath);
 
@@ -186,11 +237,13 @@ function getContentType(extension) {
 
 // Helper functions for sending responses
 function sendSuccessResponse(res, message) {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ message }));
 }
 
 function sendErrorResponse(res, statusCode, message) {
-  res.writeHead(statusCode, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ message }));
+  res.statusCode = statusCode;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ error: message }));
 }

@@ -169,194 +169,239 @@
 
 
 <section class="account-section ptb-100">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="account-information">
-            <div class="profile-thumb">
-              <img src="assets/img/account.jpg" alt="account holder image">
-              <h3 id="account-name"></h3>
-              <p id="account-job-title"></p>
-            </div>
-            <ul>
-              <li>
-                <a href="#" class="active">
-                  <i class='bx bx-user'></i>
-                  My Profile
-                </a>
-              </li>
-              <li>
-                <a href="resume.html">
-                  <i class='bx bxs-file-doc'></i>
-                  My Resume
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-briefcase'></i>
-                  Applied Job
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-envelope'></i>
-                  Messages
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-heart'></i>
-                  Saved Jobs
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-lock-alt'></i>
-                  Change Password
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-coffee-togo'></i>
-                  Delete Account
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class='bx bx-log-out'></i>
-                  Log Out
-                </a>
-              </li>
-            </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="account-information">
+          <div class="profile-thumb">
+            <img src="assets/img/account.jpg" alt="account holder image">
+            <h3 id="account-name"></h3>
+            <p id="account-job-title"></p>
           </div>
+          <ul>
+            <li>
+              <a href="#" class="active">
+                <i class='bx bx-user'></i>
+                My Profile
+              </a>
+            </li>
+            <li>
+              <a href="resume.html">
+                <i class='bx bxs-file-doc'></i>
+                My Resume
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-briefcase'></i>
+                Applied Job
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-envelope'></i>
+                Messages
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-heart'></i>
+                Saved Jobs
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-lock-alt'></i>
+                Change Password
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-coffee-togo'></i>
+                Delete Account
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class='bx bx-log-out'></i>
+                Log Out
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-md-8">
-          <div class="account-details">
-            <h3>Basic Information</h3>
-            <form class="basic-info">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" class="form-control" placeholder="Your Name" id="account-name-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Your Email</label>
-                    <input type="email" class="form-control" placeholder="Your Email" id="account-email-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Your Phone</label>
-                    <input type="tel" class="form-control" placeholder="Your Phone" id="account-phone-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Job Title</label>
-                    <input type="text" class="form-control" placeholder="Job Title" id="account-job-title-input">
-                  </div>
+      </div>
+      <div class="col-md-8">
+        <div class="account-details">
+          <h3>Basic Information</h3>
+          <form id="account-form">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Your Name</label>
+                  <input type="text" class="form-control" placeholder="Your Name" id="account-name-input">
                 </div>
               </div>
-            </form>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Your Email</label>
+                  <input type="email" class="form-control" placeholder="Your Email" id="account-email-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Your Phone</label>
+                  <input type="tel" class="form-control" placeholder="Your Phone" id="account-phone-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Job Title</label>
+                  <input type="text" class="form-control" placeholder="Job Title" id="account-job-title-input">
+                </div>
+              </div>
+            </div>
+
             <h3>Address</h3>
-            <form class="candidate-address">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Your Country</label>
-                    <input type="text" class="form-control" placeholder="Your Country" id="account-country-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Your City</label>
-                    <input type="text" class="form-control" placeholder="Your City" id="account-city-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Zip Code</label>
-                    <input type="tel" class="form-control" placeholder="City Zip" id="account-zip-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Region</label>
-                    <input type="text" class="form-control" placeholder="Your Region" id="account-region-input">
-                  </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Your Country</label>
+                  <input type="text" class="form-control" placeholder="Your Country" id="account-country-input">
                 </div>
               </div>
-            </form>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Your City</label>
+                  <input type="text" class="form-control" placeholder="Your City" id="account-city-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Zip Code</label>
+                  <input type="tel" class="form-control" placeholder="City Zip" id="account-zip-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Region</label>
+                  <input type="text" class="form-control" placeholder="Your Region" id="account-region-input">
+                </div>
+              </div>
+            </div>
+
             <h3>Other information</h3>
-            <form class="candidate-others">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Age</label>
-                    <input type="tel" class="form-control" placeholder="Your Age" id="account-age-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Work Experience</label>
-                    <input type="number" class="form-control" placeholder="Work Experience" id="account-experience-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Language</label>
-                    <input type="text" class="form-control" placeholder="Language" id="account-language-input">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Skill</label>
-                    <input type="text" class="form-control" placeholder="Skills" id="account-skill-input">
-                  </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Age</label>
+                  <input type="tel" class="form-control" placeholder="Your Age" id="account-age-input">
                 </div>
               </div>
-            </form>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Work Experience</label>
+                  <input type="number" class="form-control" placeholder="Work Experience" id="account-experience-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Language</label>
+                  <input type="text" class="form-control" placeholder="Language" id="account-language-input">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Skill</label>
+                  <input type="text" class="form-control" placeholder="Skills" id="account-skill-input">
+                </div>
+              </div>
+            </div>
+
             <h3>Social links</h3>
-            <form class="candidates-social">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Facebook</label>
-                    <input type="text" class="form-control" placeholder="www.facebook.com/user" id="account-facebook-input">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Twitter</label>
-                    <input type="text" class="form-control" placeholder="www.twitter.com/user" id="account-twitter-input">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Linkedin</label>
-                    <input type="text" class="form-control" placeholder="www.Linkedin.com/user" id="account-linkedin-input">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Github</label>
-                    <input type="text" class="form-control" placeholder="www.Github.com/user" id="account-github-input">
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <button type="submit" class="account-btn">Edit</button>
-                  <button type="submit" class="account-btn">Save</button>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Facebook</label>
+                  <input type="text" class="form-control" placeholder="www.facebook.com/user" id="account-facebook-input">
                 </div>
               </div>
-            </form>
-          </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Twitter</label>
+                  <input type="text" class="form-control" placeholder="www.twitter.com/user" id="account-twitter-input">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Linkedin</label>
+                  <input type="text" class="form-control" placeholder="www.Linkedin.com/user" id="account-linkedin-input">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Github</label>
+                  <input type="text" class="form-control" placeholder="www.Github.com/user" id="account-github-input">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <button type="submit" class="account-btn">Edit</button>
+                <button type="submit" class="account-btn">Save</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('account-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = {
+        name: document.getElementById('account-name-input').value,
+        email: document.getElementById('account-email-input').value,
+        phone: document.getElementById('account-phone-input').value,
+        jobTitle: document.getElementById('account-job-title-input').value,
+        country: document.getElementById('account-country-input').value,
+        city: document.getElementById('account-city-input').value,
+        zip: document.getElementById('account-zip-input').value,
+        region: document.getElementById('account-region-input').value,
+        age: document.getElementById('account-age-input').value,
+        experience: document.getElementById('account-experience-input').value,
+        language: document.getElementById('account-language-input').value,
+        skill: document.getElementById('account-skill-input').value,
+        facebook: document.getElementById('account-facebook-input').value,
+        twitter: document.getElementById('account-twitter-input').value,
+        linkedin: document.getElementById('account-linkedin-input').value,
+        github: document.getElementById('account-github-input').value
+      };
+
+      fetch('/api/saveDetails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+          .then(function(response) {
+            if (response.ok) {
+              console.log(response);
+              alert('Form details saved successfully!');
+              window.location.href = '/resume.html'; // Redirect to resume.html
+            } else {
+              throw new Error('Failed to save form details. Please try again.');
+            }
+          })
+          .catch(function(error) {
+            console.error('Error:', error);
+            alert('Failed to save form details. Please try again.');
+          });
+      });
+    });
+</script>
 
 
 <section class="subscribe-section">
