@@ -72,34 +72,34 @@
       $("#aboutme").text(data.aboutMe);
   
       // Update basic info
-      $("#basic-info-list").append("<li><strong>Email:</strong> " + data.email + "</li>");
-      $("#basic-info-list").append("<li><strong>Phone:</strong> " + data.phone + "</li>");
-      $("#basic-info-list").append("<li><strong>Country:</strong> " + data.country + "</li>");
-      $("#basic-info-list").append("<li><strong>City:</strong> " + data.city + "</li>");
-      $("#basic-info-list").append("<li><strong>Zip Code:</strong> " + data.zipCode + "</li>");
-      $("#basic-info-list").append("<li><strong>Region:</strong> " + data.region + "</li>");
+      $("#email").append("&nbsp; " + data.email);
+      $("#phone").append("&nbsp; " + data.phone);
+      $("#country").append("&nbsp; " + data.country);
+      $("#city").append("&nbsp; " + data.city);
+      $("#zipCode").append("&nbsp; " + data.zipCode);
+      $("#region").append("&nbsp; " + data.region);
   
       // Update education info
-      $("#education-info-list").append("<li><strong>School:</strong> " + data.education.school + "</li>");
-      $("#education-info-list").append("<li><strong>Qualification:</strong> " + data.education.qualification + "</li>");
-      $("#education-info-list").append("<li><strong>Year-Started:</strong> " + data.education.yearStarted + "</li>");
-      $("#education-info-list").append("<li><strong>Year-Completed:</strong> " + data.education.yearCompleted + "</li>");
+      $("#education-school").append("&nbsp;   "+data.education.school);
+      $("#education-qualification").append("&nbsp;   " + data.education.qualification);
+      $("#education-year-started").append("&nbsp;   " + data.education.yearStarted);
+      $("#education-year-completed").append("&nbsp;   " + data.education.yearCompleted);
 
   
       // Update work experience info
-      $("#experience-info-list").append("<li><strong>Position:</strong> " + data.experience.position + "</li>");
-      $("#experience-info-list").append("<li><strong>Company:</strong> " + data.experience.company + "</li>");
-      $("#experience-info-list").append("<li><strong>Year:</strong> " + data.experience.year + "</li>");
-      $("#experience-info-list").append("<li><strong>Reason for leaving:</strong> " + data.experience.reason + "</li>");
+      $("#position").append("&nbsp;   " + data.experience.position);
+      $("#company").append("&nbsp;   " + data.experience.company);
+      $("#year").append("&nbsp;   " + data.experience.year);
+      $("#reasonforl").append("&nbsp;   " + data.experience.reason);
   
       // Update skills info
-      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[0] + "</li>");
-      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[1] + "</li>");
-      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[2] + "</li>");
-      $("#skill-info-list").append("<li><strong>Year-Completed:</strong> " + data.skills[3] + "</li>");
+      $("#skill1").append("<li> " + data.skills[0] + "</li>");
+      $("#skill2").append("<li> " + data.skills[1] + "</li>");
+      $("#skill3").append("<li> " + data.skills[2] + "</li>");
+      $("#skill4").append("<li> " + data.skills[3] + "</li>");
     });
   });
-  </script>  
+</script>  
   <style>
     .account-btn {
       background-color: navy; /* Button background color */
@@ -208,26 +208,10 @@
               <a href="contact.html" class="nav-link">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="signup-btn">Sign Up</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="sign-up.html" class="nav-link">Sign up - Recruiter</a>
-                </li>
-                <li class="nav-item">
-                  <a href="sign-up.html" class="nav-link">Sign up - Candidate</a>
-                </li>
-              </ul>
+              <a href="sign-up.html" class="signup-btn">Sign Up</a>
             </li>
             <li class="nav-item">
               <a href="sign-in.html" class="signin-btn">Sign In</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="sign-in.html" class="nav-link">Sign in - Recruiter</a>
-                </li>
-                <li class="nav-item">
-                  <a href="sign-in.html" class="nav-link">Sign in - Candidate</a>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
@@ -274,39 +258,42 @@
               <i class="bx bx-book-alt"></i>
               Basic Info
             </h3>
-            <ul id="basic-info-list">
-              <!-- Basic info will be dynamically populated here -->
-            </ul>
+            <div class="email" id="email"><strong>Email:</strong></div>
+            <div class="phone" id="phone"><strong>Phone:</strong></div>
+            <div class="country" id="country"><strong>Country:</strong></div>
+            <div class="city" id="city"><strong>City:</strong></div>
+            <div class="zipCode" id="zipCode"><strong>Zip Code:</strong></div>
+            <div class="region" id="region"><strong>Region:</strong></div>
           </div>
           <div class="resume-content basic-info-text">
             <h3>
               <i class="bx bx-book-reader"></i>
               Education Background
             </h3>
-              <ul id="education-info-list">
-                <!-- Education info will be dynamically populated here -->
-              </ul>
-            </di>
+            <div class="education-school" id="education-school"><strong>Your School Name:</strong></div>
+            <div class="education-qualification" id="education-qualification"><strong>Your Qualification:</strong></div>
+            <div class="education-year-started" id="education-year-started"><strong>Year Started:</strong></div>
+            <div class="education-year-completed" id="education-year-completed"><strong>Year Completed:</strong></div>
           </div>
           <div class="resume-content basic-info-text">
             <h3>
               <i class="bx bx-briefcase"></i>
               Work Experience
             </h3>
-              <ul id="experience-info-list">
-                <!-- Work experience info will be dynamically populated here -->
-              </ul>
-            </div>
+            <div class="wposition" id="position"><strong>Position: </strong></div>
+            <div class="wcompany" id="company"><strong>Company: </strong></div>
+            <div class="wyear" id="year"><strong>Year Started: </strong></div>
+            <div class="reasonforl" id="reasonforl"><strong>Reason for leaving: </strong></div>
           </div>
           <div class="resume-content basic-info-text">
             <h3>
               <i class="bx bx-check-shield"></i>
               Skills
             </h3>
-              <ul id="skill-info-list">
-                <!-- Skill info will be dynamically populated here -->
-              </ul>
-            </div>
+            <div class="wposition" id="skill1"></div>
+            <div class="wcompany" id="skill2"></div>
+            <div class="wyear" id="skill3"></div>
+            <div class="reasonforl" id="skill4"></div>
           </div>
           <div class="col-md-12"> 
             <button type="submit" id="edit" class="account-btn">EDIT</button>        
@@ -316,68 +303,50 @@
     </div>
   </div>
 </section>
+
 <script>
-document.getElementById('edit').addEventListener('click', function() {
-  var editButton = document.getElementById('edit');
-  var saveButton = document.createElement('button');
-  saveButton.setAttribute('type', 'submit');
-  saveButton.setAttribute('id', 'save');
-  saveButton.setAttribute('class', 'account-btn');
-  saveButton.textContent = 'SAVE';
-
-  var editableElements = document.querySelectorAll('.editable');
-  editableElements.forEach(function(element) {
-    element.classList.add('editing');
-  });
-
-  editButton.style.display = 'none';
-  editButton.parentElement.appendChild(saveButton);
-
-  saveButton.addEventListener('click', function() {
-    editableElements.forEach(function(element) {
-      element.classList.remove('editing');
-    });
-
-    saveButton.style.display = 'none';
-    saveButton.parentElement.appendChild(editButton);
+  document.getElementById('edit').addEventListener('click', function() {
+    var editButton = document.getElementById('edit');
 
     // Prompt the user to enter the updated values
     var name = prompt('Enter Name', document.getElementById('name').textContent);
     var jobTitle = prompt('Enter Job Title', document.getElementById('jobtitle').textContent);
     var aboutMe = prompt('Enter About Me', document.getElementById('aboutme').textContent);
 
-    var basicInfoList = Array.from(document.querySelectorAll('#basic-info-list li'))
-      .map(function(li) {
-        return li.textContent;
-      });
+    var educationSchool = prompt('Enter Education School', document.getElementById('education-school').textContent);
+    var educationQualification = prompt('Enter Education Qualification', document.getElementById('education-qualification').textContent);
+    var educationYearStarted = prompt('Enter Education Year Started', document.getElementById('education-year-started').textContent);
+    var educationYearCompleted = prompt('Enter Education Year Completed', document.getElementById('education-year-completed').textContent);
 
-    var educationInfoList = Array.from(document.querySelectorAll('#education-info-list li'))
-      .map(function(li) {
-        return li.textContent;
-      });
+    var experiencePosition = prompt('Enter Experience Position', document.getElementById('position').textContent);
+    var experienceCompany = prompt('Enter Experience Company', document.getElementById('company').textContent);
+    var experienceYear = prompt('Enter Experience Year', document.getElementById('year').textContent);
+    var experienceReason = prompt('Enter Experience Reason', document.getElementById('reasonforl').textContent);
 
-    var experienceInfoList = Array.from(document.querySelectorAll('#experience-info-list li'))
-      .map(function(li) {
-        return li.textContent;
-      });
+    var skill1 = prompt('Enter Skill 1', document.getElementById('skill1').textContent);
+    var skill2 = prompt('Enter Skill 2', document.getElementById('skill2').textContent);
+    var skill3 = prompt('Enter Skill 3', document.getElementById('skill3').textContent);
+    var skill4 = prompt('Enter Skill 4', document.getElementById('skill4').textContent);
 
-    var skillInfoList = Array.from(document.querySelectorAll('#skill-info-list li'))
-      .map(function(li) {
-        return li.textContent;
-      });
-
-    // Create an object with the updated data
     var updatedData = {
       name: name,
       jobTitle: jobTitle,
       aboutMe: aboutMe,
-      basicInfo: basicInfoList,
-      educationInfo: educationInfoList,
-      experienceInfo: experienceInfoList,
-      skillInfo: skillInfoList
+      education: {
+        school: educationSchool,
+        qualification: educationQualification,
+        yearStarted: educationYearStarted,
+        yearCompleted: educationYearCompleted
+      },
+      experience: {
+        position: experiencePosition,
+        company: experienceCompany,
+        year: experienceYear,
+        reason: experienceReason
+      },
+      skills: [skill1, skill2, skill3, skill4]
     };
 
-    // Update the details.json file with the updated data
     fetch('/api/update-details', {
       method: 'POST',
       headers: {
@@ -389,6 +358,7 @@ document.getElementById('edit').addEventListener('click', function() {
       if (response.ok) {
         console.log('Data updated successfully');
         alert('Data updated successfully');
+        location.reload(); // Refresh the page
       } else {
         console.error('Error updating data');
         alert('Error updating data');
@@ -398,8 +368,9 @@ document.getElementById('edit').addEventListener('click', function() {
       console.error('Error updating data:', error);
     });
   });
-});
 </script>
+
+
 
 <section class="subscribe-section">
 <div class="container">

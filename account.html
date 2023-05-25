@@ -28,6 +28,146 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <title></title>
+<style>
+  .profile-pic {
+  color: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.profile-pic input {
+  display: none;
+}
+.profile-pic img {
+  position: absolute;
+  object-fit: cover;
+  width: 165px;
+  height: 165px;
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 100px;
+  z-index: 0;
+}
+.profile-pic .-label {
+  cursor: pointer;
+  height: 165px;
+  width: 165px;
+}
+.profile-pic:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 100px;
+  margin-bottom: 0;
+}
+.profile-pic span {
+  display: inline-flex;
+  padding: 0.2em;
+  height: 2em;
+}
+.box {
+  margin: 0 auto;
+  background: rgba(255,255,255,0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+
+.button {
+  font-size: 1em;
+  padding: 10px;
+  color: #fff;
+  /* border-radius: 30px; */
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  background-color: blue;
+  border-radius: 10px;
+}
+.button:hover {
+  background: red;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 150px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.popup .close:hover {
+  color: black;
+}
+
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+form{
+	margin-left: 100px;
+}
+input:is(:hover, :focus){
+	cursor: pointer;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+</style>
+<script>
+  var loadFile = function (event) {
+    var image = document.getElementById("output");
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
+  </script>
 </head>
 <body>
 
@@ -120,26 +260,10 @@
               <a href="contact.html" class="nav-link">Contact Us</a>
             </li>
             <li class="nav-item">
-              <a href="#" class="signup-btn">Sign Up</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="sign-up.html" class="nav-link">Sign up - Recruiter</a>
-                </li>
-                <li class="nav-item">
-                  <a href="sign-up.html" class="nav-link">Sign up - Candidate</a>
-                </li>
-              </ul>
+              <a href="sign-up.html" class="signup-btn">Sign Up</a>
             </li>
             <li class="nav-item">
               <a href="sign-in.html" class="signin-btn">Sign In</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="sign-in.html" class="nav-link">Sign in - Recruiter</a>
-                </li>
-                <li class="nav-item">
-                  <a href="sign-in.html" class="nav-link">Sign in - Candidate</a>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
@@ -174,9 +298,14 @@
       <div class="col-md-4">
         <div class="account-information">
           <div class="profile-thumb">
-            <img src="assets/img/account.jpg" alt="account holder image">
-            <h3 id="account-name-display"></h3>
-            <p id="account-job-title-display"></p>
+            <div class="profile-pic">
+              <label class="-label" for="file">
+                <span class="glyphicon glyphicon-camera"></span>
+                <span>Change Image</span>
+              </label>
+              <input id="file" type="file" onchange="loadFile(event)"/>
+              <img src="./assets/img/profile-picture.jpg" alt="Profile-picture" id="output" width="200" />
+            </div>
           </div>
           <ul>
             <li>
@@ -210,10 +339,31 @@
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class='bx bx-lock-alt'></i>
-                Change Password
-              </a>
+              <!-- <div class="box"> -->
+                <a href="#popup1"><i class='bx bx-lock-alt'></i>Change Password</a>
+                <!-- </div> -->
+                
+                <div id="popup1" class="overlay">
+                  <div class="popup">
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                      <h2>Change Password Page</h2>
+                      <form>
+                        <label for="oldPass">Old Password:</label><br>
+                        <input type="password" id="oldPass" placeholder="Enter old password" required>
+                        <br><br>
+                         <label for="newPass">New Password:</label><br>
+                        <input type="password" id="newPass" placeholder="Enter new password" required>
+                        <br><br>
+                         <label for="conPass">Confirm Password:</label><br>
+                        <input type="password" id="conPass" placeholder="Enter confirm password" required>
+                        <br><br>
+                        <button  type="button" class="button" onclick="validateForm();">Submit</button>
+                         
+                      </form>
+                    </div>
+                  </div>
+                </div>
             </li>
             <li>
               <a href="#">
@@ -403,7 +553,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <button type="submit" class="account-btn">Submit</button>
+                <button type="submit" class="account-btn" onclick="submitForm()">Submit</button>
               </div>
             </div>
           </form>
@@ -476,29 +626,29 @@ function submitForm() {
 
   // Send data to server using AJAX
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/api/submitForm', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        // Success message
-        alert('Form data submitted successfully!');
-        // Clear form fields
-        document.getElementById('account-form').reset();
-      } else {
-        // Error message
-        alert('Failed to submit form data. Please try again.');
-      }
+      xhr.open('POST', '/api/submitForm', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            // Success message
+            alert('Form data submitted successfully!');
+            // Clear form fields
+            document.getElementById('account-form').reset();
+          } else {
+            // Error message
+            alert('Failed to submit form data. Please try again.');
+          }
+        }
+      };
+      xhr.send(JSON.stringify(data));
     }
-  };
-  xhr.send(JSON.stringify(data));
-}
 
-// Event listener for form submission
-document.getElementById('account-form').addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent default form submission
-  submitForm(); // Call submitForm function
-});
+    // Event listener for form submission
+    document.getElementById('account-form').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
+      submitForm(); // Call submitForm function
+    });
 </script>
 
 
@@ -689,5 +839,48 @@ Address:
 <script src="assets/js/meanmenu.js"></script>
 
 <script src="assets/js/custom.js"></script>
+
+<script type="text/javascript">
+  function validateForm() {
+    const oldPass = document.getElementById("oldPass").value;
+    const newPass = document.getElementById("newPass").value;
+    const conPass = document.getElementById("conPass").value;
+
+   
+    if(oldPass===''){
+      alert("Old password is required");
+    }
+    else if(newPass===''){
+      alert("New password is required");
+    }
+    else if(newPass.length<7){
+      alert("New password has to be at least 8 digits");
+    }
+    else if(!/[!@#$%^&*]/.test(newPass)){
+
+    	alert("New password has to be at least contain one character");
+    }
+    else if(!/[a-z]/.test(newPass) || !/[A-Z]/.test(newPass)){
+    	alert("New password must contain at least one uppercase letter and one lowercase letter");
+    }
+    else if (!/\d/.test(newPass)) {
+    	alert("New password must contain at least one digit/number");
+    }
+    else if(conPass===''){
+      alert("Confirm password is required");
+    }
+    else  if (newPass !== conPass) {
+      alert("New password and confirm password do not match.");
+    }
+    else if (oldPass === newPass) {
+      alert("New password must be different from the old password.");
+    } else {
+      // Submit the form
+      alert("Great!!!!.");
+      document.getElementById("passwordForm").submit();
+    }
+  }
+</script>
+
 </body>
 </html>
