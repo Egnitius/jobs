@@ -90,20 +90,6 @@
                 <li class="nav-item">
                   <a href="account.html" class="nav-link">Account</a>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link dropdown-toggle">Member</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a href="sign-in.html" class="nav-link">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="sign-up.html" class="nav-link">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="reset-password.html" class="nav-link">Reset Password</a>
-                    </li>
-                  </ul>
-                </li>
                 <li>
               </ul>
             </li>
@@ -145,97 +131,154 @@
 
 
 <div class="job-post ptb-100">
-<div class="container">
-<form class="job-post-from">
-<h2>Fill Up Your Job information</h2>
-<div class="row">
-<div class="col-md-6">
-<div class="form-group">
-<label>Job Title</label>
-<input type="text" class="form-control" id="exampleInput1" placeholder="Job Title or Keyword" required>
+  <div class="container">
+    <form class="job-post-from" id="jobpostForm">
+      <h2>Fill Up Your Job information</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Job Title</label>
+            <input type="text" class="form-control" id="jobInput1" placeholder="Job Title or Keyword" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Job Category</label>
+            <select class="category" id="option">
+              <option data-display="Category">Category</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Graphics Design">Graphics Design</option>
+              <option value="Data Entry">Data Entry</option>
+              <option value="Visual Editor">Visual Editor</option>
+              <option value="Office Assistant">Office Assistant</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" class="form-control" id="companyInput2" placeholder="Company Name" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Company Email</label>
+            <input type="email" class="form-control" id="emailInput3" placeholder="e.g. hello@company.com" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Company Website (Optional)</label>
+            <input type="text" class="form-control" id="websiteInput4" placeholder="e.g www.companyname.com">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" id="locationInput5" placeholder="e.g. London" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Job Type</label>
+            <select class="category" id="typeCategory">
+              <option data-display="Job Type">Job Type</option>
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+              <option value="Freelancer">Freelancer</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Job Tags</label>
+            <input type="text" class="form-control" id="tagsInput6" placeholder="e.g. web design, graphics design, video editing" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Salary (Optional)</label>
+            <input type="number" class="form-control" id="salaryInput7" placeholder="e.g. R20,000">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Experience</label>
+            <input type="text" class="form-control" id="experienceInput8" placeholder="e.g. 1 year" required>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="descriptionFormControlTextarea1">Job Description</label>
+            <textarea class="form-control" id="descriptionFormControlTextarea1" rows="6" placeholder="Job Description" required></textarea>
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+          <button type="submit" class="post-btn" onclick="jobForm()">Post A Job</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Job Category</label>
-<select class="category">
-<option data-display="Category">Category</option>
-<option value="1">Web Development</option>
-<option value="2">Graphics Design</option>
-<option value="4">Data Entry</option>
-<option value="5">Visual Editor</option>
-<option value="6">Office Assistant</option>
-</select>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Company Name</label>
-<input type="text" class="form-control" id="exampleInput2" placeholder="Company Name" required>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Company Email</label>
-<input type="email" class="form-control" id="exampleInput3" placeholder="e.g. hello@company.com" required>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Company Website (Optional)</label>
-<input type="text" class="form-control" id="exampleInput4" placeholder="e.g www.companyname.com">
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Location</label>
-<input type="text" class="form-control" id="exampleInput5" placeholder="e.g. London" required>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Job Type</label>
-<select class="category">
-<option data-display="Job Type">Job Type</option>
-<option value="1">Full Time</option>
-<option value="2">Part Time</option>
- <option value="4">Freelancer</option>
-</select>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Job Tags</label>
-<input type="text" class="form-control" id="exampleInput6" placeholder="e.g. web design, graphics design, video editing" required>
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Salary (Optional)</label>
-<input type="number" class="form-control" id="exampleInput7" placeholder="e.g. R20,000">
-</div>
-</div>
-<div class="col-md-6">
-<div class="form-group">
-<label>Experience</label>
-<input type="text" class="form-control" id="exampleInput8" placeholder="e.g. 1 year" required>
-</div>
-</div>
-<div class="col-md-12">
-<div class="form-group">
-<label for="exampleFormControlTextarea1">Job Description</label>
-<textarea class="form-control description-area" id="exampleFormControlTextarea1" rows="6" placeholder="Job Description" required></textarea>
-</div>
-</div>
-<div class="col-md-12 text-center">
-<button type="submit" class="post-btn">
-Post A Job
-</button>
-</div>
-</div>
-</form>
-</div>
-</div>
+
+<script>
+  // Function to send form data to server
+  function jobForm() {
+    // Get form values
+    var job = document.getElementById('jobInput1').value;
+    var jobCategory = document.getElementById('option').value;
+    var companyName = document.getElementById('companyInput2').value;
+    var companyEmail = document.getElementById('emailInput3').value;
+    var companyWebsite = document.getElementById('websiteInput4').value;
+    var location = document.getElementById('locationInput5').value;
+    var jobType = document.getElementById('typeCategory').value;
+    var jobTags = document.getElementById('tagsInput6').value;
+    var salary = document.getElementById('salaryInput7').value;
+    var experience = document.getElementById('experienceInput8').value;
+    var jobDescription = document.getElementById('descriptionFormControlTextarea1').value;
+
+    // Create data object
+    var jobData = {
+      job: job,
+      jobCategory: jobCategory,
+      companyName: companyName,
+      companyEmail: companyEmail,
+      companyWebsite: companyWebsite,
+      location: location,
+      jobType: jobType,
+      jobTags: jobTags,
+      salary: salary,
+      experience: experience,
+      jobDescription: jobDescription
+    };
+
+    // Send data to server using AJAX
+  var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/jobForm', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            // Success message
+            alert('Form data submitted successfully!');
+            // Clear form fields
+            document.getElementById('jobpostForm').reset();
+          } else {
+            // Error message
+            alert('Failed to submit form data. Please try again.');
+          }
+        }
+      };
+      xhr.send(JSON.stringify(data));
+    }
+
+    // Event listener for form submission
+    document.getElementById('jobpostForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
+      jobForm(); // Call submitForm function
+    });
+</script>
+
 
 
 <section class="subscribe-section">

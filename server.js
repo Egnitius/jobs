@@ -189,6 +189,30 @@ const server = http.createServer((req, res) => {
         }
       });
     });
+  } else if (req.method === 'POST' && req.url === '/api/jobForm') {
+    let data = '';
+
+    // Collect the request body data
+    req.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    // Process the request when the data has been fully received
+    req.on('end', () => {
+      const jobData = JSON.parse(data);
+
+      // Save form data to a file
+      fs.writeFile('jobDetails.json', JSON.stringify(jobData), (err) => {
+        if (err) {
+          console.error(err);
+          res.statusCode = 500;
+          res.end('Failed to submit form data. Please try again.');
+        } else {
+          res.statusCode = 200;
+          res.end('Form data submitted successfully!');
+        }
+      });
+    });
   } else {
     // Serve the requested file
     let filePath;
