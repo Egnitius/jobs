@@ -242,7 +242,7 @@
       job: job,
       jobCategory: jobCategory,
       companyName: companyName,
-      companyEmail: companyEmail,
+      email: companyEmail,
       companyWebsite: companyWebsite,
       location: location,
       jobType: jobType,
@@ -252,31 +252,36 @@
       jobDescription: jobDescription
     };
 
-    // Send data to server using AJAX
-  var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/jobForm', true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            // Success message
-            alert('Form data submitted successfully!');
-            // Clear form fields
-            document.getElementById('jobpostForm').reset();
-          } else {
-            // Error message
-            alert('Failed to submit form data. Please try again.');
-          }
+    // Send data to server using fetch API
+    fetch('/api/jobForm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(jobData)
+    })
+      .then(function(response) {
+        if (response.ok) {
+          // Success message
+          alert('Job Posted!');
+          // Clear form fields
+          document.getElementById('jobpostForm').reset();
+        } else {
+          // Error message
+          alert('Job failed to post');
         }
-      };
-      xhr.send(JSON.stringify(data));
-    }
+      })
+      .catch(function(error) {
+        console.error('Error:', error);
+        alert('An error occurred while posting the job');
+      });
+  }
 
-    // Event listener for form submission
-    document.getElementById('jobpostForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent default form submission
-      jobForm(); // Call submitForm function
-    });
+  // Event listener for form submission
+  document.getElementById('jobpostForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent default form submission
+    jobForm(); // Call jobForm function
+  });
 </script>
 
 

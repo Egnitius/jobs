@@ -28,6 +28,8 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <title></title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
 </head>
 <body>
 
@@ -262,53 +264,50 @@ Find A Job
 <p>These jobs are for your delight and enjoyment.  Find exactly what you want, what you need.</p>
 </div>
 <div class="row">
-<div class="col-md-6">
-<div class="job-card">
-<div class="row align-items-center">
-<div class="col-lg-3">
-<div class="thumb-img">
-<a href="job-details.html">
-<img src="assets/img/company-logo/1.png" alt="company logo">
-</a>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="job-info">
-<h3>
-<a href="job-details.html">Post-Room Operate</a>
-</h3>
-<ul>
-<li>Via <a href="#">Tourt Design LTD</a></li>
-<li>
-<i class='bx bx-location-plus'></i>
-Wellesley Rd, Cape Town
-</li>
-<li>
-<i class='bx bx-filter-alt'></i>
-Accountancy
-</li>
-<li>
-<i class='bx bx-briefcase'></i>
-Freelance
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3">
-<div class="job-save">
-<span>Full Time</span>
-<a href="#">
- <i class='bx bx-heart'></i>
-</a>
-<p>
-<i class='bx bx-stopwatch'></i>
-1 Hr Ago
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+  <div class="col-md-6">
+    <div class="job-card">
+      <div class="row align-items-center">
+        <div class="col-lg-3">
+          <div class="thumb-img">
+            <a href="job-details.html">
+              <img src="assets/img/company-logo/1.png" alt="company logo">
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="job-info">
+            <a href="job-details.html">
+              <h3 id="jobTitle"></h3>
+            </a>
+            <ul>
+              <li id="companyName">Via <a href="#"></a></li>
+              <li>
+                <i class='bx bx-location-plus' id="location"></i>
+              </li>
+              <li>
+                <i class='bx bx-filter-alt' id="jobCategory"></i>
+              </li>
+              <li>
+                <i class='bx bx-briefcase' id="jobType"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="job-save" id="postedTime">
+            <a href="#">
+              <i class='bx bx-heart'></i>
+            </a>
+            <p>
+              <i class='bx bx-stopwatch'></i>
+              
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 <div class="col-md-6">
 <div class="job-card">
 <div class="row align-items-center">
@@ -730,5 +729,27 @@ Address:
 <script src="assets/js/meanmenu.js"></script>
 
 <script src="assets/js/custom.js"></script>
+
+<script>
+  $(document).ready(function() {
+  // Fetch data from jobDetails.json
+  $.getJSON("jobDetails.json", function(data) {
+    // Update job information
+    $("#jobTitle").text(data.job);
+    $("#companyName").text(data.companyName);
+    $("#location").text(data.location);
+    $("#jobCategory").text(data.jobCategory);
+    // $("#jobTags").text(data.jobTags);
+    $("#jobType").text(data.jobType);
+    $("#postedTime").text(data.postedTime);
+    const postedTime = new Date().getHours() +" check";
+    console.log(postedTime);
+  })
+  .fail(function() {
+    console.error("Failed to fetch job details.");
+    alert('Failed to fetch job details.');
+  });
+});
+  </script>  
 </body>
 </html>

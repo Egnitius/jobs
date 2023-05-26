@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <title>JobQuest</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -1072,5 +1073,27 @@ Address:
 <script src="assets/js/meanmenu.js"></script>
 
 <script src="assets/js/custom.js"></script>
+
+<script>
+  $(document).ready(function() {
+  // Fetch data from jobDetails.json
+  $.getJSON("jobDetails.json", function(data) {
+    // Update job information
+    $("#jobTitle").text(data.job);
+    $("#companyName").text(data.companyName);
+    $("#location").text(data.location);
+    $("#jobCategory").text(data.jobCategory);
+    // $("#jobTags").text(data.jobTags);
+    $("#jobType").text(data.jobType);
+    $("#postedTime").text(data.postedTime);
+    const postedTime = new Date().getHours() +" check";
+    console.log(postedTime);
+  })
+  .fail(function() {
+    console.error("Failed to fetch job details.");
+    alert('Failed to fetch job details.');
+  });
+});
+  </script>  
 </body>
 </html>

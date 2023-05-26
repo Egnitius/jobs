@@ -150,42 +150,50 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.method === 'POST' && req.url === '/api/update-details') {
     let body = '';
-
     req.on('data', (chunk) => {
-      body += chunk;
+      body += chunk.toString();
     });
 
     req.on('end', () => {
-      // Parse the received JSON data
+      // Parse the JSON data from the request body
       const updatedData = JSON.parse(body);
 
-      // Read the details.json file
-      fs.readFile('details.json', 'utf8', (err, data) => {
+      // Read the existing data from the JSON file
+      const filePath = path.join(__dirname, 'data.json');
+      fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
+          console.error('Error reading data.json:', err);
           res.statusCode = 500;
-          res.end('Error reading the details.json file');
+          res.end('Failed to update data');
         } else {
-          try {
-            // Parse the existing JSON data
-            const jsonData = JSON.parse(data);
+          // Parse the existing data
+          const existingData = JSON.parse(data);
 
-            // Update the JSON data with the received updated data
-            Object.assign(jsonData, updatedData);
+          // Update the existing data with the new values
+          existingData.name = updatedData.name;
+          existingData.jobTitle = updatedData.jobTitle;
+          existingData.aboutMe = updatedData.aboutMe;
+          existingData.education.school = updatedData.school;
+          existingData.education.qualification = updatedData.qualification;
+          existingData.education.yearStarted = updatedData.yearStarted;
+          existingData.education.yearCompleted = updatedData.yearCompleted;
+          existingData.experience.position = updatedData.position;
+          existingData.experience.company = updatedData.company;
+          existingData.experience.year = updatedData.year;
+          existingData.experience.reason = updatedData.reason;
+          existingData.skills = updatedData.skills;
 
-            // Write the updated JSON data back to the details.json file
-            fs.writeFile('details.json', JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
-              if (err) {
-                res.statusCode = 500;
-                res.end('Error updating the details.json file');
-              } else {
-                res.statusCode = 200;
-                res.end('Data updated successfully');
-              }
-            });
-          } catch (error) {
-            res.statusCode = 500;
-            res.end('Error parsing the details.json file');
-          }
+          // Write the updated data back to the JSON file
+          fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
+            if (err) {
+              console.error('Error writing data.json:', err);
+              res.statusCode = 500;
+              res.end('Failed to update data');
+            } else {
+              res.statusCode = 200;
+              res.end('Data updated successfully');
+            }
+          });
         }
       });
     });
@@ -212,6 +220,74 @@ const server = http.createServer((req, res) => {
           res.end('Form data submitted successfully!');
         }
       });
+    }); 
+  } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
+    // Read the jobDetails.json file
+    const jobDetailsFilePath = path.join(__dirname, 'jobDetails.json');
+    fs.readFile(jobDetailsFilePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading jobDetails.json:', err);
+        res.statusCode = 500;
+        res.end('Failed to fetch job details');
+      } else {
+        // Parse the job details data from the file
+        const jobDetails = JSON.parse(data);
+        const postedTime = new Date().getHours();
+
+        // Create the HTML markup with dynamic data
+        const html = `
+          <div class="col-md-6">
+            <div class="job-card">
+              <div class="row align-items-center">
+                <div class="col-lg-3">
+                  <div class="thumb-img">
+                    <a href="job-details.html">
+                      <img src="assets/img/company-logo/1.png" alt="company logo">
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="job-info">
+                    <a href="job-details.html">
+                      <h3 id="jobTitle">${jobDetails.job}</h3>
+                    </a>
+                    <ul>
+                    <li id="companyName">Via ${jobDetails.companyName} <a href="#"></a></li>
+                      <li>
+                        <i class='bx bx-location-plus' id="location">${jobDetails.location}</i>
+                      </li>
+                      <li>
+                        <i class='bx bx-filter-alt' id="jobCategory">${jobDetails.jobCategory}</i>
+                      </li>
+                      <li>
+                        <i class='bx bx-briefcase' id="jobType">${jobDetails.jobType}</i>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="job-save"  id="postedTime" >
+                    <a href="#">
+                      <i class='bx bx-heart'></i>
+                    </a>
+                    <p id="postedTime">
+                      <i class='bx bx-stopwatch' id="postedTime">${postedTime} 1 hr ago</i>
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Set the response headers
+        res.setHeader('Content-Type', 'text/html');
+        res.statusCode = 200;
+
+        // Send the HTML markup as the response
+        res.end(html);
+      }
     });
   } else {
     // Serve the requested file
