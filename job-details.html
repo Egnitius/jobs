@@ -260,7 +260,7 @@ Ability to collaborate with cross-functional teams and stakeholders
 </div>
 </div>
 <div class="theme-btn">
-<a href="#" class="default-btn">
+<a href="#" class="default-btn" id="alertButton">
 Apply Now
 </a>
 </div>
@@ -343,7 +343,13 @@ Apply Now
 </div>
 </div>
 </section>
-
+<script>
+  // Add a click event listener to the button
+  document.getElementById('alertButton').addEventListener('click', function() {
+      // Display an alert message when the button is clicked
+      alert('Application Submitted!');
+    });
+</script>
 
 <section class="job-style-two pt-100 pb-70">
 <div class="container">
