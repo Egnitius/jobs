@@ -1,1 +1,30 @@
-{"name":"Tshepo Paledi","email":"paledi.egnitius@capaciti.org.za","phone":"0155685684","jobTitle":"Web Developer","country":"South Africa","city":"JHB","zipCode":"2017","region":"East","aboutMe":"htrdhjtyjyuf yjtyjfy tyjfjufuj","education":{"school":"Rosebank College","qualification":"DISD 313","yearStarted":"2018","yearCompleted":"2020"},"experience":{"position":"Web Developer","company":"Capaciti(eoh)","year":"2023","reason":"N/A"},"skills":["HTML","CSS","JAVASCRIPT","NODE JS"],"social":{"facebook":"www.facebook.com/tshepo","twitter":"www.twitter.com/tshepo","linkedin":"www.linkdin.com/tshepo","github":"www.Github.com/tshepo"}}
+{
+  "name": "Tshepo Paledi",
+  "email": "paledi.egnitius@capaciti.org.za",
+  "phone": "0155685684",
+  "jobTitle": "Web Developer",
+  "country": "South Africa",
+  "city": "JHB",
+  "zipCode": "2017",
+  "region": "East",
+  "aboutMe": "htrdhjtyjyuf yjtyjfy tyjfjufuj",
+  "education": {
+    "school": "Rosebank College",
+    "qualification": "DISD 313",
+    "yearStarted": "2018",
+    "yearCompleted": "2020"
+  },
+  "experience": {
+    "position": "Web Developer",
+    "company": "Capaciti(eoh)",
+    "year": "2023",
+    "reason": "N/A"
+  },
+  "skills": ["HTML", "CSS", "JAVASCRIPT", "NODE JS"],
+  "social": {
+    "facebook": "www.facebook.com/tshepo",
+    "twitter": "www.twitter.com/tshepo",
+    "linkedin": "www.linkdin.com/tshepo",
+    "github": "www.Github.com/tshepo"
+  }
+}

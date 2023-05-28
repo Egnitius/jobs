@@ -72,6 +72,71 @@ const server = http.createServer((req, res) => {
         }
       });
     });
+  } else if (req.method === 'POST' && req.url === '/api/recSignup') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk;
+      });
+  
+      req.on('end', () => {
+        // Parse the JSON data from the request body
+        const recData = JSON.parse(body);
+  
+        // Check if the recruiter.json file exists
+        const recFilePath = path.join(__dirname, 'recruiter.json');
+        fs.access(recFilePath, fs.constants.F_OK, err => {
+          if (err) {
+            // If the file doesn't exist, create a new one with the user data
+            const initialData = [recData];
+            const initialDataJSON = JSON.stringify(initialData);
+  
+            fs.writeFile(recFilePath, initialDataJSON, 'utf8', err => {
+              if (err) {
+                console.error('Error writing to recuiter.json:', err);
+                sendErrorResponse(res, 500, 'Failed to create user');
+              } else {
+                sendSuccessResponse(res, 'Recruiter signed up successfully!');
+              }
+            });
+          } else {
+            // If the file exists, read the existing user data
+            fs.readFile(recFilePath, 'utf8', (err, data) => {
+              if (err) {
+                console.error('Error reading users.json:', err);
+                sendErrorResponse(res, 500, 'Failed to read user data');
+              } else {
+                try {
+                  // Parse the existing user data from the file
+                  const existingUsers = JSON.parse(data);
+  
+                  // Check if the email already exists
+                  const userExists = existingUsers.some(user => user.email === userData.email);
+                  if (userExists) {
+                    sendErrorResponse(res, 400, 'Email already exists');
+                  } else {
+                    // Add the new user data to the existing users
+                    existingUsers.push(userData);
+                    const updatedDataJSON = JSON.stringify(existingUsers);
+  
+                    // Write the updated user data back to the file
+                    fs.writeFile(recFilePath, updatedDataJSON, 'utf8', err => {
+                      if (err) {
+                        console.error('Error writing to users.json:', err);
+                        sendErrorResponse(res, 500, 'Failed to create user');
+                      } else {
+                        sendSuccessResponse(res, 'User signed up successfully!');
+                      }
+                    });
+                  }
+                } catch (error) {
+                  console.error('Error parsing users.json:', error);
+                  sendErrorResponse(res, 500, 'Failed to read user data');
+                }
+              }
+            });
+          }
+        });
+      });
   } else if (req.method === 'POST' && req.url === '/api/signin') {
     let body = '';
     req.on('data', chunk => {
@@ -107,6 +172,46 @@ const server = http.createServer((req, res) => {
             }
           } catch (error) {
             console.error('Error parsing users.json:', error);
+            sendErrorResponse(res, 500, 'Failed to read user data');
+          }
+        }
+      });
+    });
+  } else if (req.method === 'POST' && req.url === '/api/recSignin') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      // Parse the JSON data from the request body
+      const recData = JSON.parse(body);
+
+      // Check if the recuiter.json file exists
+      const recFilePath = path.join(__dirname, 'recruiter.json');
+      fs.readFile(recFilePath, 'utf8', (err, data) => {
+        if (err) {
+          console.error('Error reading recruiter.json:', err);
+          sendErrorResponse(res, 500, 'Failed to read user data');
+        } else {
+          try {
+            // Parse the user data from the file
+            const users = JSON.parse(data);
+
+            // Find the user with matching email and password
+            const authenticatedUser = users.find(
+              user => user.email === recData.email && user.password === recData.password
+            );
+
+            if (authenticatedUser) {
+              // Authentication successful
+              sendSuccessResponse(res, 'Authentication successful');
+            } else {
+              // Authentication failed
+              sendErrorResponse(res, 401, 'Authentication failed');
+            }
+          } catch (error) {
+            console.error('Error parsing recuiter.json:', error);
             sendErrorResponse(res, 500, 'Failed to read user data');
           }
         }
@@ -197,6 +302,46 @@ const server = http.createServer((req, res) => {
         }
       });
     });
+  } else if (req.method === 'POST' && req.url === '/api/updateprofile') {
+      let body = '';
+      req.on('data', (chunk) => {
+        body += chunk.toString();
+      });
+  
+      req.on('end', () => {
+        // Parse the JSON data from the request body
+        const profileData = JSON.parse(body);
+  
+        // Read the existing data from the JSON file
+        const filePath = path.join(__dirname, 'jobDetails.json');
+        fs.readFile(filePath, 'utf8', (err, data) => {
+          if (err) {
+            console.error('Error reading data.json:', err);
+            res.statusCode = 500;
+            res.end('Failed to update data');
+          } else {
+            // Parse the existing data
+            const existingData = JSON.parse(data);
+  
+            // Update the existing data with the new values
+            existingData.companyName = profileData.companyName;
+            existingData.email = profileData.email;
+            existingData.location = profileData.location;
+  
+            // Write the updated data back to the JSON file
+            fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
+              if (err) {
+                console.error('Error writing data.json:', err);
+                res.statusCode = 500;
+                res.end('Failed to update data');
+              } else {
+                res.statusCode = 200;
+                res.end('Data updated successfully');
+              }
+            });
+          }
+        });
+      });
   } else if (req.method === 'POST' && req.url === '/api/jobForm') {
     let data = '';
 
@@ -291,45 +436,51 @@ const server = http.createServer((req, res) => {
     });
   } else {
     // Serve the requested file
-    let filePath;
-    if (req.url === '/') {
-      filePath = path.join(__dirname, 'index.html');
-    } else {
-      // Map additional routes to HTML files
-      if (req.url === '/account') {
-        filePath = path.join(__dirname, 'account.html');
-      } else if (req.url === '/candidate') {
-        filePath = path.join(__dirname, 'candidate.html');
-      } else if (req.url === '/candidate-details') {
-        filePath = path.join(__dirname, 'candidate-details.html');
-      } else if (req.url === '/contact') {
-        filePath = path.join(__dirname, 'contact.html');
-      } else if (req.url === '/faq') {
-        filePath = path.join(__dirname, 'faq.html');
-      } else if (req.url === '/find-job') {
-        filePath = path.join(__dirname, 'find-job.html');
-      } else if (req.url === '/job-details') {
-        filePath = path.join(__dirname, 'job-details.html');
-      } else if (req.url === '/job-grid') {
-        filePath = path.join(__dirname, 'job-grid.html');
-      } else if (req.url === '/post-job') {
-        filePath = path.join(__dirname, 'post-job.html');
-      } else if (req.url === '/privacy-policy') {
-        filePath = path.join(__dirname, 'privacy-policy.html');
-      } else if (req.url === '/reset-password') {
-        filePath = path.join(__dirname, 'reset-password.html');
-      } else if (req.url === '/resume') {
-        filePath = path.join(__dirname, 'resume.html');
-      } else if (req.url === '/sign-in') {
-        filePath = path.join(__dirname, 'sign-in.html');
-      } else if (req.url === '/sign-up') {
-        filePath = path.join(__dirname, 'sign-up.html');
-      } else if (req.url === '/terms-condition') {
-        filePath = path.join(__dirname, 'terms-condition.html');
-      } else {
-        filePath = path.join(__dirname, req.url);
-      }
-    }
+let filePath;
+if (req.url === '/') {
+  filePath = path.join(__dirname, 'index.html');
+} else {
+  // Map additional routes to HTML files
+  if (req.url === '/account') {
+    filePath = path.join(__dirname, 'account.html');
+  } else if (req.url === '/candidate') {
+    filePath = path.join(__dirname, 'candidate.html');
+  } else if (req.url === '/candidate-details') {
+    filePath = path.join(__dirname, 'candidate-details.html');
+  } else if (req.url === '/contact') {
+    filePath = path.join(__dirname, 'contact.html');
+  } else if (req.url === '/faq') {
+    filePath = path.join(__dirname, 'faq.html');
+  } else if (req.url === '/find-job') {
+    filePath = path.join(__dirname, 'find-job.html');
+  } else if (req.url === '/job-details') {
+    filePath = path.join(__dirname, 'job-details.html');
+  } else if (req.url === '/job-grid') {
+    filePath = path.join(__dirname, 'job-grid.html');
+  } else if (req.url === '/post-job') {
+    filePath = path.join(__dirname, 'post-job.html');
+  } else if (req.url === '/privacy-policy') {
+    filePath = path.join(__dirname, 'privacy-policy.html');
+  } else if (req.url === '/reset-password') {
+    filePath = path.join(__dirname, 'reset-password.html');
+  } else if (req.url === '/resume') {
+    filePath = path.join(__dirname, 'resume.html');
+  } else if (req.url === '/sign-in') {
+    filePath = path.join(__dirname, 'sign-in.html');
+  } else if (req.url === '/sign-up') {
+    filePath = path.join(__dirname, 'sign-up.html');
+  } else if (req.url === '/terms-condition') {
+    filePath = path.join(__dirname, 'terms-condition.html');
+  } else if (req.url === '/recSign-up') {
+    filePath = path.join(__dirname, 'recSign-up.html');
+  } else if (req.url === '/recSign-in') {
+    filePath = path.join(__dirname, 'recSign-in.html');
+  } else if (req.url === '/dashboard') {
+    filePath = path.join(__dirname, 'dashboard.html');
+  } else {
+    filePath = path.join(__dirname, req.url);
+  }
+}
     // Get the file extension
     const extension = path.extname(filePath);
 
@@ -394,15 +545,17 @@ function getContentType(extension) {
   }
 }
 
-// Helper functions for sending responses
-function sendSuccessResponse(res, message) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ message }));
-}
-
+// Define the sendErrorResponse function
 function sendErrorResponse(res, statusCode, message) {
   res.statusCode = statusCode;
   res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ error: message }));
+  res.end(JSON.stringify({ message: message }));
 }
+
+// Define the sendSuccessResponse function
+function sendSuccessResponse(res, message) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ message: message }));
+}
+
