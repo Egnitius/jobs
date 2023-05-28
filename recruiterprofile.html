@@ -1,497 +1,508 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="">
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/boxicon.min.css" />
 
-<link rel="stylesheet" href="assets/css/boxicon.min.css">
+    <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css" />
 
-<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
 
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.css" />
 
-<link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css" />
 
-<link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dark.css" />
 
-<link rel="stylesheet" href="assets/css/dark.css">
+    <link rel="stylesheet" href="assets/css/responsive.css" />
 
-<link rel="stylesheet" href="assets/css/responsive.css">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      .profile-pic {
+        color: transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .profile-pic input {
+        display: none;
+      }
+      .profile-pic img {
+        position: absolute;
+        object-fit: cover;
+        width: 165px;
+        height: 165px;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+        border-radius: 100px;
+        z-index: 0;
+      }
+      .profile-pic .-label {
+        cursor: pointer;
+        height: 165px;
+        width: 165px;
+      }
+      .profile-pic:hover .-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        color: #fafafa;
+        transition: background-color 0.2s ease-in-out;
+        border-radius: 100px;
+        margin-bottom: 0;
+      }
+      .profile-pic span {
+        display: inline-flex;
+        padding: 0.2em;
+        height: 2em;
+      }
+      .box {
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 35px;
+        border: 2px solid #fff;
+        border-radius: 20px/50px;
+        background-clip: padding-box;
+        text-align: center;
+      }
 
-<title></title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-  .profile-pic {
-  color: transparent;
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: all 0.3s ease;
-}
-.profile-pic input {
-  display: none;
-}
-.profile-pic img {
-  position: absolute;
-  object-fit: cover;
-  width: 165px;
-  height: 165px;
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
-  border-radius: 100px;
-  z-index: 0;
-}
-.profile-pic .-label {
-  cursor: pointer;
-  height: 165px;
-  width: 165px;
-}
-.profile-pic:hover .-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10000;
-  color: #fafafa;
-  transition: background-color 0.2s ease-in-out;
-  border-radius: 100px;
-  margin-bottom: 0;
-}
-.profile-pic span {
-  display: inline-flex;
-  padding: 0.2em;
-  height: 2em;
-}
-.box {
-  margin: 0 auto;
-  background: rgba(255,255,255,0.2);
-  padding: 35px;
-  border: 2px solid #fff;
-  border-radius: 20px/50px;
-  background-clip: padding-box;
-  text-align: center;
-}
+      .button {
+        font-size: 1em;
+        padding: 10px;
+        color: #fff;
+        /* border-radius: 30px; */
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+        background-color: blue;
+        border-radius: 10px;
+      }
+      .button:hover {
+        background: red;
+      }
 
-.button {
-  font-size: 1em;
-  padding: 10px;
-  color: #fff;
-  /* border-radius: 30px; */
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  background-color: blue;
-  border-radius: 10px;
-}
-.button:hover {
-  background: red;
-}
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .overlay:target {
+        visibility: visible;
+        opacity: 1;
+      }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
+      .popup {
+        margin: 150px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 30%;
+        position: relative;
+        transition: all 5s ease-in-out;
+      }
 
-.popup {
-  margin: 150px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
-}
+      .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+      .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+      }
 
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
+      .popup .close:hover {
+        color: black;
+      }
 
-.popup .close:hover {
-  color: black;
-}
+      .popup .content {
+        max-height: 30%;
+        overflow: auto;
+      }
+      form {
+        margin-left: 100px;
+      }
+      input:is(:hover, :focus) {
+        cursor: pointer;
+      }
 
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-form{
-	margin-left: 100px;
-}
-input:is(:hover, :focus){
-	cursor: pointer;
-}
+      @media screen and (max-width: 700px) {
+        .box {
+          width: 70%;
+        }
+        .popup {
+          width: 70%;
+        }
+      }
+    </style>
+    <script>
+      var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="loader-content">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
-</style>
-<script>
-  var loadFile = function (event) {
-    var image = document.getElementById("output");
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
-  </script>
-</head>
-<body>
-
-<div class="loader-content">
-<div class="d-table">
-<div class="d-table-cell">
-<div class="sk-circle">
-<div class="sk-circle1 sk-child"></div>
-<div class="sk-circle2 sk-child"></div>
-<div class="sk-circle3 sk-child"></div>
-<div class="sk-circle4 sk-child"></div>
-<div class="sk-circle5 sk-child"></div>
-<div class="sk-circle6 sk-child"></div>
-<div class="sk-circle7 sk-child"></div>
-<div class="sk-circle8 sk-child"></div>
-<div class="sk-circle9 sk-child"></div>
-<div class="sk-circle10 sk-child"></div>
-<div class="sk-circle11 sk-child"></div>
-<div class="sk-circle12 sk-child"></div>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="navbar-area">
-  <div class="mobile-nav">
-    <a href="index.html" class="logo">
-      <img src="./assets/img/logo.jpg" width="40" alt="logo">
-    </a>
-  </div>
-  <div class="main-nav">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="index.html">
-          <img src="./assets/img/logo.jpg" width="100" alt="logo">
+    <div class="navbar-area">
+      <div class="mobile-nav">
+        <a href="index.html" class="logo">
+          <img src="./assets/img/logo.jpg" width="40" alt="logo" />
         </a>
-        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-          <ul class="navbar-nav m-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#about" class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Jobs</a>
-              <ul class="dropdown-menu">
+      </div>
+      <div class="main-nav">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index.html">
+              <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+            </a>
+            <div
+              class="collapse navbar-collapse mean-menu"
+              id="navbarSupportedContent"
+            >
+              <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                  <a href="find-job.html" class="nav-link">Find A Job</a>
+                  <a href="index.html" class="nav-link active">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a href="post-job.html" class="nav-link">Post A Job</a>
+                  <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
-                  <a href="job-grid.html" class="nav-link">Job Grid</a>
+                  <a href="#" class="nav-link dropdown-toggle">Jobs</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="find-job.html" class="nav-link">Find A Job</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="post-job.html" class="nav-link">Post A Job</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="job-grid.html" class="nav-link">Job Grid</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link dropdown-toggle">Profile</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="account.html" class="nav-link">Account</a>
+                    </li>
+                    <li></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="contact.html" class="nav-link">Contact Us</a>
                 </li>
               </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <section class="page-title title-bg10">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <h2>Recruiter Profile</h2>
+          <ul>
+            <li>
+              <a href="index.html">Home</a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Profile</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="account.html" class="nav-link">Account</a>
+            <li>Recruiter Profile</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </section>
+    <br />
+    <!-- Profile Section -->
+    <section class="profile-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-sidebar">
+              <div class="profile-img">
+                <img src="assets/img/4.jpg" alt="Profile Picture" />
+              </div>
+              <div class="profile-info">
+                <h3></h3>
+                <p></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="profile-content">
+              <h2>Company Information</h2>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="profile-field">
+                    <label>Email</label>
+                    <p id="email"></p>
+                  </div>
+                  <div class="profile-field">
+                    <label>Company Website</label>
+                    <p id="companyWebsite"></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="profile-field">
+                    <label>Company</label>
+                    <p id="companyName"></p>
+                  </div>
+                  <div class="profile-field">
+                    <label>Location</label>
+                    <p id="location"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      $(document).ready(function () {
+        // Fetch data from jobDetails.json
+        $.getJSON("jobDetails.json", function (data) {
+          // Update job information
+          $("#companyName").text(data.companyName);
+          $("#email").text(data.email);
+          $("#location").text(data.location);
+          $("#companyWebsite").text(data.companyWebsite);
+        }).fail(function () {
+          console.error("Failed to fetch job details.");
+          alert("Failed to fetch job details.");
+        });
+      });
+    </script>
+
+    <footer class="footer-area pt-100 pb-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <a href="index.html">
+                  <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+                </a>
+              </div>
+              <p>
+                "Unlock Your Career Potential: Discover Jobs, Explore
+                Opportunities!"
+              </p>
+              <div class="footer-social">
+                <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
+                <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
+                <a href="#" target="_blank"
+                  ><i class="bx bxl-pinterest-alt"></i
+                ></a>
+                <a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>For Candidate</h3>
+              <ul>
+                <li>
+                  <a href="job-grid.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Jobs
+                  </a>
                 </li>
                 <li>
+                  <a href="account.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Account
+                  </a>
+                </li>
+                <li>
+                  <a href="catagories.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Categories
+                  </a>
+                </li>
+                <li>
+                  <a href="resume.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Resume
+                  </a>
+                </li>
+                <li>
+                  <a href="job-list.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Job List
+                  </a>
+                </li>
+                <li>
+                  <a href="sign-up.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Sign Up
+                  </a>
+                </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Contact Us</a>
-            </li>
-          </ul>
-        </div>      
-      </nav>
-    </div>
-  </div>
-</div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="index.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="faq.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="terms-condition.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Terms-Conditions
+                  </a>
+                </li>
+                <li>
+                  <a href="privacy.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Privacy
+                  </a>
+                </li>
 
-<section class="page-title title-bg10">
-<div class="d-table">
-<div class="d-table-cell">
-<h2>Recruiter Profile</h2>
-<ul>
-<li>
-<a href="index.html">Home</a>
-</li>
-<li>Recruiter Profile</li>
-</ul>
-</div>
-</div>
-<div class="lines">
-<div class="line"></div>
-<div class="line"></div>
-<div class="line"></div>
-</div>
-</section>
-<br/>
-<!-- Profile Section -->
-<section class="profile-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-sidebar">
-                    <div class="profile-img">
-                        <img src="assets/img/4.jpg" alt="Profile Picture">
-                    </div>
-                    <div class="profile-info">
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                </div>
+                <li>
+                  <a href="contact.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Contact
+                  </a>
+                </li>
+              </ul>
             </div>
-            <div class="col-md-8">
-                <div class="profile-content">
-                    <h2>Company Information</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="profile-field">
-                                <label>Email</label>
-                                <p id="email"></p>
-                            </div>
-                            <div class="profile-field">
-                              <label>Company Website</label>
-                              <p id="companyWebsite"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="profile-field">
-                                <label>Company</label>
-                                <p id="companyName"></p>
-                            </div>
-                            <div class="profile-field">
-                                <label>Location</label>
-                                <p id="location"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget footer-info">
+              <h3>Information</h3>
+              <ul>
+                <li>
+                  <span>
+                    <i class="bx bxs-phone"></i>
+                    Phone:
+                  </span>
+                  <a href="tel:882569756"> +101 984 754 </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bxs-envelope"></i>
+                    Email:
+                  </span>
+                  <a href="#">
+                    <span
+                      class="__cf_email__"
+                      data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf"
+                      >job@quest.org.za</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bx-location-plus"></i>
+                    Address:
+                  </span>
+                  123, Kampton park, SA
+                </li>
+              </ul>
             </div>
+          </div>
         </div>
+      </div>
+    </footer>
+    <div class="copyright-text text-center">
+      <p>© Jobquest 2023</p>
     </div>
-</section>
-<script>
-  $(document).ready(function() {
-  // Fetch data from jobDetails.json
-  $.getJSON("jobDetails.json", function(data) {
-    // Update job information
-    $("#companyName").text(data.companyName);
-    $("#email").text(data.email);
-    $("#location").text(data.location);
-    $('#companyWebsite').text(data.companyWebsite);
-  })
-  .fail(function() {
-    console.error("Failed to fetch job details.");
-    alert('Failed to fetch job details.');
-  });
-});
-  </script>
 
-<footer class="footer-area pt-100 pb-70">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget">
-<div class="footer-logo">
-<a href="index.html">
-<img src="./assets/img/logo.jpg" width="100" alt="logo">
-</a>
-</div>
-<p>"Unlock Your Career Potential: Discover Jobs, Explore Opportunities!"</p>
-<div class="footer-social">
-<a href="#" target="_blank"><i class='bx bxl-facebook'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-twitter'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-pinterest-alt'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-linkedin'></i></a>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>For Candidate</h3>
-<ul>
-<li>
-<a href="job-grid.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Jobs
-</a>
-</li>
-<li>
-<a href="account.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Account
-</a>
-</li>
-<li>
-<a href="catagories.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Categories
-</a>
-</li>
-<li>
-<a href="resume.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Resume
-</a>
-</li>
-<li>
-<a href="job-list.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Job List
-</a>
-</li>
-<li>
-<a href="sign-up.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Sign Up
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>Quick Links</h3>
-<ul>
-<li>
-<a href="index.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Home
-</a>
-</li>
-<li>
-<a href="faq.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-FAQ
-</a>
-</li>
-<li>
-<a href="terms-condition.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Terms-Conditions
-</a>
-</li>
-<li>
-<a href="privacy.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Privacy
-</a>
-</li>
+    <div class="top-btn">
+      <i class="bx bx-chevrons-up bx-fade-up"></i>
+    </div>
 
-<li>
-<a href="contact.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Contact
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget footer-info">
-<h3>Information</h3>
-<ul>
-<li>
-<span>
-<i class='bx bxs-phone'></i>
-Phone:
-</span>
-<a href="tel:882569756">
-+101 984 754
-</a>
-</li>
-<li>
-<span>
-<i class='bx bxs-envelope'></i>
-Email:
-</span>
-<a href="#">
-<span class="__cf_email__" data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf">job@quest.org.za</span>
-</a>
-</li>
-<li>
-<span>
-<i class='bx bx-location-plus'></i>
-Address:
-</span>
-123, Denver, SA
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</footer>
-<div class="copyright-text text-center">
-<p>© Jobquest 2023</p>
-</div>
+    <script src="assets/js/script.js"></script>
 
+    <script
+      data-cfasync="false"
+      src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-<div class="top-btn">
-<i class='bx bx-chevrons-up bx-fade-up'></i>
-</div>
+    <script src="assets/js/owl.carousel.min.js"></script>
 
-<script src="assets/js/script.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
 
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
 
-<script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
 
-<script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
 
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
 
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="assets/js/meanmenu.js"></script>
 
-<script src="assets/js/form-validator.min.js"></script>
-
-<script src="assets/js/contact-form-script.js"></script>
-
-<script src="assets/js/meanmenu.js"></script>
-
-<script src="assets/js/custom.js"></script>
-
-</body>
+    <script src="assets/js/custom.js"></script>
+  </body>
 </html>

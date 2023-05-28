@@ -1,556 +1,662 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="">
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/boxicon.min.css" />
 
-<link rel="stylesheet" href="assets/css/boxicon.min.css">
+    <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css" />
 
-<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
 
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.css" />
 
-<link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css" />
 
-<link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dark.css" />
 
-<link rel="stylesheet" href="assets/css/dark.css">
+    <link rel="stylesheet" href="assets/css/responsive.css" />
 
-<link rel="stylesheet" href="assets/css/responsive.css">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Fetch data from details.json
+        $.getJSON("details.json", function (data) {
+          // Update account information
+          $("#name").text(data.name);
+          $("#jobtitle").text(data.jobTitle);
 
-<title></title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    // Fetch data from details.json
-    $.getJSON("details.json", function(data) {
-      // Update account information
-      $("#name").text(data.name);
-      $("#jobtitle").text(data.jobTitle);
-  
-      // Update account details
-      $("#account-name-input").val(data.name);
-      $("#account-email-input").val(data.email);
-      $("#account-phone-input").val(data.phone);
-      $("#account-job-title-input").val(data.jobTitle);
-      $("#account-country-input").val(data.country);
-      $("#account-city-input").val(data.city);
-      $("#account-zip-input").val(data.zipCode);
-      $("#account-region-input").val(data.region);
-      $("#aboutme").text(data.aboutMe);
-      $("#education-school-input").val(data.education.school);
-      $("#education-qualification-input").val(data.education.qualification);
-      $("#education-year-started-input").val(data.education.yearStarted);
-      $("#education-year-completed-input").val(data.education.yearCompleted);
-      $("#experience-position-input").val(data.experience.position);
-      $("#experience-company-input").val(data.experience.company);
-      $("#experience-year-input").val(data.experience.year);
-      $("#experience-reason-input").val(data.experience.reason);
-      $("#skill1-input").val(data.skills[0]);
-      $("#skill2-input").val(data.skills[1]);
-      $("#skill3-input").val(data.skills[2]);
-      $("#skill4-input").val(data.skills[3]);
-      $("#account-facebook-input").val(data.social.facebook);
-      $("#account-twitter-input").val(data.social.twitter);
-      $("#account-linkedin-input").val(data.social.linkedin);
-      $("#account-github-input").val(data.social.github);
-  
-      // Update resume section
-      $(".social-links").find("a:nth-child(1)").attr("href", data.social.facebook);
-      $(".social-links").find("a:nth-child(2)").attr("href", data.social.twitter);
-      $(".social-links").find("a:nth-child(3)").attr("href", data.social.github);
-      $(".social-links").find("a:nth-child(4)").attr("href", data.social.linkedin);
-      $("#aboutme").text(data.aboutMe);
-  
-      // Update basic info
-      $("#email").append("&nbsp; " + data.email);
-      $("#phone").append("&nbsp; " + data.phone);
-      $("#country").append("&nbsp; " + data.country);
-      $("#city").append("&nbsp; " + data.city);
-      $("#zipCode").append("&nbsp; " + data.zipCode);
-      $("#region").append("&nbsp; " + data.region);
-  
-      // Update education info
-      $("#education-school").append("&nbsp;   "+ data.education.school);
-      $("#education-qualification").append("&nbsp;   " + data.education.qualification);
-      $("#education-year-started").append("&nbsp;   " + data.education.yearStarted);
-      $("#education-year-completed").append("&nbsp;   " + data.education.yearCompleted);
+          // Update account details
+          $("#account-name-input").val(data.name);
+          $("#account-email-input").val(data.email);
+          $("#account-phone-input").val(data.phone);
+          $("#account-job-title-input").val(data.jobTitle);
+          $("#account-country-input").val(data.country);
+          $("#account-city-input").val(data.city);
+          $("#account-zip-input").val(data.zipCode);
+          $("#account-region-input").val(data.region);
+          $("#aboutme").text(data.aboutMe);
+          $("#education-school-input").val(data.education.school);
+          $("#education-qualification-input").val(data.education.qualification);
+          $("#education-year-started-input").val(data.education.yearStarted);
+          $("#education-year-completed-input").val(
+            data.education.yearCompleted
+          );
+          $("#experience-position-input").val(data.experience.position);
+          $("#experience-company-input").val(data.experience.company);
+          $("#experience-year-input").val(data.experience.year);
+          $("#experience-reason-input").val(data.experience.reason);
+          $("#skill1-input").val(data.skills[0]);
+          $("#skill2-input").val(data.skills[1]);
+          $("#skill3-input").val(data.skills[2]);
+          $("#skill4-input").val(data.skills[3]);
+          $("#account-facebook-input").val(data.social.facebook);
+          $("#account-twitter-input").val(data.social.twitter);
+          $("#account-linkedin-input").val(data.social.linkedin);
+          $("#account-github-input").val(data.social.github);
 
-  
-      // Update work experience info
-      $("#position").append("&nbsp;   " + data.experience.position);
-      $("#company").append("&nbsp;   " + data.experience.company);
-      $("#year").append("&nbsp;   " + data.experience.year);
-      $("#reasonforl").append("&nbsp;   " + data.experience.reason);
-  
-      // Update skills info
-      $("#skill1").append("<li> " + data.skills[0] + "</li>");
-      $("#skill2").append("<li> " + data.skills[1] + "</li>");
-      $("#skill3").append("<li> " + data.skills[2] + "</li>");
-      $("#skill4").append("<li> " + data.skills[3] + "</li>");
-    });
-  });
-</script>  
-  <style>
-    .account-btn {
-      background-color: navy; /* Button background color */
-      color: #fff; /* Button text color */
-      padding: 10px 20px; /* Button padding */
-      font-size: 16px; /* Button font size */
-      border: none; /* Remove button border */
-      border-radius: 10px; /* Button border radius */
-      cursor: pointer; /* Show cursor as pointer on hover */
-    }
+          // Update resume section
+          $(".social-links")
+            .find("a:nth-child(1)")
+            .attr("href", data.social.facebook);
+          $(".social-links")
+            .find("a:nth-child(2)")
+            .attr("href", data.social.twitter);
+          $(".social-links")
+            .find("a:nth-child(3)")
+            .attr("href", data.social.github);
+          $(".social-links")
+            .find("a:nth-child(4)")
+            .attr("href", data.social.linkedin);
+          $("#aboutme").text(data.aboutMe);
 
-    .account-btn:hover {
-      background-color: red; /* Button background color on hover */
-      transition: 1s;
-    }
-  </style>
-</head>
-<body>
+          // Update basic info
+          $("#email").append("&nbsp; " + data.email);
+          $("#phone").append("&nbsp; " + data.phone);
+          $("#country").append("&nbsp; " + data.country);
+          $("#city").append("&nbsp; " + data.city);
+          $("#zipCode").append("&nbsp; " + data.zipCode);
+          $("#region").append("&nbsp; " + data.region);
 
-<div class="loader-content">
-<div class="d-table">
-<div class="d-table-cell">
-<div class="sk-circle">
-<div class="sk-circle1 sk-child"></div>
-<div class="sk-circle2 sk-child"></div>
-<div class="sk-circle3 sk-child"></div>
-<div class="sk-circle4 sk-child"></div>
-<div class="sk-circle5 sk-child"></div>
-<div class="sk-circle6 sk-child"></div>
-<div class="sk-circle7 sk-child"></div>
-<div class="sk-circle8 sk-child"></div>
-<div class="sk-circle9 sk-child"></div>
-<div class="sk-circle10 sk-child"></div>
-<div class="sk-circle11 sk-child"></div>
-<div class="sk-circle12 sk-child"></div>
-</div>
-</div>
-</div>
-</div>
+          // Update education info
+          $("#education-school").append("&nbsp;   " + data.education.school);
+          $("#education-qualification").append(
+            "&nbsp;   " + data.education.qualification
+          );
+          $("#education-year-started").append(
+            "&nbsp;   " + data.education.yearStarted
+          );
+          $("#education-year-completed").append(
+            "&nbsp;   " + data.education.yearCompleted
+          );
 
+          // Update work experience info
+          $("#position").append("&nbsp;   " + data.experience.position);
+          $("#company").append("&nbsp;   " + data.experience.company);
+          $("#year").append("&nbsp;   " + data.experience.year);
+          $("#reasonforl").append("&nbsp;   " + data.experience.reason);
 
-<div class="navbar-area">
-  <div class="mobile-nav">
-    <a href="index.html" class="logo">
-      <img src="./assets/img/logo.jpg" width="40" alt="logo">
-    </a>
-  </div>
-  <div class="main-nav">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="index.html">
-          <img src="./assets/img/logo.jpg" width="100" alt="logo">
-        </a>
-        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-          <ul class="navbar-nav m-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#about" class="nav-link">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Jobs</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="find-job.html" class="nav-link">Find A Job</a>
-                </li>
-                <li class="nav-item">
-                  <a href="post-job.html" class="nav-link">Post A Job</a>
-                </li>
-                <li class="nav-item">
-                  <a href="job-grid.html" class="nav-link">Job Grid</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Profile</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="account.html" class="nav-link">Account</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link dropdown-toggle">Member</a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a href="sign-in.html" class="nav-link">Sign In</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="sign-up.html" class="nav-link">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="reset-password.html" class="nav-link">Reset Password</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Contact Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="sign-up.html" class="signup-btn">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a href="sign-in.html" class="signin-btn">Sign In</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </div>
-</div>
+          // Update skills info
+          $("#skill1").append("<li> " + data.skills[0] + "</li>");
+          $("#skill2").append("<li> " + data.skills[1] + "</li>");
+          $("#skill3").append("<li> " + data.skills[2] + "</li>");
+          $("#skill4").append("<li> " + data.skills[3] + "</li>");
+        });
+      });
+    </script>
+    <style>
+      .account-btn {
+        background-color: navy; /* Button background color */
+        color: #fff; /* Button text color */
+        padding: 10px 20px; /* Button padding */
+        font-size: 16px; /* Button font size */
+        border: none; /* Remove button border */
+        border-radius: 10px; /* Button border radius */
+        cursor: pointer; /* Show cursor as pointer on hover */
+      }
 
-<section class="resume-section ptb-100">
-  <div class="container">
-    <div class="resume-area">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="resume-thumb-area text-center">
-            <img src="assets/img/account.jpg" alt="account image">
-            <h3 id="name"></h3>
-            <p id="jobtitle"></p>
-            <div class="social-links">
-              <a href="#" target="_blank">
-                <i class="bx bxl-facebook"></i>
-              </a>
-              <a href="#" target="_blank">
-                <i class="bx bxl-twitter"></i>
-              </a>
-              <a href="#" target="_blank">
-                <i class="bx bxl-github"></i>
-              </a>
-              <a href="#" target="_blank">
-                <i class="bx bxl-linkedin"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="resume-content about-text">
-            <h3>
-              <i class="bx bx-user-circle"></i>
-              About Me
-            </h3>
-            <p id="aboutme"></p>
-          </div>
-          <div class="resume-content basic-info-text">
-            <h3>
-              <i class="bx bx-book-alt"></i>
-              Basic Info
-            </h3>
-            <div class="email" id="email"><strong>Email:</strong></div>
-            <div class="phone" id="phone"><strong>Phone:</strong></div>
-            <div class="country" id="country"><strong>Country:</strong></div>
-            <div class="city" id="city"><strong>City:</strong></div>
-            <div class="zipCode" id="zipCode"><strong>Zip Code:</strong></div>
-            <div class="region" id="region"><strong>Region:</strong></div>
-          </div>
-          <div class="resume-content basic-info-text">
-            <h3>
-              <i class="bx bx-book-reader"></i>
-              Education Background
-            </h3>
-            <div class="education-school" id="education-school"><strong>Your School Name:</strong></div>
-            <div class="education-qualification" id="education-qualification"><strong>Your Qualification:</strong></div>
-            <div class="education-year-started" id="education-year-started"><strong>Year Started:</strong></div>
-            <div class="education-year-completed" id="education-year-completed"><strong>Year Completed:</strong></div>
-          </div>
-          <div class="resume-content basic-info-text">
-            <h3>
-              <i class="bx bx-briefcase"></i>
-              Work Experience
-            </h3>
-            <div class="wposition" id="position"><strong>Position: </strong></div>
-            <div class="wcompany" id="company"><strong>Company: </strong></div>
-            <div class="wyear" id="year"><strong>Year Started: </strong></div>
-            <div class="reasonforl" id="reasonforl"><strong>Reason for leaving: </strong></div>
-          </div>
-          <div class="resume-content basic-info-text">
-            <h3>
-              <i class="bx bx-check-shield"></i>
-              Skills
-            </h3>
-            <div class="wposition" id="skill1"></div>
-            <div class="wcompany" id="skill2"></div>
-            <div class="wyear" id="skill3"></div>
-            <div class="reasonforl" id="skill4"></div>
-          </div>
-          <div class="col-md-12"> 
-            <button type="submit" id="edit" class="account-btn">EDIT</button>        
+      .account-btn:hover {
+        background-color: red; /* Button background color on hover */
+        transition: 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loader-content">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<script>
-  document.getElementById('edit').addEventListener('click', function() {
-    var editButton = document.getElementById('edit');
+    <div class="navbar-area">
+      <div class="mobile-nav">
+        <a href="index.html" class="logo">
+          <img src="./assets/img/logo.jpg" width="40" alt="logo" />
+        </a>
+      </div>
+      <div class="main-nav">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index.html">
+              <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+            </a>
+            <div
+              class="collapse navbar-collapse mean-menu"
+              id="navbarSupportedContent"
+            >
+              <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                  <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link dropdown-toggle">Jobs</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="find-job.html" class="nav-link">Find A Job</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="post-job.html" class="nav-link">Post A Job</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="job-grid.html" class="nav-link">Job Grid</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link dropdown-toggle">Profile</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="account.html" class="nav-link">Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link dropdown-toggle">Member</a>
+                      <ul class="dropdown-menu">
+                        <li class="nav-item">
+                          <a href="sign-in.html" class="nav-link">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="sign-up.html" class="nav-link">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="reset-password.html" class="nav-link"
+                            >Reset Password</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                    <li></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="contact.html" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="sign-up.html" class="signup-btn">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                  <a href="sign-in.html" class="signin-btn">Sign In</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
 
-    // Prompt the user to enter the updated values
-    var name = prompt('Enter Name', document.getElementById('name').textContent);
-    var jobTitle = prompt('Enter Job Title', document.getElementById('jobtitle').textContent);
-    var aboutMe = prompt('Enter About Me', document.getElementById('aboutme').textContent);
+    <section class="resume-section ptb-100">
+      <div class="container">
+        <div class="resume-area">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="resume-thumb-area text-center">
+                <img src="assets/img/account.jpg" alt="account image" />
+                <h3 id="name"></h3>
+                <p id="jobtitle"></p>
+                <div class="social-links">
+                  <a href="#" target="_blank">
+                    <i class="bx bxl-facebook"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="bx bxl-twitter"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="bx bxl-github"></i>
+                  </a>
+                  <a href="#" target="_blank">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="resume-content about-text">
+                <h3>
+                  <i class="bx bx-user-circle"></i>
+                  About Me
+                </h3>
+                <p id="aboutme"></p>
+              </div>
+              <div class="resume-content basic-info-text">
+                <h3>
+                  <i class="bx bx-book-alt"></i>
+                  Basic Info
+                </h3>
+                <div class="email" id="email"><strong>Email:</strong></div>
+                <div class="phone" id="phone"><strong>Phone:</strong></div>
+                <div class="country" id="country">
+                  <strong>Country:</strong>
+                </div>
+                <div class="city" id="city"><strong>City:</strong></div>
+                <div class="zipCode" id="zipCode">
+                  <strong>Zip Code:</strong>
+                </div>
+                <div class="region" id="region"><strong>Region:</strong></div>
+              </div>
+              <div class="resume-content basic-info-text">
+                <h3>
+                  <i class="bx bx-book-reader"></i>
+                  Education Background
+                </h3>
+                <div class="education-school" id="education-school">
+                  <strong>Your School Name:</strong>
+                </div>
+                <div
+                  class="education-qualification"
+                  id="education-qualification"
+                >
+                  <strong>Your Qualification:</strong>
+                </div>
+                <div class="education-year-started" id="education-year-started">
+                  <strong>Year Started:</strong>
+                </div>
+                <div
+                  class="education-year-completed"
+                  id="education-year-completed"
+                >
+                  <strong>Year Completed:</strong>
+                </div>
+              </div>
+              <div class="resume-content basic-info-text">
+                <h3>
+                  <i class="bx bx-briefcase"></i>
+                  Work Experience
+                </h3>
+                <div class="wposition" id="position">
+                  <strong>Position: </strong>
+                </div>
+                <div class="wcompany" id="company">
+                  <strong>Company: </strong>
+                </div>
+                <div class="wyear" id="year">
+                  <strong>Year Started: </strong>
+                </div>
+                <div class="reasonforl" id="reasonforl">
+                  <strong>Reason for leaving: </strong>
+                </div>
+              </div>
+              <div class="resume-content basic-info-text">
+                <h3>
+                  <i class="bx bx-check-shield"></i>
+                  Skills
+                </h3>
+                <div class="wposition" id="skill1"></div>
+                <div class="wcompany" id="skill2"></div>
+                <div class="wyear" id="skill3"></div>
+                <div class="reasonforl" id="skill4"></div>
+              </div>
+              <div class="col-md-12">
+                <button type="submit" id="edit" class="account-btn">
+                  EDIT
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    var educationSchool = prompt('Enter Education School', document.getElementById('education-school').textContent);
-    var educationQualification = prompt('Enter Education Qualification', document.getElementById('education-qualification').textContent);
-    var educationYearStarted = prompt('Enter Education Year Started', document.getElementById('education-year-started').textContent);
-    var educationYearCompleted = prompt('Enter Education Year Completed', document.getElementById('education-year-completed').textContent);
+    <script>
+      document.getElementById("edit").addEventListener("click", function () {
+        var editButton = document.getElementById("edit");
 
-    var experiencePosition = prompt('Enter Experience Position', document.getElementById('position').textContent);
-    var experienceCompany = prompt('Enter Experience Company', document.getElementById('company').textContent);
-    var experienceYear = prompt('Enter Experience Year', document.getElementById('year').textContent);
-    var experienceReason = prompt('Enter Experience Reason', document.getElementById('reasonforl').textContent);
+        // Prompt the user to enter the updated values
+        var name = prompt(
+          "Enter Name",
+          document.getElementById("name").textContent
+        );
+        var jobTitle = prompt(
+          "Enter Job Title",
+          document.getElementById("jobtitle").textContent
+        );
+        var aboutMe = prompt(
+          "Enter About Me",
+          document.getElementById("aboutme").textContent
+        );
 
-    var skill1 = prompt('Enter Skill 1', document.getElementById('skill1').textContent);
-    var skill2 = prompt('Enter Skill 2', document.getElementById('skill2').textContent);
-    var skill3 = prompt('Enter Skill 3', document.getElementById('skill3').textContent);
-    var skill4 = prompt('Enter Skill 4', document.getElementById('skill4').textContent);
+        var educationSchool = prompt(
+          "Enter Education School",
+          document.getElementById("education-school").textContent
+        );
+        var educationQualification = prompt(
+          "Enter Education Qualification",
+          document.getElementById("education-qualification").textContent
+        );
+        var educationYearStarted = prompt(
+          "Enter Education Year Started",
+          document.getElementById("education-year-started").textContent
+        );
+        var educationYearCompleted = prompt(
+          "Enter Education Year Completed",
+          document.getElementById("education-year-completed").textContent
+        );
 
-    var updatedData = {
-      name: name,
-      jobTitle: jobTitle,
-      aboutMe: aboutMe,
-      education: {
-        school: educationSchool,
-        qualification: educationQualification,
-        yearStarted: educationYearStarted,
-        yearCompleted: educationYearCompleted
-      },
-      experience: {
-        position: experiencePosition,
-        company: experienceCompany,
-        year: experienceYear,
-        reason: experienceReason
-      },
-      skills: [skill1, skill2, skill3, skill4]
-    };
+        var experiencePosition = prompt(
+          "Enter Experience Position",
+          document.getElementById("position").textContent
+        );
+        var experienceCompany = prompt(
+          "Enter Experience Company",
+          document.getElementById("company").textContent
+        );
+        var experienceYear = prompt(
+          "Enter Experience Year",
+          document.getElementById("year").textContent
+        );
+        var experienceReason = prompt(
+          "Enter Experience Reason",
+          document.getElementById("reasonforl").textContent
+        );
 
-    fetch('/api/update-details', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updatedData)
-    })
-    .then(function(response) {
-      if (response.ok) {
-        console.log('Data updated successfully');
-        alert('Data updated successfully');
-        location.reload(); // Refresh the page
-      } else {
-        console.error('Error updating data');
-        alert('Error updating data');
-      }
-    })
-    .catch(function(error) {
-      console.error('Error updating data:', error);
-    });
-  });
-</script>
+        var skill1 = prompt(
+          "Enter Skill 1",
+          document.getElementById("skill1").textContent
+        );
+        var skill2 = prompt(
+          "Enter Skill 2",
+          document.getElementById("skill2").textContent
+        );
+        var skill3 = prompt(
+          "Enter Skill 3",
+          document.getElementById("skill3").textContent
+        );
+        var skill4 = prompt(
+          "Enter Skill 4",
+          document.getElementById("skill4").textContent
+        );
 
+        var updatedData = {
+          name: name,
+          jobTitle: jobTitle,
+          aboutMe: aboutMe,
+          education: {
+            school: educationSchool,
+            qualification: educationQualification,
+            yearStarted: educationYearStarted,
+            yearCompleted: educationYearCompleted,
+          },
+          experience: {
+            position: experiencePosition,
+            company: experienceCompany,
+            year: experienceYear,
+            reason: experienceReason,
+          },
+          skills: [skill1, skill2, skill3, skill4],
+        };
 
+        fetch("/api/update-details", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedData),
+        })
+          .then(function (response) {
+            if (response.ok) {
+              console.log("Data updated successfully");
+              alert("Data updated successfully");
+              location.reload(); // Refresh the page
+            } else {
+              console.error("Error updating data");
+              alert("Error updating data");
+            }
+          })
+          .catch(function (error) {
+            console.error("Error updating data:", error);
+          });
+      });
+    </script>
 
-<section class="subscribe-section">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-md-6">
-<div class="section-title">
-<h2>Get New Job Notifications</h2>
-<p>Subscribe & get all related jobs notification</p>
-</div>
-</div>
-<div class="col-md-6">
-<form class="newsletter-form" data-toggle="validator">
-<input type="email" class="form-control" placeholder="Enter your email" name="EMAIL" required autocomplete="off">
-<button class="default-btn sub-btn" type="submit">
-Subscribe
-</button>
-<div id="validator-newsletter" class="form-result"></div>
-</form>
-</div>
-</div>
-</div>
-</section>
+    <section class="subscribe-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="section-title">
+              <h2>Get New Job Notifications</h2>
+              <p>Subscribe & get all related jobs notification</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <form class="newsletter-form" data-toggle="validator">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your email"
+                name="EMAIL"
+                required
+                autocomplete="off"
+              />
+              <button class="default-btn sub-btn" type="submit">
+                Subscribe
+              </button>
+              <div id="validator-newsletter" class="form-result"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <footer class="footer-area pt-100 pb-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <a href="index.html">
+                  <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+                </a>
+              </div>
+              <p>
+                "Unlock Your Career Potential: Discover Jobs, Explore
+                Opportunities!"
+              </p>
+              <div class="footer-social">
+                <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
+                <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
+                <a href="#" target="_blank"
+                  ><i class="bx bxl-pinterest-alt"></i
+                ></a>
+                <a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>For Candidate</h3>
+              <ul>
+                <li>
+                  <a href="job-grid.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Jobs
+                  </a>
+                </li>
+                <li>
+                  <a href="account.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Account
+                  </a>
+                </li>
+                <li>
+                  <a href="catagories.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Categories
+                  </a>
+                </li>
+                <li>
+                  <a href="resume.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Resume
+                  </a>
+                </li>
+                <li>
+                  <a href="job-list.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Job List
+                  </a>
+                </li>
+                <li>
+                  <a href="sign-up.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Sign Up
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="index.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="faq.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="terms-condition.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Terms-Conditions
+                  </a>
+                </li>
+                <li>
+                  <a href="privacy.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Privacy
+                  </a>
+                </li>
 
-<footer class="footer-area pt-100 pb-70">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget">
-<div class="footer-logo">
-<a href="index.html">
-<img src="./assets/img/logo.jpg" width="100" alt="logo">
-</a>
-</div>
-<p>"Unlock Your Career Potential: Discover Jobs, Explore Opportunities!"</p>
-<div class="footer-social">
-<a href="#" target="_blank"><i class='bx bxl-facebook'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-twitter'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-pinterest-alt'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-linkedin'></i></a>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>For Candidate</h3>
-<ul>
-<li>
-<a href="job-grid.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Jobs
-</a>
-</li>
-<li>
-<a href="account.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Account
-</a>
-</li>
-<li>
-<a href="catagories.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Categories
-</a>
-</li>
-<li>
-<a href="resume.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Resume
-</a>
-</li>
-<li>
-<a href="job-list.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Job List
-</a>
-</li>
-<li>
-<a href="sign-up.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Sign Up
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>Quick Links</h3>
-<ul>
-<li>
-<a href="index.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Home
-</a>
-</li>
-<li>
-<a href="faq.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-FAQ
-</a>
-</li>
-<li>
-<a href="terms-condition.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Terms-Conditions
-</a>
-</li>
-<li>
-<a href="privacy.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Privacy
-</a>
-</li>
+                <li>
+                  <a href="contact.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget footer-info">
+              <h3>Information</h3>
+              <ul>
+                <li>
+                  <span>
+                    <i class="bx bxs-phone"></i>
+                    Phone:
+                  </span>
+                  <a href="tel:882569756"> +101 984 754 </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bxs-envelope"></i>
+                    Email:
+                  </span>
+                  <a href="#">
+                    <span
+                      class="__cf_email__"
+                      data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf"
+                      >job@quest.org.za</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bx-location-plus"></i>
+                    Address:
+                  </span>
+                  123, Kampton park, SA
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="copyright-text text-center">
+      <p>© Jobquest 2023</p>
+    </div>
 
-<li>
-<a href="contact.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Contact
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget footer-info">
-<h3>Information</h3>
-<ul>
-<li>
-<span>
-<i class='bx bxs-phone'></i>
-Phone:
-</span>
-<a href="tel:882569756">
-+101 984 754
-</a>
-</li>
-<li>
-<span>
-<i class='bx bxs-envelope'></i>
-Email:
-</span>
-<a href="#">
-<span class="__cf_email__" data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf">job@quest.org.za</span>
-</a>
-</li>
-<li>
-<span>
-<i class='bx bx-location-plus'></i>
-Address:
-</span>
-123, Denver, SA
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</footer>
-<div class="copyright-text text-center">
-<p>© Jobquest 2023</p>
-</div>
+    <div class="top-btn">
+      <i class="bx bx-chevrons-up bx-fade-up"></i>
+    </div>
 
+    <script
+      data-cfasync="false"
+      src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-<div class="top-btn">
-<i class='bx bx-chevrons-up bx-fade-up'></i>
-</div>
+    <script src="assets/js/owl.carousel.min.js"></script>
 
+    <script src="assets/js/jquery.nice-select.min.js"></script>
 
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
 
-<script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
 
-<script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/form-validator.min.js"></script>
 
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/contact-form-script.js"></script>
 
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="assets/js/meanmenu.js"></script>
 
-<script src="assets/js/form-validator.min.js"></script>
-
-<script src="assets/js/contact-form-script.js"></script>
-
-<script src="assets/js/meanmenu.js"></script>
-
-<script src="assets/js/custom.js"></script>
-</body>
+    <script src="assets/js/custom.js"></script>
+  </body>
 </html>

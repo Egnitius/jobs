@@ -1,885 +1,1079 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="">
-<head>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
 
-<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/boxicon.min.css" />
 
-<link rel="stylesheet" href="assets/css/boxicon.min.css">
+    <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css" />
 
-<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
 
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/meanmenu.css" />
 
-<link rel="stylesheet" href="assets/css/meanmenu.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css" />
 
-<link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
 
-<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dark.css" />
 
-<link rel="stylesheet" href="assets/css/dark.css">
+    <link rel="stylesheet" href="assets/css/responsive.css" />
 
-<link rel="stylesheet" href="assets/css/responsive.css">
+    <title></title>
+    <style>
+      .profile-pic {
+        color: transparent;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .profile-pic input {
+        display: none;
+      }
+      .profile-pic img {
+        position: absolute;
+        object-fit: cover;
+        width: 165px;
+        height: 165px;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+        border-radius: 100px;
+        z-index: 0;
+      }
+      .profile-pic .-label {
+        cursor: pointer;
+        height: 165px;
+        width: 165px;
+      }
+      .profile-pic:hover .-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        color: #fafafa;
+        transition: background-color 0.2s ease-in-out;
+        border-radius: 100px;
+        margin-bottom: 0;
+      }
+      .profile-pic span {
+        display: inline-flex;
+        padding: 0.2em;
+        height: 2em;
+      }
+      .box {
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 35px;
+        border: 2px solid #fff;
+        border-radius: 20px/50px;
+        background-clip: padding-box;
+        text-align: center;
+      }
 
-<title></title>
-<style>
-  .profile-pic {
-  color: transparent;
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: all 0.3s ease;
-}
-.profile-pic input {
-  display: none;
-}
-.profile-pic img {
-  position: absolute;
-  object-fit: cover;
-  width: 165px;
-  height: 165px;
-  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
-  border-radius: 100px;
-  z-index: 0;
-}
-.profile-pic .-label {
-  cursor: pointer;
-  height: 165px;
-  width: 165px;
-}
-.profile-pic:hover .-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10000;
-  color: #fafafa;
-  transition: background-color 0.2s ease-in-out;
-  border-radius: 100px;
-  margin-bottom: 0;
-}
-.profile-pic span {
-  display: inline-flex;
-  padding: 0.2em;
-  height: 2em;
-}
-.box {
-  margin: 0 auto;
-  background: rgba(255,255,255,0.2);
-  padding: 35px;
-  border: 2px solid #fff;
-  border-radius: 20px/50px;
-  background-clip: padding-box;
-  text-align: center;
-}
+      .button {
+        font-size: 1em;
+        padding: 10px;
+        color: #fff;
+        /* border-radius: 30px; */
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+        background-color: blue;
+        border-radius: 10px;
+      }
+      .button:hover {
+        background: red;
+      }
 
-.button {
-  font-size: 1em;
-  padding: 10px;
-  color: #fff;
-  /* border-radius: 30px; */
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  background-color: blue;
-  border-radius: 10px;
-}
-.button:hover {
-  background: red;
-}
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+      }
+      .overlay:target {
+        visibility: visible;
+        opacity: 1;
+      }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
+      .popup {
+        margin: 150px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 30%;
+        position: relative;
+        transition: all 5s ease-in-out;
+      }
 
-.popup {
-  margin: 150px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
-}
+      .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+      }
+      .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: black;
+      }
 
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
+      .popup .close:hover {
+        color: black;
+      }
 
-.popup .close:hover {
-  color: black;
-}
+      .popup .content {
+        max-height: 30%;
+        overflow: auto;
+      }
+      form {
+        margin-left: 100px;
+      }
+      input:is(:hover, :focus) {
+        cursor: pointer;
+      }
 
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-form{
-	margin-left: 100px;
-}
-input:is(:hover, :focus){
-	cursor: pointer;
-}
-
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
-</style>
-<script>
-  var loadFile = function (event) {
-    var image = document.getElementById("output");
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
-  </script>
-</head>
-<body>
-
-<div class="loader-content">
-<div class="d-table">
-<div class="d-table-cell">
-<div class="sk-circle">
-<div class="sk-circle1 sk-child"></div>
-<div class="sk-circle2 sk-child"></div>
-<div class="sk-circle3 sk-child"></div>
-<div class="sk-circle4 sk-child"></div>
-<div class="sk-circle5 sk-child"></div>
-<div class="sk-circle6 sk-child"></div>
-<div class="sk-circle7 sk-child"></div>
-<div class="sk-circle8 sk-child"></div>
-<div class="sk-circle9 sk-child"></div>
-<div class="sk-circle10 sk-child"></div>
-<div class="sk-circle11 sk-child"></div>
-<div class="sk-circle12 sk-child"></div>
-</div>
-</div>
-</div>
-</div>
-
-
-<div class="navbar-area">
-  <div class="mobile-nav">
-    <a href="index.html" class="logo">
-      <img src="./assets/img/logo.jpg" width="40" alt="logo">
-    </a>
-  </div>
-  <div class="main-nav">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="index.html">
-          <img src="./assets/img/logo.jpg" width="100" alt="logo">
-        </a>
-        <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-          <ul class="navbar-nav m-auto">
-            <li class="nav-item">
-              <a href="index.html" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Jobs</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="find-job.html" class="nav-link">Find A Job</a>
-                </li>
-                <li class="nav-item">
-                  <a href="job-grid.html" class="nav-link">Job Grid</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link dropdown-toggle">Profile</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">Account</a>
-                </li>
-                <li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a href="contact.html" class="nav-link">Contact Us</a>
-            </li>
-          </ul>
+      @media screen and (max-width: 700px) {
+        .box {
+          width: 70%;
+        }
+        .popup {
+          width: 70%;
+        }
+      }
+    </style>
+    <script>
+      var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="loader-content">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
         </div>
-        <div class="icon" onclick="toggleNotifi()">
-          <img src="assets/img/bell.png" alt=""> <span>3</span>
       </div>
-      <div class="notifi-box" id="box">
-          <h2>Notifications <span>3</span></h2>
-          <div class="notifi-item">
-              <img src="assets/img/avatar1.png" alt="img">
-              <div class="text">
-                 <h4>Mpho Manaka</h4>
-                 <p>Application Deadline Approaching: The deadline for submitting applications for a particular job is approaching soon.</p>
-              </div> 
-          </div>
-      
-          <div class="notifi-item">
-              <img src="assets/img/avatar2.png" alt="img">
-              <div class="text">
-                 <h4>Thembisile Nkambule</h4>
-                 <p>Interview Invitation: Congratulations! You have been invited for an interview for a job you applied for.</p>
-              </div> 
-          </div>
-      
-          <div class="notifi-item">
-              <img src="assets/img/avatar3.png" alt="img">
-              <div class="text">
-                 <h4>Siya Bekwa</h4>
-                 <p>Application Update: There is an update on the status of your application for a specific job.</p>
-              </div> 
-          </div>
-      </div>
-      </nav>
     </div>
-  </div>
-</div>
 
-<section class="page-title title-bg10">
-<div class="d-table">
-<div class="d-table-cell">
-<h2>Account</h2>
-<ul>
-<li>
-<a href="index.html">Home</a>
-</li>
-<li>Account</li>
-</ul>
-</div>
-</div>
-<div class="lines">
-<div class="line"></div>
-<div class="line"></div>
-<div class="line"></div>
-</div>
-</section>
-
-
-<section class="account-section ptb-100">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="account-information">
-          <div class="profile-thumb">
-            <div class="profile-pic">
-              <label class="-label" for="file">
-                <span class="glyphicon glyphicon-camera"></span>
-                <span>Change Image</span>
-              </label>
-              <input id="file" type="file" onchange="loadFile(event)"/>
-              <img src="./assets/img/profile-picture.jpg" alt="Profile-picture" id="output" width="200" />
+    <div class="navbar-area">
+      <div class="mobile-nav">
+        <a href="index.html" class="logo">
+          <img src="./assets/img/logo.jpg" width="40" alt="logo" />
+        </a>
+      </div>
+      <div class="main-nav">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index.html">
+              <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+            </a>
+            <div
+              class="collapse navbar-collapse mean-menu"
+              id="navbarSupportedContent"
+            >
+              <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                  <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link dropdown-toggle">Jobs</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="find-job.html" class="nav-link">Find A Job</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="job-grid.html" class="nav-link">Job Grid</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link dropdown-toggle">Profile</a>
+                  <ul class="dropdown-menu">
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">Account</a>
+                    </li>
+                    <li></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="contact.html" class="nav-link">Contact Us</a>
+                </li>
+              </ul>
             </div>
-          </div>
+            <div class="icon" onclick="toggleNotifi()">
+              <img src="assets/img/bell.png" alt="" /> <span>3</span>
+            </div>
+            <div class="notifi-box" id="box">
+              <h2>Notifications <span>3</span></h2>
+              <div class="notifi-item">
+                <img src="assets/img/avatar1.png" alt="img" />
+                <div class="text">
+                  <h4>Mpho Manaka</h4>
+                  <p>
+                    Application Deadline Approaching: The deadline for
+                    submitting applications for a particular job is approaching
+                    soon.
+                  </p>
+                </div>
+              </div>
+
+              <div class="notifi-item">
+                <img src="assets/img/avatar2.png" alt="img" />
+                <div class="text">
+                  <h4>Thembisile Nkambule</h4>
+                  <p>
+                    Interview Invitation: Congratulations! You have been invited
+                    for an interview for a job you applied for.
+                  </p>
+                </div>
+              </div>
+
+              <div class="notifi-item">
+                <img src="assets/img/avatar3.png" alt="img" />
+                <div class="text">
+                  <h4>Siya Bekwa</h4>
+                  <p>
+                    Application Update: There is an update on the status of your
+                    application for a specific job.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <section class="page-title title-bg10">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <h2>Account</h2>
           <ul>
             <li>
-              <a href="#" class="active">
-                <i class='bx bx-user'></i>
-                My Profile
-              </a>
+              <a href="index.html">Home</a>
             </li>
-            <li>
-              <a href="resume.html">
-                <i class='bx bxs-file-doc'></i>
-                My Resume
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class='bx bx-briefcase'></i>
-                Applied Job
-              </a>
-            </li>
-            <li>
-                <a href="#" onclick="toggleNotifi()">
-                    <i class='bx bx-envelope'></i>
-                    Messages
-                </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class='bx bx-heart'></i>
-                Saved Jobs
-              </a>
-            </li>
-            <li>
-              <!-- <div class="box"> -->
-                <a href="#popup1"><i class='bx bx-lock-alt'></i>Change Password</a>
-                <!-- </div> -->
-                
-                <div id="popup1" class="overlay">
-                  <div class="popup">
-                    <a class="close" href="#">&times;</a>
-                    <div class="content">
-                      <h2>Change Password Page</h2>
-                      <form>
-                        <label for="oldPass">Old Password:</label><br>
-                        <input type="password" id="oldPass" placeholder="Enter old password" required>
-                        <br><br>
-                         <label for="newPass">New Password:</label><br>
-                        <input type="password" id="newPass" placeholder="Enter new password" required>
-                        <br><br>
-                         <label for="conPass">Confirm Password:</label><br>
-                        <input type="password" id="conPass" placeholder="Enter confirm password" required>
-                        <br><br>
-                        <button  type="button" class="button" onclick="validateForm();">Submit</button>
-                         
-                      </form>
-                    </div>
-                  </div>
-                </div>
-            </li>
-            <li>
-              <a href="#">
-                <i class='bx bx-coffee-togo'></i>
-                Delete Account
-              </a>
-            </li>
-            <li>
-              <a href="index.html">
-                <i class='bx bx-log-out'></i>
-                Log Out
-              </a>
-            </li>
+            <li>Account</li>
           </ul>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="account-details">
-          <h3>Information</h3>
-          <form id="account-form">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Your Name & Surname:</label>
-                  <input type="text" class="form-control" placeholder="Your Name" id="account-name-input">
+      <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </section>
+
+    <section class="account-section ptb-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="account-information">
+              <div class="profile-thumb">
+                <div class="profile-pic">
+                  <label class="-label" for="file">
+                    <span class="glyphicon glyphicon-camera"></span>
+                    <span>Change Image</span>
+                  </label>
+                  <input id="file" type="file" onchange="loadFile(event)" />
+                  <img
+                    src="./assets/img/profile-picture.jpg"
+                    alt="Profile-picture"
+                    id="output"
+                    width="200"
+                  />
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Your Email:</label>
-                  <input type="email" class="form-control" placeholder="Your Email" id="account-email-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Your Phone number:</label>
-                  <input type="tel" class="form-control" placeholder="Your Phone" id="account-phone-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Job Title:</label>
-                  <input type="text" class="form-control" placeholder="Job Title" id="account-job-title-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Your Country</label>
-                  <input type="text" class="form-control" placeholder="Your Country" id="account-country-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Your City</label>
-                  <input type="text" class="form-control" placeholder="Your City" id="account-city-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Zip Code</label>
-                  <input type="number" class="form-control" placeholder="City Zip" id="account-zip-input">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Region</label>
-                  <input type="text" class="form-control" placeholder="Your Region" id="account-region-input">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="aboutme">About Me:</label>
-                  <textarea id="aboutme" class="form-control" placeholder="About Me" name="aboutme" required></textarea>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="education">Education Background:</label>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>School/Institute</label>
-                        <input type="text" class="form-control" placeholder="School/Institute" id="education-school-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Qualification</label>
-                        <input type="text" class="form-control" placeholder="Qualification" id="education-qualification-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Year Started</label>
-                        <input type="text" class="form-control" placeholder="Year Started" id="education-year-started-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Year completed</label>
-                        <input type="text" class="form-control" placeholder="Year completed" id="education-year-completed-input">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="experience">Work Experience:</label>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Position</label>
-                        <input type="text" class="form-control" placeholder="Position" id="experience-position-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Company</label>
-                        <input type="text" class="form-control" placeholder="Company" id="experience-company-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Year</label>
-                        <input type="text" class="form-control" placeholder="Year" id="experience-year-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>Reason for leaving</label>
-                        <input type="text" class="form-control" placeholder="Reason for leaving" id="experience-reason-input">
+              <ul>
+                <li>
+                  <a href="#" class="active">
+                    <i class="bx bx-user"></i>
+                    My Profile
+                  </a>
+                </li>
+                <li>
+                  <a href="resume.html">
+                    <i class="bx bxs-file-doc"></i>
+                    My Resume
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="bx bx-briefcase"></i>
+                    Applied Job
+                  </a>
+                </li>
+                <li>
+                  <a href="#" onclick="toggleNotifi()">
+                    <i class="bx bx-envelope"></i>
+                    Messages
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="bx bx-heart"></i>
+                    Saved Jobs
+                  </a>
+                </li>
+                <li>
+                  <!-- <div class="box"> -->
+                  <a href="#popup1"
+                    ><i class="bx bx-lock-alt"></i>Change Password</a
+                  >
+                  <!-- </div> -->
+
+                  <div id="popup1" class="overlay">
+                    <div class="popup">
+                      <a class="close" href="#">&times;</a>
+                      <div class="content">
+                        <h2>Change Password Page</h2>
+                        <form>
+                          <label for="oldPass">Old Password:</label><br />
+                          <input
+                            type="password"
+                            id="oldPass"
+                            placeholder="Enter old password"
+                            required
+                          />
+                          <br /><br />
+                          <label for="newPass">New Password:</label><br />
+                          <input
+                            type="password"
+                            id="newPass"
+                            placeholder="Enter new password"
+                            required
+                          />
+                          <br /><br />
+                          <label for="conPass">Confirm Password:</label><br />
+                          <input
+                            type="password"
+                            id="conPass"
+                            placeholder="Enter confirm password"
+                            required
+                          />
+                          <br /><br />
+                          <button
+                            type="button"
+                            class="button"
+                            onclick="validateForm();"
+                          >
+                            Submit
+                          </button>
+                        </form>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="skills">Skills:</label>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Skill" id="skill1-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Skill" id="skill2-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Skill" id="skill3-input">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Skill" id="skill4-input">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Facebook</label>
-                  <input type="text" class="form-control" placeholder="www.facebook.com/user" id="account-facebook-input">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Twitter</label>
-                  <input type="text" class="form-control" placeholder="www.twitter.com/user" id="account-twitter-input">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>LinkedIn</label>
-                  <input type="text" class="form-control" placeholder="www.linkedin.com/user" id="account-linkedin-input">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Github</label>
-                  <input type="text" class="form-control" placeholder="www.github.com/user" id="account-github-input">
-                </div>
-              </div>
-              <div class="col-md-12">
-                <button type="submit" class="account-btn" onclick="submitForm()">Submit</button>
-              </div>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="bx bx-coffee-togo"></i>
+                    Delete Account
+                  </a>
+                </li>
+                <li>
+                  <a href="index.html">
+                    <i class="bx bx-log-out"></i>
+                    Log Out
+                  </a>
+                </li>
+              </ul>
             </div>
-          </form>
+          </div>
+          <div class="col-md-8">
+            <div class="account-details">
+              <h3>Information</h3>
+              <form id="account-form">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Your Name & Surname:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your Name"
+                        id="account-name-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Your Email:</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        placeholder="Your Email"
+                        id="account-email-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Your Phone number:</label>
+                      <input
+                        type="tel"
+                        class="form-control"
+                        placeholder="Your Phone"
+                        id="account-phone-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Job Title:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Job Title"
+                        id="account-job-title-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Your Country</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your Country"
+                        id="account-country-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Your City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your City"
+                        id="account-city-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Zip Code</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="City Zip"
+                        id="account-zip-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Region</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your Region"
+                        id="account-region-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="aboutme">About Me:</label>
+                      <textarea
+                        id="aboutme"
+                        class="form-control"
+                        placeholder="About Me"
+                        name="aboutme"
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="education">Education Background:</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>School/Institute</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="School/Institute"
+                              id="education-school-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Qualification</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Qualification"
+                              id="education-qualification-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Year Started</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Year Started"
+                              id="education-year-started-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Year completed</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Year completed"
+                              id="education-year-completed-input"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="experience">Work Experience:</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Position</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Position"
+                              id="experience-position-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Company</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Company"
+                              id="experience-company-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Year</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Year"
+                              id="experience-year-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Reason for leaving</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Reason for leaving"
+                              id="experience-reason-input"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="skills">Skills:</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Skill"
+                              id="skill1-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Skill"
+                              id="skill2-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Skill"
+                              id="skill3-input"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Skill"
+                              id="skill4-input"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Facebook</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="www.facebook.com/user"
+                        id="account-facebook-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Twitter</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="www.twitter.com/user"
+                        id="account-twitter-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>LinkedIn</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="www.linkedin.com/user"
+                        id="account-linkedin-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Github</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="www.github.com/user"
+                        id="account-github-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <button
+                      type="submit"
+                      class="account-btn"
+                      onclick="submitForm()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<script>
-// Function to send form data to server
-function submitForm() {
-  // Get form values
-  var name = document.getElementById('account-name-input').value;
-  var email = document.getElementById('account-email-input').value;
-  var phone = document.getElementById('account-phone-input').value;
-  var jobTitle = document.getElementById('account-job-title-input').value;
-  var country = document.getElementById('account-country-input').value;
-  var city = document.getElementById('account-city-input').value;
-  var zipCode = document.getElementById('account-zip-input').value;
-  var region = document.getElementById('account-region-input').value;
-  var aboutMe = document.getElementById('aboutme').value;
-  var educationSchool = document.getElementById('education-school-input').value;
-  var educationQualification = document.getElementById('education-qualification-input').value;
-  var educationYearStarted = document.getElementById('education-year-started-input').value;
-  var educationYearCompleted = document.getElementById('education-year-completed-input').value;
-  var experiencePosition = document.getElementById('experience-position-input').value;
-  var experienceCompany = document.getElementById('experience-company-input').value;
-  var experienceYear = document.getElementById('experience-year-input').value;
-  var experienceReason = document.getElementById('experience-reason-input').value;
-  var skill1 = document.getElementById('skill1-input').value;
-  var skill2 = document.getElementById('skill2-input').value;
-  var skill3 = document.getElementById('skill3-input').value;
-  var skill4 = document.getElementById('skill4-input').value;
-  var facebook = document.getElementById('account-facebook-input').value;
-  var twitter = document.getElementById('account-twitter-input').value;
-  var linkedin = document.getElementById('account-linkedin-input').value;
-  var github = document.getElementById('account-github-input').value;
+    </section>
+    <script>
+      // Function to send form data to server
+      function submitForm() {
+        // Get form values
+        var name = document.getElementById("account-name-input").value;
+        var email = document.getElementById("account-email-input").value;
+        var phone = document.getElementById("account-phone-input").value;
+        var jobTitle = document.getElementById("account-job-title-input").value;
+        var country = document.getElementById("account-country-input").value;
+        var city = document.getElementById("account-city-input").value;
+        var zipCode = document.getElementById("account-zip-input").value;
+        var region = document.getElementById("account-region-input").value;
+        var aboutMe = document.getElementById("aboutme").value;
+        var educationSchool = document.getElementById(
+          "education-school-input"
+        ).value;
+        var educationQualification = document.getElementById(
+          "education-qualification-input"
+        ).value;
+        var educationYearStarted = document.getElementById(
+          "education-year-started-input"
+        ).value;
+        var educationYearCompleted = document.getElementById(
+          "education-year-completed-input"
+        ).value;
+        var experiencePosition = document.getElementById(
+          "experience-position-input"
+        ).value;
+        var experienceCompany = document.getElementById(
+          "experience-company-input"
+        ).value;
+        var experienceYear = document.getElementById(
+          "experience-year-input"
+        ).value;
+        var experienceReason = document.getElementById(
+          "experience-reason-input"
+        ).value;
+        var skill1 = document.getElementById("skill1-input").value;
+        var skill2 = document.getElementById("skill2-input").value;
+        var skill3 = document.getElementById("skill3-input").value;
+        var skill4 = document.getElementById("skill4-input").value;
+        var facebook = document.getElementById("account-facebook-input").value;
+        var twitter = document.getElementById("account-twitter-input").value;
+        var linkedin = document.getElementById("account-linkedin-input").value;
+        var github = document.getElementById("account-github-input").value;
 
-  // Create data object
-  var data = {
-    name: name,
-    email: email,
-    phone: phone,
-    jobTitle: jobTitle,
-    country: country,
-    city: city,
-    zipCode: zipCode,
-    region: region,
-    aboutMe: aboutMe,
-    education: {
-      school: educationSchool,
-      qualification: educationQualification,
-      yearStarted: educationYearStarted,
-      yearCompleted: educationYearCompleted
-    },
-    experience: {
-      position: experiencePosition,
-      company: experienceCompany,
-      year: experienceYear,
-      reason: experienceReason
-    },
-    skills: [skill1, skill2, skill3, skill4],
-    social: {
-      facebook: facebook,
-      twitter: twitter,
-      linkedin: linkedin,
-      github: github
-    }
-  };
+        // Create data object
+        var data = {
+          name: name,
+          email: email,
+          phone: phone,
+          jobTitle: jobTitle,
+          country: country,
+          city: city,
+          zipCode: zipCode,
+          region: region,
+          aboutMe: aboutMe,
+          education: {
+            school: educationSchool,
+            qualification: educationQualification,
+            yearStarted: educationYearStarted,
+            yearCompleted: educationYearCompleted,
+          },
+          experience: {
+            position: experiencePosition,
+            company: experienceCompany,
+            year: experienceYear,
+            reason: experienceReason,
+          },
+          skills: [skill1, skill2, skill3, skill4],
+          social: {
+            facebook: facebook,
+            twitter: twitter,
+            linkedin: linkedin,
+            github: github,
+          },
+        };
 
-  // Send data to server using AJAX
-  var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/submitForm', true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            // Success message
-            alert('Form data submitted successfully!');
-            // Clear form fields
-            document.getElementById('account-form').reset();
-            window.location.href = 'resume.html';
-          } else {
-            // Error message
-            alert('Failed to submit form data. Please try again.');
+        // Send data to server using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/submitForm", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              // Success message
+              alert("Form data submitted successfully!");
+              // Clear form fields
+              document.getElementById("account-form").reset();
+              window.location.href = "resume.html";
+            } else {
+              // Error message
+              alert("Failed to submit form data. Please try again.");
+            }
           }
+        };
+        xhr.send(JSON.stringify(data));
+      }
+
+      // Event listener for form submission
+      document
+        .getElementById("account-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent default form submission
+          submitForm(); // Call submitForm function
+        });
+    </script>
+
+    <section class="subscribe-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="section-title">
+              <h2>Get New Job Notifications</h2>
+              <p>Subscribe & get all related jobs notification</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <form class="newsletter-form" data-toggle="validator">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your email"
+                name="EMAIL"
+                required
+                autocomplete="off"
+              />
+              <button class="default-btn sub-btn" type="submit">
+                Subscribe
+              </button>
+              <div id="validator-newsletter" class="form-result"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-area pt-100 pb-70">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget">
+              <div class="footer-logo">
+                <a href="index.html">
+                  <img src="./assets/img/logo.jpg" width="100" alt="logo" />
+                </a>
+              </div>
+              <p>
+                "Unlock Your Career Potential: Discover Jobs, Explore
+                Opportunities!"
+              </p>
+              <div class="footer-social">
+                <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
+                <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
+                <a href="#" target="_blank"
+                  ><i class="bx bxl-pinterest-alt"></i
+                ></a>
+                <a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>For Candidate</h3>
+              <ul>
+                <li>
+                  <a href="job-grid.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Jobs
+                  </a>
+                </li>
+                <li>
+                  <a href="account.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Account
+                  </a>
+                </li>
+                <li>
+                  <a href="catagories.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Browse Categories
+                  </a>
+                </li>
+                <li>
+                  <a href="resume.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Resume
+                  </a>
+                </li>
+                <li>
+                  <a href="job-list.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Job List
+                  </a>
+                </li>
+                <li>
+                  <a href="sign-up.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Sign Up
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget pl-60">
+              <h3>Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="index.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="faq.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a href="terms-condition.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Terms-Conditions
+                  </a>
+                </li>
+                <li>
+                  <a href="privacy.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Privacy
+                  </a>
+                </li>
+
+                <li>
+                  <a href="contact.html">
+                    <i class="bx bx-chevrons-right bx-tada"></i>
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <div class="footer-widget footer-info">
+              <h3>Information</h3>
+              <ul>
+                <li>
+                  <span>
+                    <i class="bx bxs-phone"></i>
+                    Phone:
+                  </span>
+                  <a href="tel:882569756"> +101 984 754 </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bxs-envelope"></i>
+                    Email:
+                  </span>
+                  <a href="#">
+                    <span
+                      class="__cf_email__"
+                      data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf"
+                      >job@quest.org.za</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <span>
+                    <i class="bx bx-location-plus"></i>
+                    Address:
+                  </span>
+                  123, Kampton park, SA
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <div class="copyright-text text-center">
+      <p>© Jobquest 2023</p>
+    </div>
+
+    <div class="top-btn">
+      <i class="bx bx-chevrons-up bx-fade-up"></i>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+
+    <script
+      data-cfasync="false"
+      src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/owl.carousel.min.js"></script>
+
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <script src="assets/js/form-validator.min.js"></script>
+
+    <script src="assets/js/contact-form-script.js"></script>
+
+    <script src="assets/js/meanmenu.js"></script>
+
+    <script src="assets/js/custom.js"></script>
+
+    <script type="text/javascript">
+      function validateForm() {
+        const oldPass = document.getElementById("oldPass").value;
+        const newPass = document.getElementById("newPass").value;
+        const conPass = document.getElementById("conPass").value;
+
+        if (oldPass === "") {
+          alert("Old password is required");
+        } else if (newPass === "") {
+          alert("New password is required");
+        } else if (newPass.length < 7) {
+          alert("New password has to be at least 8 digits");
+        } else if (!/[!@#$%^&*]/.test(newPass)) {
+          alert("New password has to be at least contain one character");
+        } else if (!/[a-z]/.test(newPass) || !/[A-Z]/.test(newPass)) {
+          alert(
+            "New password must contain at least one uppercase letter and one lowercase letter"
+          );
+        } else if (!/\d/.test(newPass)) {
+          alert("New password must contain at least one digit/number");
+        } else if (conPass === "") {
+          alert("Confirm password is required");
+        } else if (newPass !== conPass) {
+          alert("New password and confirm password do not match.");
+        } else if (oldPass === newPass) {
+          alert("New password must be different from the old password.");
+        } else {
+          // Submit the form
+          alert("Great!!!!.");
+          document.getElementById("passwordForm").submit();
         }
-      };
-      xhr.send(JSON.stringify(data));
-    }
-
-    // Event listener for form submission
-    document.getElementById('account-form').addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent default form submission
-      submitForm(); // Call submitForm function
-    });
-</script>
-
-
-
-<section class="subscribe-section">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-md-6">
-<div class="section-title">
-<h2>Get New Job Notifications</h2>
-<p>Subscribe & get all related jobs notification</p>
-</div>
-</div>
-<div class="col-md-6">
-<form class="newsletter-form" data-toggle="validator">
-<input type="email" class="form-control" placeholder="Enter your email" name="EMAIL" required autocomplete="off">
-<button class="default-btn sub-btn" type="submit">
-Subscribe
-</button>
-<div id="validator-newsletter" class="form-result"></div>
-</form>
-</div>
-</div>
-</div>
-</section>
-
-
-<footer class="footer-area pt-100 pb-70">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget">
-<div class="footer-logo">
-<a href="index.html">
-<img src="./assets/img/logo.jpg" width="100" alt="logo">
-</a>
-</div>
-<p>"Unlock Your Career Potential: Discover Jobs, Explore Opportunities!"</p>
-<div class="footer-social">
-<a href="#" target="_blank"><i class='bx bxl-facebook'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-twitter'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-pinterest-alt'></i></a>
-<a href="#" target="_blank"><i class='bx bxl-linkedin'></i></a>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>For Candidate</h3>
-<ul>
-<li>
-<a href="job-grid.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Jobs
-</a>
-</li>
-<li>
-<a href="account.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Account
-</a>
-</li>
-<li>
-<a href="catagories.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Browse Categories
-</a>
-</li>
-<li>
-<a href="resume.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Resume
-</a>
-</li>
-<li>
-<a href="job-list.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Job List
-</a>
-</li>
-<li>
-<a href="sign-up.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Sign Up
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget pl-60">
-<h3>Quick Links</h3>
-<ul>
-<li>
-<a href="index.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Home
-</a>
-</li>
-<li>
-<a href="faq.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-FAQ
-</a>
-</li>
-<li>
-<a href="terms-condition.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Terms-Conditions
-</a>
-</li>
-<li>
-<a href="privacy.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Privacy
-</a>
-</li>
-
-<li>
-<a href="contact.html">
-<i class='bx bx-chevrons-right bx-tada'></i>
-Contact
-</a>
-</li>
-</ul>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6">
-<div class="footer-widget footer-info">
-<h3>Information</h3>
-<ul>
-<li>
-<span>
-<i class='bx bxs-phone'></i>
-Phone:
-</span>
-<a href="tel:882569756">
-+101 984 754
-</a>
-</li>
-<li>
-<span>
-<i class='bx bxs-envelope'></i>
-Email:
-</span>
-<a href="#">
-<span class="__cf_email__" data-cfemail="d2bbbcb4bd92b8bda4bbb7fcb1bdbf">job@quest.org.za</span>
-</a>
-</li>
-<li>
-<span>
-<i class='bx bx-location-plus'></i>
-Address:
-</span>
-123, Denver, SA
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</footer>
-<div class="copyright-text text-center">
-<p>© Jobquest 2023</p>
-</div>
-
-
-<div class="top-btn">
-<i class='bx bx-chevrons-up bx-fade-up'></i>
-</div>
-
-<script src="assets/js/script.js"></script>
-
-<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="assets/js/owl.carousel.min.js"></script>
-
-<script src="assets/js/jquery.nice-select.min.js"></script>
-
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
-
-<script src="assets/js/form-validator.min.js"></script>
-
-<script src="assets/js/contact-form-script.js"></script>
-
-<script src="assets/js/meanmenu.js"></script>
-
-<script src="assets/js/custom.js"></script>
-
-<script type="text/javascript">
-  function validateForm() {
-    const oldPass = document.getElementById("oldPass").value;
-    const newPass = document.getElementById("newPass").value;
-    const conPass = document.getElementById("conPass").value;
-
-   
-    if(oldPass===''){
-      alert("Old password is required");
-    }
-    else if(newPass===''){
-      alert("New password is required");
-    }
-    else if(newPass.length<7){
-      alert("New password has to be at least 8 digits");
-    }
-    else if(!/[!@#$%^&*]/.test(newPass)){
-
-    	alert("New password has to be at least contain one character");
-    }
-    else if(!/[a-z]/.test(newPass) || !/[A-Z]/.test(newPass)){
-    	alert("New password must contain at least one uppercase letter and one lowercase letter");
-    }
-    else if (!/\d/.test(newPass)) {
-    	alert("New password must contain at least one digit/number");
-    }
-    else if(conPass===''){
-      alert("Confirm password is required");
-    }
-    else  if (newPass !== conPass) {
-      alert("New password and confirm password do not match.");
-    }
-    else if (oldPass === newPass) {
-      alert("New password must be different from the old password.");
-    } else {
-      // Submit the form
-      alert("Great!!!!.");
-      document.getElementById("passwordForm").submit();
-    }
-  }
-</script>
-
-</body>
+      }
+    </script>
+  </body>
 </html>
