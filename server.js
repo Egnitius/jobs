@@ -327,6 +327,7 @@ const server = http.createServer((req, res) => {
             existingData.companyName = profileData.companyName;
             existingData.email = profileData.email;
             existingData.location = profileData.location;
+            existingData.companyWebsite = profileData.companyWebsite;
   
             // Write the updated data back to the JSON file
             fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
@@ -397,8 +398,11 @@ const server = http.createServer((req, res) => {
                       <h3 id="jobTitle">${jobDetails.job}</h3>
                     </a>
                     <ul>
-                    <li id="companyName">Via ${jobDetails.companyName} <a href="#"></a></li>
-                      <li>
+                    <i>Via 
+                        <a href="#">
+                          <li id="companyName"> ${jobDetails.companyName} </li>
+                        </a>
+                      </i>
                         <i class='bx bx-location-plus' id="location">${jobDetails.location}</i>
                       </li>
                       <li>
