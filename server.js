@@ -345,28 +345,51 @@ const server = http.createServer((req, res) => {
       });
   } else if (req.method === 'POST' && req.url === '/api/jobForm') {
     let data = '';
-
+  
     // Collect the request body data
     req.on('data', (chunk) => {
       data += chunk;
     });
-
+  
     // Process the request when the data has been fully received
     req.on('end', () => {
       const jobData = JSON.parse(data);
-
-      // Save form data to a file
-      fs.writeFile('jobDetails.json', JSON.stringify(jobData), (err) => {
+  
+      // Read the existing data from the JSON file
+      fs.readFile('jobDetails.json', 'utf8', (err, existingData) => {
         if (err) {
           console.error(err);
           res.statusCode = 500;
           res.end('Failed to submit form data. Please try again.');
-        } else {
-          res.statusCode = 200;
-          res.end('Form data submitted successfully!');
+          return;
         }
+  
+        let newData;
+        try {
+          newData = JSON.parse(existingData);
+          if (!Array.isArray(newData)) {
+            newData = [newData]; // Wrap existing data in an array
+          }
+        } catch (error) {
+          newData = [jobData]; // Initialize newData with the new jobData
+        }
+  
+        // Add the new job data to the existing data
+        newData.push(jobData);
+  
+        // Write the updated data back to the JSON file
+        fs.writeFile('jobDetails.json', JSON.stringify(newData), (err) => {
+          if (err) {
+            console.error(err);
+            res.statusCode = 500;
+            res.end('Failed to submit form data. Please try again.');
+          } else {
+            res.statusCode = 200;
+            res.end('Form data submitted successfully!');
+          }
+        });
       });
-    }); 
+    });
   } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
     // Read the jobDetails.json file
     const jobDetailsFilePath = path.join(__dirname, 'jobDetails.json');
