@@ -389,19 +389,17 @@ const server = http.createServer((req, res) => {
       }
     });
   } else // Check the URL path and respond accordingly
-  if (req.url === '/api/jobDetails.json' && req.method === 'GET') {
-    const filePath = path.join(__dirname, 'jobDetails.json');
-  
-    // Read the JSON file
-    fs.readFile(filePath, (err, data) => {
+  if (req.url === '/api/jobDetails.json') {
+    fs.readFile('./api/jobDetails.json', 'utf8', (err, data) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Internal Server Error');
-      } else {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(data);
+        return;
       }
-    });   
+
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(data);
+    });
   } else {
     // Serve the requested file
 let filePath;
