@@ -492,7 +492,7 @@ function sendErrorResponse(res, statusCode, message) {
 }
 
 // Retrieve the job ID from the query parameters
-const urlParams = new URL(req.url, `http://${req.headers.host}`);
+const urlParams = new URL(req.url, `/api/jobDetails.json`);
 const jobId = urlParams.searchParams.get('id');
 
 // Read the jobDetails.json file
