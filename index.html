@@ -354,6 +354,13 @@
           }
         })
         .catch(error => console.error('Error fetching JSON:', error));
+
+        $(".browse-job-details").on("click", function (e) {
+  e.preventDefault();
+  const jobIndex = $(this).data("index");
+  window.location.href = `job-details.html?jobIndex=${jobIndex}`;
+});
+
     </script>  
     
 

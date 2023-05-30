@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
     <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
   <body>
     <div class="loader-content">
@@ -144,80 +146,31 @@
                       </div>
                       <div class="col-md-10">
                         <div class="job-info">
-                          <h3>
-                            Web Designer, Graphic Designer, UI/UX Designer
+                          <h3 id="job">
+                            
                           </h3>
                           <ul>
                             <li>
-                              <i class="bx bx-location-plus"></i>
-                              Wellesley Rd, Johannesburg
+                              <i class="bx bx-location-plus" id="location"></i>
+                              
                             </li>
                             <li>
-                              <i class="bx bx-filter-alt"></i>
-                              Accountancy
+                              <i class="bx bx-filter-alt" id="jobTags"></i>
+                              
                             </li>
                             <li>
-                              <i class="bx bx-briefcase"></i>
-                              Freelance
+                              <i class="bx bx-briefcase" id="jobType"></i>
+                              
                             </li>
                           </ul>
-                          <span>
-                            <i class="bx bx-paper-plane"></i>
-                            Apply Before: June 01,2023
-                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="details-text">
-                    <h3>Description</h3>
-                    <p>
-                      Plan, create and code internet sites and web pages, many
-                      of which combine text with sounds, pictures, graphics and
-                      video clips.
+                    <p id="jobDescription">
+                      
                     </p>
-                    <p>
-                      A web designer is responsible for creating the design and
-                      layout of a website or web pages.
-                    </p>
-                  </div>
-                  <div class="details-text">
-                    <h3>Requirements</h3>
-                    <p></p>
-                    <ul>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Proficiency in HTML, CSS, and JavaScript'.
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Portfolio showcasing previous web design projects.
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Excellent attention to detail and time management
-                        skills.
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Experience with responsive design and mobile
-                        optimization..
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Strong understanding of user experience (UX) principles
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Knowledge of design software such as Adobe Photoshop and
-                        Illustrator.
-                      </li>
-                      <li>
-                        <i class="bx bx-check"></i>
-                        Ability to collaborate with cross-functional teams and
-                        stakeholders
-                      </li>
-                    </ul>
                   </div>
                   <div class="details-text">
                     <h3>Job Details</h3>
@@ -227,27 +180,22 @@
                           <tbody>
                             <tr>
                               <td><span>Company</span></td>
-                              <td>Tourt Design LTD</td>
+                              <td id="companyName"></td>
                             </tr>
                             <tr>
                               <td><span>Location</span></td>
-                              <td>Wellesley Rd, Johannesburg</td>
+                              <td id="location"></td>
                             </tr>
                             <tr>
                               <td><span>Job Type</span></td>
-                              <td>Full Time</td>
+                              <td id="jobType"></td>
                             </tr>
                             <tr>
                               <td><span>Email</span></td>
                               <td>
                                 <a
                                   href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#761e131a1a193615191b0617180f5815191b"
-                                  ><span
-                                    class="__cf_email__"
-                                    data-cfemail="5d35383131321d3e32302d3c3324733e3230"
-                                    >job@quest.org.za</span
-                                  ></a
-                                >
+                                  ><span class="__cf_email__" data-cfemail="5d35383131321d3e32302d3c3324733e3230" id="email">job@quest.org.za</span></a>
                               </td>
                             </tr>
                           </tbody>
@@ -257,20 +205,12 @@
                         <table class="table">
                           <tbody>
                             <tr>
-                              <td><span>Experince</span></td>
-                              <td>2 Years</td>
-                            </tr>
-                            <tr>
-                              <td><span>Language</span></td>
-                              <td>English</td>
-                            </tr>
-                            <tr>
                               <td><span>Salary</span></td>
-                              <td>R10,000</td>
+                              <td id="salary"></td>
                             </tr>
                             <tr>
                               <td><span>Website</span></td>
-                              <td><a href="#">www.company.com</a></td>
+                              <td><a href="#" id="companyWebsite"></a></td>
                             </tr>
                           </tbody>
                         </table>
@@ -286,22 +226,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="job-sidebar">
-              <h3>Posted By</h3>
-              <div class="posted-by">
-                <img src="assets/img/client-1.png" alt="client image" />
-                <h4>John Khoza</h4>
-                <span>CEO of Tourt Design LTD</span>
-              </div>
-            </div>
-            <div class="job-sidebar">
-              <h3>Location</h3>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3565.9407820510066!2d28.043636414396075!3d-26.204102783464863!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950d2254e8ba9d%3A0x1f9e4c5b2998a09!2sJohannesburg%2C%20South%20Africa!5e0!3m2!1sen!2sbd!4v1652192260621!5m2!1sen!2sbd"
-                frameborder="0"
-              ></iframe>
-            </div>
+          
             <div class="job-sidebar">
               <h3>Keywords</h3>
               <ul>
@@ -364,14 +289,33 @@
       </div>
     </section>
     <script>
-      // Add a click event listener to the button
-      document
-        .getElementById("alertButton")
-        .addEventListener("click", function () {
-          // Display an alert message when the button is clicked
-          alert("Application Submitted!");
-        });
+      // Retrieve the job ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobId = urlParams.get('id');
+    
+      // Make an AJAX request to fetch the job data
+      $.ajax({
+        url: 'http://${req.headers.host}',
+        method: 'GET',
+        data: { id: jobId },
+        success: function(response) {
+          // Populate the HTML elements with the job data
+          $('#job').text(response.jobTitle);
+          $('#location').text(response.location);
+          $('#jobTags').text(response.tags);
+          $('#jobType').text(response.jobType);
+          $('#jobDescription').text(response.description);
+          $('#companyName').text(response.companyName);
+          $('#salary').text(response.salary);
+          $('#companyWebsite').attr('href', response.website);
+          $('#email').attr('href', 'mailto:' + response.email).text(response.email);
+        },
+        error: function(xhr, status, error) {
+          console.error(error);
+        }
+      });
     </script>
+    
 
     <section class="job-style-two pt-100 pb-70">
       <div class="container">

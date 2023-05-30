@@ -490,6 +490,40 @@ function sendErrorResponse(res, statusCode, message) {
   const responseData = { success: false, error: message };
   res.end(JSON.stringify(responseData));
 }
+
+// Retrieve the job ID from the query parameters
+const urlParams = new URL(req.url, `http://${req.headers.host}`);
+const jobId = urlParams.searchParams.get('id');
+
+// Read the jobDetails.json file
+fs.readFile('jobDetails.json', 'utf8', (err, data) => {
+  if (err) {
+    res.statusCode = 500;
+    res.end('Internal Server Error');
+    return;
+  }
+
+  try {
+    const jobData = JSON.parse(data);
+
+    // Find the job object with the matching ID
+    const job = jobData.jobs.find((item) => item.id === jobId);
+
+    if (job) {
+      // Return the job data as a JSON response
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.end(JSON.stringify(job));
+    } else {
+      res.statusCode = 404;
+      res.end('Job not found');
+    }
+  } catch (error) {
+    res.statusCode = 500;
+    res.end('Internal Server Error');
+  }
+});
+
 // Start the server
 server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
