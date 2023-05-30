@@ -297,24 +297,32 @@
       $.ajax({
         url: '/api/jobDetails.json',
         method: 'GET',
-        data: { id: jobId },
         success: function(response) {
-          // Populate the HTML elements with the job data
-          $('#job').text(response.jobTitle);
-          $('#location').text(response.location);
-          $('#jobTags').text(response.tags);
-          $('#jobType').text(response.jobType);
-          $('#jobDescription').text(response.description);
-          $('#companyName').text(response.companyName);
-          $('#salary').text(response.salary);
-          $('#companyWebsite').attr('href', response.website);
-          $('#email').attr('href', 'mailto:' + response.email).text(response.email);
+          const jobs = response[0].jobs; // Assuming the jobs are stored in an array
+    
+          // Find the job with the matching ID
+          const job = jobs.find(j => j.job === jobId);
+    
+          if (job) {
+            // Populate the HTML elements with the job data
+            $('#job').text(job.job);
+            $('#location').text(job.location);
+            $('#jobTags').text(job.jobTags);
+            $('#jobType').text(job.jobType);
+            $('#jobDescription').text(job.jobDescription);
+            $('#companyName').text(job.companyName);
+            $('#salary').text(job.salary);
+            $('#companyWebsite').attr('href', job.companyWebsite);
+            $('#email').attr('href', 'mailto:' + job.email).text(job.email);
+          } else {
+            console.error('Job not found');
+          }
         },
         error: function(xhr, status, error) {
           console.error(error);
         }
       });
-    </script>
+    </script>    
   
 
     <section class="subscribe-section">
