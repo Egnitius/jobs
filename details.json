@@ -1,13 +1,13 @@
 {
   "name": "Tshepo Paledi",
   "email": "paledi.egnitius@capaciti.org.za",
-  "phone": "0155685684",
+  "phone": "0725868587",
   "jobTitle": "Web Developer",
   "country": "South Africa",
-  "city": "JHB",
+  "city": "Johannesburg",
   "zipCode": "2017",
   "region": "East",
-  "aboutMe": "htrdhjtyjyuf yjtyjfy tyjfjufuj",
+  "aboutMe": "all about me.",
   "education": {
     "school": "Rosebank College",
     "qualification": "DISD 313",
@@ -18,13 +18,13 @@
     "position": "Web Developer",
     "company": "Capaciti(eoh)",
     "year": "2023",
-    "reason": "N/A"
+    "reason": "Not applicable"
   },
-  "skills": ["HTML", "CSS", "JAVASCRIPT", "NODE JS"],
+  "skills": ["  HTML", "  CSS", "  JAVASCRIPT", "  NODE JS"],
   "social": {
-    "facebook": "www.facebook.com/tshepo",
-    "twitter": "www.twitter.com/tshepo",
-    "linkedin": "www.linkdin.com/tshepo",
-    "github": "www.Github.com/tshepo"
+    "facebook": "www.facebook.com/Egnitius",
+    "twitter": "www.twitter.com/Egnitius",
+    "linkedin": "www.linkedin.com/Egnitius",
+    "github": "www.github.com/Egnitius"
   }
 }

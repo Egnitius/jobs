@@ -1,7 +1,6 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer');
 
 const port = 3000;
 
@@ -73,70 +72,70 @@ const server = http.createServer((req, res) => {
       });
     });
   } else if (req.method === 'POST' && req.url === '/api/recSignup') {
-      let body = '';
-      req.on('data', chunk => {
-        body += chunk;
-      });
-  
-      req.on('end', () => {
-        // Parse the JSON data from the request body
-        const recData = JSON.parse(body);
-  
-        // Check if the recruiter.json file exists
-        const recFilePath = path.join(__dirname, 'recruiter.json');
-        fs.access(recFilePath, fs.constants.F_OK, err => {
-          if (err) {
-            // If the file doesn't exist, create a new one with the user data
-            const initialData = [recData];
-            const initialDataJSON = JSON.stringify(initialData);
-  
-            fs.writeFile(recFilePath, initialDataJSON, 'utf8', err => {
-              if (err) {
-                console.error('Error writing to recuiter.json:', err);
-                sendErrorResponse(res, 500, 'Failed to create user');
-              } else {
-                sendSuccessResponse(res, 'Recruiter signed up successfully!');
-              }
-            });
-          } else {
-            // If the file exists, read the existing user data
-            fs.readFile(recFilePath, 'utf8', (err, data) => {
-              if (err) {
-                console.error('Error reading users.json:', err);
-                sendErrorResponse(res, 500, 'Failed to read user data');
-              } else {
-                try {
-                  // Parse the existing user data from the file
-                  const existingUsers = JSON.parse(data);
-  
-                  // Check if the email already exists
-                  const userExists = existingUsers.some(user => user.email === userData.email);
-                  if (userExists) {
-                    sendErrorResponse(res, 400, 'Email already exists');
-                  } else {
-                    // Add the new user data to the existing users
-                    existingUsers.push(userData);
-                    const updatedDataJSON = JSON.stringify(existingUsers);
-  
-                    // Write the updated user data back to the file
-                    fs.writeFile(recFilePath, updatedDataJSON, 'utf8', err => {
-                      if (err) {
-                        console.error('Error writing to users.json:', err);
-                        sendErrorResponse(res, 500, 'Failed to create user');
-                      } else {
-                        sendSuccessResponse(res, 'User signed up successfully!');
-                      }
-                    });
-                  }
-                } catch (error) {
-                  console.error('Error parsing users.json:', error);
-                  sendErrorResponse(res, 500, 'Failed to read user data');
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      // Parse the JSON data from the request body
+      const recData = JSON.parse(body);
+
+      // Check if the recruiter.json file exists
+      const recFilePath = path.join(__dirname, 'recruiter.json');
+      fs.access(recFilePath, fs.constants.F_OK, err => {
+        if (err) {
+          // If the file doesn't exist, create a new one with the recruiter data
+          const initialData = [recData];
+          const initialDataJSON = JSON.stringify(initialData);
+
+          fs.writeFile(recFilePath, initialDataJSON, 'utf8', err => {
+            if (err) {
+              console.error('Error writing to recruiter.json:', err);
+              sendErrorResponse(res, 500, 'Failed to create recruiter');
+            } else {
+              sendSuccessResponse(res, 'Recruiter signed up successfully!');
+            }
+          });
+        } else {
+          // If the file exists, read the existing recruiter data
+          fs.readFile(recFilePath, 'utf8', (err, data) => {
+            if (err) {
+              console.error('Error reading recruiter.json:', err);
+              sendErrorResponse(res, 500, 'Failed to read recruiter data');
+            } else {
+              try {
+                // Parse the existing recruiter data from the file
+                const existingRecruiters = JSON.parse(data);
+
+                // Check if the email already exists
+                const recExists = existingRecruiters.some(recruiter => recruiter.email === recData.email);
+                if (recExists) {
+                  sendErrorResponse(res, 400, 'Email already exists');
+                } else {
+                  // Add the new recruiter data to the existing recruiters
+                  existingRecruiters.push(recData);
+                  const updatedDataJSON = JSON.stringify(existingRecruiters);
+
+                  // Write the updated recruiter data back to the file
+                  fs.writeFile(recFilePath, updatedDataJSON, 'utf8', err => {
+                    if (err) {
+                      console.error('Error writing to recruiter.json:', err);
+                      sendErrorResponse(res, 500, 'Failed to create recruiter');
+                    } else {
+                      sendSuccessResponse(res, 'Recruiter signed up successfully!');
+                    }
+                  });
                 }
+              } catch (error) {
+                console.error('Error parsing recruiter.json:', error);
+                sendErrorResponse(res, 500, 'Failed to read recruiter data');
               }
-            });
-          }
-        });
+            }
+          });
+        }
       });
+    });
   } else if (req.method === 'POST' && req.url === '/api/signin') {
     let body = '';
     req.on('data', chunk => {
@@ -218,42 +217,6 @@ const server = http.createServer((req, res) => {
       });
     });
   } else if (req.method === 'POST' && req.url === '/api/submitForm') {
-    let data = '';
-
-    // Collect the request body data
-    req.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    // Process the request when the data has been fully received
-    req.on('end', () => {
-      const formData = JSON.parse(data);
-
-      // Save form data to a file
-      fs.writeFile('details.json', JSON.stringify(formData), (err) => {
-        if (err) {
-          console.error(err);
-          res.statusCode = 500;
-          res.end('Failed to submit form data. Please try again.');
-        } else {
-          res.statusCode = 200;
-          res.end('Form data submitted successfully!');
-        }
-      });
-    });
-  } else  // Handle requests for details.json
-  if (req.url === '/api/getDetails') {
-    const filePath = path.join(__dirname, 'details.json');
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end('Internal Server Error');
-        return;
-      }
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(data);
-    });
-  } else if (req.method === 'POST' && req.url === '/api/update-details') {
     let body = '';
     req.on('data', (chunk) => {
       body += chunk.toString();
@@ -261,37 +224,61 @@ const server = http.createServer((req, res) => {
 
     req.on('end', () => {
       // Parse the JSON data from the request body
-      const updatedData = JSON.parse(body);
+      const formData = JSON.parse(body);
 
+      // Save the form data to a file
+      const filePath = path.join(__dirname, 'details.json');
+      fs.writeFile(filePath, JSON.stringify(formData), (err) => {
+        if (err) {
+          console.error('Error writing details.json:', err);
+          res.statusCode = 500;
+          res.end('Failed to submit form details');
+        } else {
+          res.statusCode = 200;
+          res.end('Form data submitted successfully');
+        }
+      });
+    });
+  } else  // Handle requests for details.json
+  if (req.method === 'POST' && req.url === '/api/update-details') {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+  
+    req.on('end', () => {
+      // Parse the JSON data from the request body
+      const updatedData = JSON.parse(body);
+  
       // Read the existing data from the JSON file
-      const filePath = path.join(__dirname, 'data.json');
+      const filePath = path.join(__dirname, 'details.json');
       fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-          console.error('Error reading data.json:', err);
+          console.error('Error reading details.json:', err);
           res.statusCode = 500;
-          res.end('Failed to update data');
+          res.end('Failed to update details');
         } else {
           // Parse the existing data
           const existingData = JSON.parse(data);
-
+  
           // Update the existing data with the new values
           existingData.name = updatedData.name;
           existingData.jobTitle = updatedData.jobTitle;
           existingData.aboutMe = updatedData.aboutMe;
-          existingData.education.school = updatedData.school;
-          existingData.education.qualification = updatedData.qualification;
-          existingData.education.yearStarted = updatedData.yearStarted;
-          existingData.education.yearCompleted = updatedData.yearCompleted;
-          existingData.experience.position = updatedData.position;
-          existingData.experience.company = updatedData.company;
-          existingData.experience.year = updatedData.year;
-          existingData.experience.reason = updatedData.reason;
+          existingData.education.school = updatedData.education.school;
+          existingData.education.qualification = updatedData.education.qualification;
+          existingData.education.yearStarted = updatedData.education.yearStarted;
+          existingData.education.yearCompleted = updatedData.education.yearCompleted;
+          existingData.experience.position = updatedData.experience.position;
+          existingData.experience.company = updatedData.experience.company;
+          existingData.experience.year = updatedData.experience.year;
+          existingData.experience.reason = updatedData.experience.reason;
           existingData.skills = updatedData.skills;
-
+  
           // Write the updated data back to the JSON file
           fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
             if (err) {
-              console.error('Error writing data.json:', err);
+              console.error('Error writing details.json:', err);
               res.statusCode = 500;
               res.end('Failed to update data');
             } else {
@@ -301,166 +288,120 @@ const server = http.createServer((req, res) => {
           });
         }
       });
-    });
+    });  
   } else if (req.method === 'POST' && req.url === '/api/updateprofile') {
-      let body = '';
-      req.on('data', (chunk) => {
-        body += chunk.toString();
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+
+    req.on('end', () => {
+      // Parse the JSON data from the request body
+      const updatedData = JSON.parse(body);
+
+      // Check if the recruiter.json file exists
+      const recFilePath = path.join(__dirname, 'recruiter.json');
+      fs.access(recFilePath, fs.constants.F_OK, err => {
+        if (err) {
+          sendErrorResponse(res, 500, 'Recruiter data file does not exist');
+        } else {
+          // If the file exists, read the existing recruiter data
+          fs.readFile(recFilePath, 'utf8', (err, data) => {
+            if (err) {
+              console.error('Error reading recruiter.json:', err);
+              sendErrorResponse(res, 500, 'Failed to read recruiter data');
+            } else {
+              try {
+                // Parse the existing recruiter data from the file
+                const existingRecruiters = JSON.parse(data);
+
+                // Find the recruiter by email
+                const recruiter = existingRecruiters.find(rec => rec.email === updatedData.email);
+                if (!recruiter) {
+                  sendErrorResponse(res, 400, 'Recruiter not found');
+                } else {
+                  // Update the recruiter data
+                  recruiter.name = updatedData.name;
+                  recruiter.company = updatedData.company;
+
+                  const updatedDataJSON = JSON.stringify(existingRecruiters);
+
+                  // Write the updated recruiter data back to the file
+                  fs.writeFile(recFilePath, updatedDataJSON, 'utf8', err => {
+                    if (err) {
+                      console.error('Error writing to recruiter.json:', err);
+                      sendErrorResponse(res, 500, 'Failed to update recruiter');
+                    } else {
+                      sendSuccessResponse(res, 'Recruiter updated successfully!');
+                    }
+                  });
+                }
+              } catch (error) {
+                console.error('Error parsing recruiter.json:', error);
+                sendErrorResponse(res, 500, 'Failed to read recruiter data');
+              }
+            }
+          });
+        }
       });
-  
-      req.on('end', () => {
+    });
+  } else if (req.url === '/api/jobForm' && req.method === 'POST') {
+    let body = '';
+
+    // Read the request body
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+
+    // Process the request body
+    req.on('end', () => {
+      try {
         // Parse the JSON data from the request body
-        const profileData = JSON.parse(body);
-  
-        // Read the existing data from the JSON file
-        const filePath = path.join(__dirname, 'jobDetails.json');
-        fs.readFile(filePath, 'utf8', (err, data) => {
+        const jobData = JSON.parse(body);
+
+        // Read the existing job details from the JSON file
+        fs.readFile('jobDetails.json', 'utf8', (err, data) => {
           if (err) {
-            console.error('Error reading data.json:', err);
-            res.statusCode = 500;
-            res.end('Failed to update data');
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Internal Server Error');
           } else {
-            // Parse the existing data
-            const existingData = JSON.parse(data);
-  
-            // Update the existing data with the new values
-            existingData.companyName = profileData.companyName;
-            existingData.email = profileData.email;
-            existingData.location = profileData.location;
-            existingData.companyWebsite = profileData.companyWebsite;
-  
-            // Write the updated data back to the JSON file
-            fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
+            // Parse the existing job details
+            const existingJobs = JSON.parse(data);
+
+            // Update the job details with the new job data
+            existingJobs[0].jobs.push(jobData);
+
+            // Write the updated job details back to the JSON file
+            fs.writeFile('jobDetails.json', JSON.stringify(existingJobs), 'utf8', (err) => {
               if (err) {
-                console.error('Error writing data.json:', err);
-                res.statusCode = 500;
-                res.end('Failed to update data');
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Internal Server Error');
               } else {
-                res.statusCode = 200;
-                res.end('Data updated successfully');
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end('Job Posted!');
               }
             });
           }
         });
-      });
-  } else if (req.method === 'POST' && req.url === '/api/jobForm') {
-    let data = '';
-  
-    // Collect the request body data
-    req.on('data', (chunk) => {
-      data += chunk;
-    });
-  
-    // Process the request when the data has been fully received
-    req.on('end', () => {
-      const jobData = JSON.parse(data);
-  
-      // Read the existing data from the JSON file
-      fs.readFile('jobDetails.json', 'utf8', (err, existingData) => {
-        if (err) {
-          console.error(err);
-          res.statusCode = 500;
-          res.end('Failed to submit form data. Please try again.');
-          return;
-        }
-  
-        let newData;
-        try {
-          newData = JSON.parse(existingData);
-          if (!Array.isArray(newData)) {
-            newData = [newData]; // Wrap existing data in an array
-          }
-        } catch (error) {
-          newData = [jobData]; // Initialize newData with the new jobData
-        }
-  
-        // Add the new job data to the existing data
-        newData.push(jobData);
-  
-        // Write the updated data back to the JSON file
-        fs.writeFile('jobDetails.json', JSON.stringify(newData), (err) => {
-          if (err) {
-            console.error(err);
-            res.statusCode = 500;
-            res.end('Failed to submit form data. Please try again.');
-          } else {
-            res.statusCode = 200;
-            res.end('Form data submitted successfully!');
-          }
-        });
-      });
-    });
-  } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
-    // Read the jobDetails.json file
-    const jobDetailsFilePath = path.join(__dirname, 'jobDetails.json');
-    fs.readFile(jobDetailsFilePath, 'utf8', (err, data) => {
-      if (err) {
-        console.error('Error reading jobDetails.json:', err);
-        res.statusCode = 500;
-        res.end('Failed to fetch job details');
-      } else {
-        // Parse the job details data from the file
-        const jobDetails = JSON.parse(data);
-        const postedTime = new Date().getHours();
-
-        // Create the HTML markup with dynamic data
-        const html = `
-          <div class="col-md-6">
-            <div class="job-card">
-              <div class="row align-items-center">
-                <div class="col-lg-3">
-                  <div class="thumb-img">
-                    <a href="job-details.html">
-                      <img src="assets/img/company-logo/1.png" alt="company logo">
-                    </a>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="job-info">
-                    <a href="job-details.html">
-                      <h3 id="jobTitle">${jobDetails.job}</h3>
-                    </a>
-                    <ul>
-                    <i>Via 
-                        <a href="#">
-                          <li id="companyName"> ${jobDetails.companyName} </li>
-                        </a>
-                      </i>
-                        <i class='bx bx-location-plus' id="location">${jobDetails.location}</i>
-                      </li>
-                      <li>
-                        <i class='bx bx-filter-alt' id="jobCategory">${jobDetails.jobCategory}</i>
-                      </li>
-                      <li>
-                        <i class='bx bx-briefcase' id="jobType">${jobDetails.jobType}</i>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="job-save"  id="postedTime" >
-                    <a href="#">
-                      <i class='bx bx-heart'></i>
-                    </a>
-                    <p id="postedTime">
-                      <i class='bx bx-stopwatch' id="postedTime">${postedTime} 1 hr ago</i>
-                      
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-
-        // Set the response headers
-        res.setHeader('Content-Type', 'text/html');
-        res.statusCode = 200;
-
-        // Send the HTML markup as the response
-        res.end(html);
+      } catch (error) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        res.end('Invalid JSON data');
       }
     });
+  } else // Check the URL path and respond accordingly
+  if (req.url === '/api/jobDetails.json' && req.method === 'GET') {
+    const filePath = path.join(__dirname, 'jobDetails.json');
+  
+    // Read the JSON file
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(data);
+      }
+    });   
   } else {
     // Serve the requested file
 let filePath;
@@ -536,6 +477,21 @@ if (req.url === '/') {
   }
 });
 
+// Function to send a success response
+function sendSuccessResponse(res, message) {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  const responseData = { success: true, message };
+  res.end(JSON.stringify(responseData));
+}
+
+// Function to send an error response
+function sendErrorResponse(res, statusCode, message) {
+  res.statusCode = statusCode;
+  res.setHeader('Content-Type', 'application/json');
+  const responseData = { success: false, error: message };
+  res.end(JSON.stringify(responseData));
+}
 // Start the server
 server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
@@ -570,19 +526,5 @@ function getContentType(extension) {
     default:
       return 'application/octet-stream';
   }
-}
-
-// Define the sendErrorResponse function
-function sendErrorResponse(res, statusCode, message) {
-  res.statusCode = statusCode;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ message: message }));
-}
-
-// Define the sendSuccessResponse function
-function sendSuccessResponse(res, message) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ message: message }));
 }
 
