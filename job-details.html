@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
-    <title></title>
+    <title>JobQuest/Job-Details</title>
 
   </head>
   <body>
@@ -66,10 +66,7 @@
             <a class="navbar-brand" href="index.html">
               <img src="./assets/img/logo.jpg" width="100" alt="logo" />
             </a>
-            <div
-              class="collapse navbar-collapse mean-menu"
-              id="navbarSupportedContent"
-            >
+            <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
               <ul class="navbar-nav m-auto">
                 <li class="nav-item">
                   <a href="index.html" class="nav-link ">Home</a>
@@ -280,10 +277,9 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      // Retrieve the job ID from the URL
+      // Retrieve the job index from the URL parameter
       const urlParams = new URLSearchParams(window.location.search);
       const jobIndex = urlParams.get('jobIndex');
-    
       // Make an AJAX request to fetch the job data
       $.ajax({
         url: '/api/jobDetails.json',
@@ -293,7 +289,10 @@
     
           // Check if the job index is valid
           if (jobIndex >= 0 && jobIndex < jobs.length) {
-            const job = jobs[jobIndex];
+          const job = jobs[jobIndex];
+
+          // Replace \n with <br> tags in job description
+          const jobDescription = job.jobDescription.replace(/\n/g, '<br>');
     
             // Populate the HTML elements with the job data
             $('#job').text(job.job);
@@ -308,7 +307,7 @@
             $('#companySalary').text(job.salary);
             $('#companyWebsite').attr('href', job.companyWebsite);
           } else {
-            console.error('Job not found');
+            console.error('No jobs found');
           }
         },
         error: function(xhr, status, error) {
@@ -316,8 +315,7 @@
         }
       });
     </script>
-       
-  
+
 
     <section class="subscribe-section">
       <div class="container">

@@ -225,8 +225,11 @@
     var experience = document.getElementById('experienceInput8').value;
     var jobDescription = document.getElementById('descriptionFormControlTextarea1').value;
 
+    var id;
+    id++;
+
     // Create data object
-    var jobData = {
+    let jobData = {
       job: job,
       jobCategory: jobCategory,
       companyName: companyName,
@@ -240,6 +243,7 @@
       jobDescription: jobDescription
     };
 
+    
     // Send data to server using fetch API
     fetch('/api/jobForm', {
       method: 'POST',
@@ -254,6 +258,7 @@
           // alert('Job Posted!');
           // Clear form fields
           document.getElementById('jobpostForm').reset();
+          console.log(jobData);
         } else {
           // Error message
           alert('Job failed to post');
@@ -270,8 +275,8 @@
     e.preventDefault(); // Prevent default form submission
     jobForm(); // Call jobForm function
   });
+  
 </script>
-
 
 
 <section class="subscribe-section">

@@ -293,7 +293,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="theme-btn text-end">
-                      <a href="job-Details.html" class="default-btn">Browse Job</a>
+                      <a href="job-Details.html" class="default-btn" id="browseDetails">Browse Job</a>
                     </div>
                   </div>
                 </div>
@@ -307,11 +307,26 @@
         })
         .catch(error => console.error('Error fetching JSON:', error));
   
-      $(".browse-job-details").on("click", function (e) {
-        e.preventDefault();
-        const jobIndex = $(this).data("index");
-        window.location.href = `job-details.html?jobIndex=${jobIndex}`;
-      });
+        // Retrieve the current job index from local storage or set it to 0
+        let currentJobIndex = localStorage.getItem('currentJobIndex') || 0;
+
+        // Function to load the next job details
+        function loadNextJobDetails() {
+        // Increment the current job index
+        currentJobIndex++;
+
+        // Store the updated job index in local storage
+        localStorage.setItem('currentJobIndex', currentJobIndex);
+
+        // Redirect to the job details page with the updated job index
+        window.location.href = `job-Details.html?jobIndex=${currentJobIndex}`;
+      }
+
+      // Attach a click event handler to all the Next buttons
+      const nextButtons = document.querySelectorAll('.default-btn');
+      nextButtons.forEach(button => {
+      button.addEventListener('click', loadNextJobDetails);
+    });
     </script>
     
 

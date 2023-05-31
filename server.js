@@ -417,38 +417,6 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(data);
     });
-  } else if (pathname === '/api/job-details.html') {
-    const jobIndex = query.jobIndex;
-  
-    // Read the jobDetails.json file
-    fs.readFile('jobDetails.json', 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Internal Server Error' }));
-        return;
-      }
-  
-      try {
-        const jobData = JSON.parse(data);
-        const jobs = jobData.jobs;
-  
-        // Check if the jobIndex is valid
-        if (jobIndex >= 0 && jobIndex < jobs.length) {
-          const job = jobs[jobIndex];
-  
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify(job));
-        } else {
-          res.writeHead(404, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Job not found' }));
-        }
-      } catch (error) {
-        console.error(error);
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Internal Server Error' }));
-      }
-    });
   } else {
     // Serve the requested file
 let filePath;
