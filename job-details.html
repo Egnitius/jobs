@@ -30,7 +30,23 @@
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
     <title>JobQuest/Job-Details</title>
-
+<style>
+  .default-btn {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: catamaran, sans-serif;
+  background: #fd1616;
+  color: #fff;
+  margin-right: 15px;
+  border: 1px solid transparent;
+  padding: 10px 25px;
+  display: inline-block;
+}
+.default-btn:hover {
+  background: #001935;
+  border: 1px solid #fff;
+}
+</style>
   </head>
   <body>
     <div class="loader-content">
@@ -135,186 +151,57 @@
                 <div class="job-details-text">
                   <div class="job-card">
                     <div class="row align-items-center">
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <div class="company-logo">
-                          <img src="assets/img/company-logo/1.png" alt="logo" />
+                          <a href="#">
+                            <img src="assets/img/company-logo/7.png" alt="logo" />
+                          </a>
                         </div>
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-11">
                         <div class="job-info">
-                          <h3 id="job"></h3>
+                          <h3 id="companyName"></h3>
                           <ul>
-                            <li>
-                              <i class="bx bx-location-plus"></i>
-                              <span id="jobLocation"></span>
-                            </li>
-                            <li>
-                              <i class="bx bx-filter-alt"></i>
-                              <span id="jobTags"></span>
-                            </li>
-                            <li>
-                              <i class="bx bx-briefcase"></i>
-                              <span id="jobType"></span>
-                            </li>
+                            <li><i class="bx bx-briefcase"></i>Job Category: <span id="jobCategory"></span></li>
+                            <li><i class="bx bx-dollar"></i>Salary: <span id="salary"></span></li>
+                            <li><i class="bx bx-location-plus"></i>Location: <span id="location"></span></li>
+                            <li><i class="bx bx-time"></i>Job Type: <span id="jobType"></span></li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="details-text">
-                    <p id="jobDescription"></p>
-                  </div>
-                  <div class="details-text">
-                    <h3>Job Details</h3>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td><span>Company</span></td>
-                              <td id="companyName"></td>
-                            </tr>
-                            <tr>
-                              <td><span>Location</span></td>
-                              <td id="companyLocation"></td>
-                            </tr>
-                            <tr>
-                              <td><span>Job Type</span></td>
-                              <td id="companyJobType"></td>
-                            </tr>
-                            <tr>
-                              <td><span>Email</span></td>
-                              <td>
-                                <a href="mailto:" id="companyEmail"></a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="col-md-6">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td><span>Salary</span></td>
-                              <td id="companySalary"></td>
-                            </tr>
-                            <tr>
-                              <td><span>Website</span></td>
-                              <td><a href="#" id="companyWebsite"></a></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="theme-btn">
-                    <a href="#" class="default-btn" id="alertButton">Apply Now</a>
+                  <h3>Job Description</h3>
+                  <p id="jobDescription"></p>
+                  <div class="job-apply-btn">
+                    <a href="#" class="default-btn">Apply Now</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="job-sidebar">
-            <h3>Keywords</h3>
-            <ul>
-              <li>
-                <a href="#">Web Design</a>
-              </li>
-              <li>
-                <a href="#">Data Science</a>
-              </li>
-              <li>
-                <a href="#">SEO</a>
-              </li>
-              <li>
-                <a href="#">Content Writer</a>
-              </li>
-              <li>
-                <a href="#">Finance</a>
-              </li>
-              <li>
-                <a href="#">Business</a>
-              </li>
-              <li>
-                <a href="#">Education</a>
-              </li>
-              <li>
-                <a href="#">Graphics</a>
-              </li>
-              <li>
-                <a href="#">Video</a>
-              </li>
-            </ul>
-          </div>
-          <div class="job-sidebar social-share">
-            <h3>Share In</h3>
-            <ul>
-              <li>
-                <a href="#" target="_blank">
-                  <i class="bx bxl-facebook"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank">
-                  <i class="bx bxl-twitter"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank">
-                  <i class="bx bxl-pinterest"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" target="_blank">
-                  <i class="bx bxl-linkedin"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
-    </section>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      // Retrieve the job index from the URL parameter
-      const urlParams = new URLSearchParams(window.location.search);
-      const jobIndex = urlParams.get('jobIndex');
-      // Make an AJAX request to fetch the job data
-      $.ajax({
-        url: '/api/jobDetails.json',
-        method: 'GET',
-        success: function(response) {
-          const jobs = response.jobs;
-    
-          // Check if the job index is valid
-          if (jobIndex >= 0 && jobIndex < jobs.length) {
-          const job = jobs[jobIndex];
+    </section>    
 
-          // Replace \n with <br> tags in job description
-          const jobDescription = job.jobDescription.replace(/\n/g, '<br>');
-    
-            // Populate the HTML elements with the job data
-            $('#job').text(job.job);
-            $('#jobLocation').text(job.location);
-            $('#jobTags').text(job.jobTags);
-            $('#jobType').text(job.jobType);
-            $('#jobDescription').text(job.jobDescription);
-            $('#companyName').text(job.companyName);
-            $('#companyLocation').text(job.location);
-            $('#companyJobType').text(job.jobType);
-            $('#companyEmail').attr('href', 'mailto:' + job.email).text(job.email);
-            $('#companySalary').text(job.salary);
-            $('#companyWebsite').attr('href', job.companyWebsite);
-          } else {
-            console.error('No jobs found');
-          }
-        },
-        error: function(xhr, status, error) {
-          console.error(error);
-        }
-      });
-    </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Retrieve the job data from sessionStorage
+    const jobData = JSON.parse(sessionStorage.getItem('jobData'));
+  
+    // Check if jobData exists and contains the required properties
+    if (jobData && jobData.companyName && jobData.jobCategory && jobData.salary && jobData.location && jobData.jobType && jobData.jobDescription) {
+      // Populate the HTML elements with the job data
+      document.getElementById('companyName').textContent = jobData.companyName;
+      document.getElementById('jobCategory').textContent = jobData.jobCategory;
+      document.getElementById('salary').textContent = jobData.salary;
+      document.getElementById('location').textContent = jobData.location;
+      document.getElementById('jobType').textContent = jobData.jobType;
+      document.getElementById('jobDescription').innerHTML = jobData.jobDescription.replace(/\n/g, '<br>');
+    } else {
+      console.error('Invalid job data or missing properties');
+    }
+  </script>    
 
 
     <section class="subscribe-section">

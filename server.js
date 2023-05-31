@@ -350,7 +350,7 @@ const server = http.createServer((req, res) => {
         }
       });
     });
-  } else   if (req.method === 'POST' && req.url === '/api/jobForm') {
+  } else if (req.method === 'POST' && req.url === '/api/jobForm') {
     // Read existing job data from the file
     const filePath = path.join(__dirname, 'jobDetails.json');
     fs.readFile(filePath, 'utf8', (err, data) => {
@@ -395,18 +395,16 @@ const server = http.createServer((req, res) => {
         });
       });
     });
-  } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
-    const filePath = path.join(__dirname, 'jobDetails.json');
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
+  } else if (req.url === '/api/jobDetails.json') {
+    // Read the job details JSON file
+    fs.readFile('/api/jobDetails.json', 'utf8', (err, data) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Internal Server Error');
-        return;
+      } else {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(data);
       }
-
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(data);
     });
   } else {
     // Serve the requested file
