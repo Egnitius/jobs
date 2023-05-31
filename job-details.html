@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
     <title></title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   </head>
   <body>
@@ -146,21 +145,19 @@
                       </div>
                       <div class="col-md-10">
                         <div class="job-info">
-                          <h3 id="job">
-                            
-                          </h3>
+                          <h3 id="job"></h3>
                           <ul>
                             <li>
-                              <i class="bx bx-location-plus" id="location"></i>
-                              
+                              <i class="bx bx-location-plus"></i>
+                              <span id="jobLocation"></span>
                             </li>
                             <li>
-                              <i class="bx bx-filter-alt" id="jobTags"></i>
-                              
+                              <i class="bx bx-filter-alt"></i>
+                              <span id="jobTags"></span>
                             </li>
                             <li>
-                              <i class="bx bx-briefcase" id="jobType"></i>
-                              
+                              <i class="bx bx-briefcase"></i>
+                              <span id="jobType"></span>
                             </li>
                           </ul>
                         </div>
@@ -168,9 +165,7 @@
                     </div>
                   </div>
                   <div class="details-text">
-                    <p id="jobDescription">
-                      
-                    </p>
+                    <p id="jobDescription"></p>
                   </div>
                   <div class="details-text">
                     <h3>Job Details</h3>
@@ -184,18 +179,16 @@
                             </tr>
                             <tr>
                               <td><span>Location</span></td>
-                              <td id="location"></td>
+                              <td id="companyLocation"></td>
                             </tr>
                             <tr>
                               <td><span>Job Type</span></td>
-                              <td id="jobType"></td>
+                              <td id="companyJobType"></td>
                             </tr>
                             <tr>
                               <td><span>Email</span></td>
                               <td>
-                                <a
-                                  href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#761e131a1a193615191b0617180f5815191b"
-                                  ><span class="__cf_email__" data-cfemail="5d35383131321d3e32302d3c3324733e3230" id="email">job@quest.org.za</span></a>
+                                <a href="mailto:" id="companyEmail"></a>
                               </td>
                             </tr>
                           </tbody>
@@ -206,7 +199,7 @@
                           <tbody>
                             <tr>
                               <td><span>Salary</span></td>
-                              <td id="salary"></td>
+                              <td id="companySalary"></td>
                             </tr>
                             <tr>
                               <td><span>Website</span></td>
@@ -218,102 +211,102 @@
                     </div>
                   </div>
                   <div class="theme-btn">
-                    <a href="#" class="default-btn" id="alertButton">
-                      Apply Now
-                    </a>
+                    <a href="#" class="default-btn" id="alertButton">Apply Now</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
-            <div class="job-sidebar">
-              <h3>Keywords</h3>
-              <ul>
-                <li>
-                  <a href="#">Web Design</a>
-                </li>
-                <li>
-                  <a href="#">Data Sceince</a>
-                </li>
-                <li>
-                  <a href="#">SEO</a>
-                </li>
-                <li>
-                  <a href="#">Content Writter</a>
-                </li>
-                <li>
-                  <a href="#">Finance</a>
-                </li>
-                <li>
-                  <a href="#">Business</a>
-                </li>
-                <li>
-                  <a href="#">Education</a>
-                </li>
-                <li>
-                  <a href="#">Graphics</a>
-                </li>
-                <li>
-                  <a href="#">Video</a>
-                </li>
-              </ul>
-            </div>
-            <div class="job-sidebar social-share">
-              <h3>Share In</h3>
-              <ul>
-                <li>
-                  <a href="#" target="_blank">
-                    <i class="bx bxl-facebook"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" target="_blank">
-                    <i class="bx bxl-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" target="_blank">
-                    <i class="bx bxl-pinterest"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" target="_blank">
-                    <i class="bx bxl-linkedin"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+          <div class="job-sidebar">
+            <h3>Keywords</h3>
+            <ul>
+              <li>
+                <a href="#">Web Design</a>
+              </li>
+              <li>
+                <a href="#">Data Science</a>
+              </li>
+              <li>
+                <a href="#">SEO</a>
+              </li>
+              <li>
+                <a href="#">Content Writer</a>
+              </li>
+              <li>
+                <a href="#">Finance</a>
+              </li>
+              <li>
+                <a href="#">Business</a>
+              </li>
+              <li>
+                <a href="#">Education</a>
+              </li>
+              <li>
+                <a href="#">Graphics</a>
+              </li>
+              <li>
+                <a href="#">Video</a>
+              </li>
+            </ul>
+          </div>
+          <div class="job-sidebar social-share">
+            <h3>Share In</h3>
+            <ul>
+              <li>
+                <a href="#" target="_blank">
+                  <i class="bx bxl-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank">
+                  <i class="bx bxl-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank">
+                  <i class="bx bxl-pinterest"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" target="_blank">
+                  <i class="bx bxl-linkedin"></i>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       // Retrieve the job ID from the URL
       const urlParams = new URLSearchParams(window.location.search);
-      const jobId = urlParams.get('id');
+      const jobIndex = urlParams.get('jobIndex');
     
       // Make an AJAX request to fetch the job data
       $.ajax({
         url: '/api/jobDetails.json',
         method: 'GET',
         success: function(response) {
-          const jobs = response[0].jobs; // Assuming the jobs are stored in an array
+          const jobs = response.jobs;
     
-          // Find the job with the matching ID
-          const job = jobs.find(j => j.job === jobId);
+          // Check if the job index is valid
+          if (jobIndex >= 0 && jobIndex < jobs.length) {
+            const job = jobs[jobIndex];
     
-          if (job) {
             // Populate the HTML elements with the job data
             $('#job').text(job.job);
-            $('#location').text(job.location);
+            $('#jobLocation').text(job.location);
             $('#jobTags').text(job.jobTags);
             $('#jobType').text(job.jobType);
             $('#jobDescription').text(job.jobDescription);
             $('#companyName').text(job.companyName);
-            $('#salary').text(job.salary);
+            $('#companyLocation').text(job.location);
+            $('#companyJobType').text(job.jobType);
+            $('#companyEmail').attr('href', 'mailto:' + job.email).text(job.email);
+            $('#companySalary').text(job.salary);
             $('#companyWebsite').attr('href', job.companyWebsite);
-            $('#email').attr('href', 'mailto:' + job.email).text(job.email);
           } else {
             console.error('Job not found');
           }
@@ -322,7 +315,8 @@
           console.error(error);
         }
       });
-    </script>    
+    </script>
+       
   
 
     <section class="subscribe-section">
