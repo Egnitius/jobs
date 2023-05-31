@@ -306,17 +306,15 @@
   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-      fetch('/api/jobDetails.json') // Replace 'localhost:3000' with your server's hostname and port
+      fetch('/jobDetails.json') 
         .then(response => response.json())
         .then(data => {
           console.log('Fetched data:', data); // Log the fetched data to the console
   
           const jobContainer = document.getElementById('jobContainer');
   
-          if (data && Array.isArray(data[0].jobs)) {
-            const jobs = data[0].jobs;
-  
-            jobs.forEach(job => {
+          if (data && data.jobs && Array.isArray(data.jobs)) {
+            data.jobs.forEach(job => {
               const jobCard = document.createElement('div');
               jobCard.className = 'col-lg-12 job-card-two';
   
@@ -325,7 +323,7 @@
                   <div class="col-md-1">
                     <div class="company-logo">
                       <a href="sign-in.html">
-                        <img src="assets/img/company-logo/1.png" alt="logo" />
+                        <img src="assets/img/company-logo/7.png" alt="logo" />
                       </a>
                     </div>
                   </div>

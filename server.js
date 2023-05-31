@@ -345,52 +345,64 @@ const server = http.createServer((req, res) => {
         }
       });
     });
-  } else if (req.url === '/api/jobForm' && req.method === 'POST') {
+  } else if (req.method === 'POST' && req.url === '/api/jobForm') {
     let body = '';
 
-    // Read the request body
     req.on('data', (chunk) => {
-      body += chunk.toString();
+      body += chunk;
     });
 
-    // Process the request body
     req.on('end', () => {
       try {
-        // Parse the JSON data from the request body
         const jobData = JSON.parse(body);
+        console.log('Received job data:', jobData);
 
-        // Read the existing job details from the JSON file
-        fs.readFile('jobDetails.json', 'utf8', (err, data) => {
+        // Read the existing job details from the file
+        const filePath = path.join(__dirname, 'jobDetails.json');
+        fs.readFile(filePath, 'utf8', (err, data) => {
           if (err) {
+            console.error('Error reading job details:', err);
             res.writeHead(500, { 'Content-Type': 'text/plain' });
             res.end('Internal Server Error');
-          } else {
-            // Parse the existing job details
-            const existingJobs = JSON.parse(data);
-
-            // Update the job details with the new job data
-            existingJobs[0].jobs.push(jobData);
-
-            // Write the updated job details back to the JSON file
-            fs.writeFile('jobDetails.json', JSON.stringify(existingJobs), 'utf8', (err) => {
-              if (err) {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Internal Server Error');
-              } else {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.end('Job Posted!');
-              }
-            });
+            return;
           }
+
+          let jobDetails;
+          try {
+            jobDetails = JSON.parse(data);
+          } catch (error) {
+            console.error('Error parsing job details:', error);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Internal Server Error');
+            return;
+          }
+
+          // Add the new job to the jobs array
+          jobDetails.jobs.push(jobData);
+
+          // Write the updated job details back to the file
+          fs.writeFile(filePath, JSON.stringify(jobDetails), 'utf8', (err) => {
+            if (err) {
+              console.error('Error writing job details:', err);
+              res.writeHead(500, { 'Content-Type': 'text/plain' });
+              res.end('Internal Server Error');
+              return;
+            }
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: 'Job Posted!' }));
+          });
         });
       } catch (error) {
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.end('Invalid JSON data');
+        console.error('Error parsing JSON:', error);
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid JSON data' }));
       }
     });
-  } else // Check the URL path and respond accordingly
-  if (req.url === '/api/jobDetails.json') {
-    fs.readFile('./api/jobDetails.json', 'utf8', (err, data) => {
+  } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
+    const filePath = path.join(__dirname, 'jobDetails.json');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Internal Server Error');
@@ -490,39 +502,6 @@ function sendErrorResponse(res, statusCode, message) {
   const responseData = { success: false, error: message };
   res.end(JSON.stringify(responseData));
 }
-
-// Retrieve the job ID from the query parameters
-const urlParams = new URL(req.url, `/api/jobDetails.json`);
-const jobId = urlParams.searchParams.get('id');
-
-// Read the jobDetails.json file
-fs.readFile('jobDetails.json', 'utf8', (err, data) => {
-  if (err) {
-    res.statusCode = 500;
-    res.end('Internal Server Error');
-    return;
-  }
-
-  try {
-    const jobData = JSON.parse(data);
-
-    // Find the job object with the matching ID
-    const job = jobData.jobs.find((item) => item.id === jobId);
-
-    if (job) {
-      // Return the job data as a JSON response
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      res.end(JSON.stringify(job));
-    } else {
-      res.statusCode = 404;
-      res.end('Job not found');
-    }
-  } catch (error) {
-    res.statusCode = 500;
-    res.end('Internal Server Error');
-  }
-});
 
 // Start the server
 server.listen(port, '0.0.0.0', () => {
