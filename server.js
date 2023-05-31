@@ -350,59 +350,50 @@ const server = http.createServer((req, res) => {
         }
       });
     });
-  } else if (req.method === 'POST' && req.url === '/api/jobForm') {
-    let body = '';
-
-    req.on('data', (chunk) => {
-      body += chunk;
-    });
-
-    req.on('end', () => {
-      try {
-        const jobData = JSON.parse(body);
-        console.log('Received job data:', jobData);
-
-        // Read the existing job details from the file
-        const filePath = path.join(__dirname, 'jobDetails.json');
-        fs.readFile(filePath, 'utf8', (err, data) => {
-          if (err) {
-            console.error('Error reading job details:', err);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end('Internal Server Error');
-            return;
-          }
-
-          let jobDetails;
-          try {
-            jobDetails = JSON.parse(data);
-          } catch (error) {
-            console.error('Error parsing job details:', error);
-            res.writeHead(500, { 'Content-Type': 'text/plain' });
-            res.end('Internal Server Error');
-            return;
-          }
-
-          // Add the new job to the jobs array
-          jobDetails.jobs.push(jobData);
-
-          // Write the updated job details back to the file
-          fs.writeFile(filePath, JSON.stringify(jobDetails), 'utf8', (err) => {
-            if (err) {
-              console.error('Error writing job details:', err);
-              res.writeHead(500, { 'Content-Type': 'text/plain' });
-              res.end('Internal Server Error');
-              return;
-            }
-
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ message: 'Job Posted!' }));
-          });
-        });
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
-        res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Invalid JSON data' }));
+  } else   if (req.method === 'POST' && req.url === '/api/jobForm') {
+    // Read existing job data from the file
+    const filePath = path.join(__dirname, 'jobDetails.json');
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('Error reading job data:', err);
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Internal Server Error');
+        return;
       }
+
+      // Parse existing job data as JSON
+      let jobDetails = JSON.parse(data);
+
+      // Generate a unique ID for the new job
+      const newJobId = generateUniqueId(jobDetails);
+
+      // Get the request body
+      let requestBody = '';
+      req.on('data', chunk => {
+        requestBody += chunk.toString();
+      });
+
+      req.on('end', () => {
+        // Parse the request body as JSON
+        const newJobData = JSON.parse(requestBody);
+
+        // Add the new job data with the generated ID
+        newJobData.id = newJobId;
+        jobDetails.jobs.push(newJobData);
+
+        // Write the updated job data back to the file
+        fs.writeFile(filePath, JSON.stringify(jobDetails), 'utf8', err => {
+          if (err) {
+            console.error('Error writing job data:', err);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Internal Server Error');
+            return;
+          }
+
+          res.writeHead(200, { 'Content-Type': 'text/plain' });
+          res.end('Job posted successfully');
+        });
+      });
     });
   } else if (req.method === 'GET' && req.url === '/api/jobDetails.json') {
     const filePath = path.join(__dirname, 'jobDetails.json');
@@ -506,6 +497,19 @@ function sendErrorResponse(res, statusCode, message) {
   res.setHeader('Content-Type', 'application/json');
   const responseData = { success: false, error: message };
   res.end(JSON.stringify(responseData));
+}
+
+// Helper function to generate a unique ID
+function generateUniqueId(jobDetails) {
+  let id = 1;
+  const existingIds = jobDetails.jobs.map(job => job.id);
+
+  // Find the smallest available ID
+  while (existingIds.includes(id)) {
+    id++;
+  }
+
+  return id;
 }
 
 // Start the server
