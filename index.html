@@ -294,7 +294,7 @@
                   </div>
                   <div class="col-md-8">
                     <div class="job-info">
-                      <h3><a href="job-details.html">${job.companyName}</a></h3>
+                      <h3><a href="job-details.html" class="browseDetails" data-job="${encodeURIComponent(JSON.stringify(job))}">${job.companyName}</a></h3>
                       <ul>
                         <li><i class="bx bx-briefcase"></i>${job.jobCategory}</li>
                         <li><i class="bx bx-briefcase"></i>${job.salary}</li>
