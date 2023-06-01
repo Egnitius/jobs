@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const port = 3000;
+const sessionData = {};
 
 // Create the server
 const server = http.createServer((req, res) => {
@@ -406,6 +407,45 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
+  } else if (req.method === 'POST' && req.url === '/apply') {
+    let body = '';
+
+    // Collect the request data
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+
+    // Process the request data
+    req.on('end', () => {
+      // Parse the request body as JSON
+      const applicationData = JSON.parse(body);
+
+      // Save the application data in the session
+      sessionData.application = applicationData;
+
+      // Send a response indicating success
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ message: 'Application submitted successfully' }));
+    });
+  } else if (req.method === 'GET' && req.url === '/details.json') {
+    const filePath = path.join(__dirname, 'details.json');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ error: 'Internal Server Error' }));
+      } else {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(data);
+      }
+    });
+  } else if (req.method === 'GET' && req.url === '/session') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(sessionData));
   } else {
     // Serve the requested file
 let filePath;

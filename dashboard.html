@@ -123,6 +123,25 @@
         </div>
       </div>
     </div>
+
+    <section class="page-title title-bg10">
+      <div class="d-table">
+        <div class="d-table-cell">
+          <h2>Recruiter Dashboard</h2>
+          <ul>
+            <li>
+              <a href="index.html">Home</a>
+            </li>
+            <li>Recruiter Dashboard</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </section>
 <br>
     <section class="recruiter-dashboard-section">
       <div class="container">
@@ -181,10 +200,54 @@
                   Applications Received
                 </div>
                 <div class="card-body">
-                  <p>No applications received yet.</p>
+                  <p id="applicationsReceived">No applications received yet.</p>
                 </div>
               </div>
-  
+              
+              <script>
+                // Function to update the "Applications Received" section
+                function updateApplicationsReceived(applications) {
+                  const applicationsReceived = document.getElementById('applicationsReceived');
+              
+                  if (applications.length > 0) {
+                    // Clear the existing content
+                    applicationsReceived.innerHTML = '';
+              
+                    // Create an unordered list to display the applications
+                    const ul = document.createElement('ul');
+              
+                    applications.forEach((application) => {
+                      // Create a list item for each application
+                      const li = document.createElement('li');
+                      li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
+                      ul.appendChild(li);
+                    });
+              
+                    // Append the unordered list to the "Applications Received" section
+                    applicationsReceived.appendChild(ul);
+                  } else {
+                    // Display a message if no applications are received
+                    applicationsReceived.textContent = 'No applications received yet.';
+                  }
+                }
+              
+                // Fetch the session data from the server
+                fetch('/session')
+                  .then((response) => response.json())
+                  .then((data) => {
+                    const sessionData = data.application;
+              
+                    if (sessionData) {
+                      // Update the "Applications Received" section with the session data
+                      updateApplicationsReceived([sessionData]);
+                    }
+                  })
+                  .catch((error) => {
+                    // Handle any errors that occurred while fetching the session data
+                    console.error(error);
+                  });
+              </script>              
+
               <!-- Status of Applications -->
               <div class="card">
                 <div class="card-header">

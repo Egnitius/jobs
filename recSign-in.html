@@ -238,6 +238,7 @@
               // Authentication failed, display an error message
               const errorMessage = document.getElementById("error-message");
               errorMessage.textContent = "Invalid email or password.";
+              alert("Invalid email or password.");
             }
           })
           .catch((error) => {

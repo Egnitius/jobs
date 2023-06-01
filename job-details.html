@@ -174,7 +174,7 @@
                   <h3>Job Description</h3>
                   <p id="jobDescription"></p>
                   <div class="job-apply-btn">
-                    <a href="#" class="default-btn">Apply Now</a>
+                    <a href="#" class="default-btn" id="applyButton">Apply Now</a>
                   </div>
                 </div>
               </div>
@@ -188,7 +188,6 @@
   <script>
     // Retrieve the job data from sessionStorage
     const jobData = JSON.parse(sessionStorage.getItem('jobData'));
-    const jobsData = JSON.parse(sessionStorage.getItem('jobsData'));
   
     // Check if jobData exists and contains the required properties
     if (jobData && jobData.companyName && jobData.jobCategory && jobData.salary && jobData.location && jobData.jobType && jobData.jobDescription) {
@@ -203,18 +202,51 @@
       console.error('Invalid job data or missing properties');
     }
 
-    // Check if jobsData exists and contains the required properties
-    if (jobsData && jobsData.companyName && jobsData.jobCategory && jobsData.salary && jobsData.location && jobsData.jobType && jobsData.jobDescription) {
-      // Populate the HTML elements with the job data
-      document.getElementById('companyName').textContent = jobsData.companyName;
-      document.getElementById('jobCategory').textContent = jobsData.jobCategory;
-      document.getElementById('salary').textContent = jobsData.salary;
-      document.getElementById('location').textContent = jobsData.location;
-      document.getElementById('jobType').textContent = jobsData.jobType;
-      document.getElementById('jobDescription').innerHTML = jobsData.jobDescription.replace(/\n/g, '<br>');
-    } else {
-      console.error('Invalid job data or missing properties');
-    }
+/// Get a reference to the "Apply Now" button
+const applyButton = document.querySelector('.job-apply-btn a');
+
+// Add a click event listener to the "Apply Now" button
+applyButton.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  // Fetch the resume and associated details from the details.json file
+  fetch('/details.json')
+    .then((response) => response.json())
+    .then((data) => {
+      const { name, email } = data;
+      const resume = data.resume; // Assuming the resume field contains the resume file path
+
+      // Construct the application data object
+      const applicationData = {
+        name,
+        email,
+        resume,
+        jobData
+      };
+
+      // Send a POST request to the server with the application data
+      fetch('/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(applicationData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Handle the server response, e.g., display a success message or perform other actions
+          console.log(data);
+        })
+        .catch((error) => {
+          // Handle any errors that occurred during the request
+          console.error(error);
+        });
+    })
+    .catch((error) => {
+      // Handle any errors that occurred while fetching the details.json file
+      console.error(error);
+    });
+});
   </script>    
 
 
