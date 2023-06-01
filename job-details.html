@@ -188,6 +188,7 @@
   <script>
     // Retrieve the job data from sessionStorage
     const jobData = JSON.parse(sessionStorage.getItem('jobData'));
+    const jobsData = JSON.parse(sessionStorage.getItem('jobsData'));
   
     // Check if jobData exists and contains the required properties
     if (jobData && jobData.companyName && jobData.jobCategory && jobData.salary && jobData.location && jobData.jobType && jobData.jobDescription) {
@@ -198,6 +199,19 @@
       document.getElementById('location').textContent = jobData.location;
       document.getElementById('jobType').textContent = jobData.jobType;
       document.getElementById('jobDescription').innerHTML = jobData.jobDescription.replace(/\n/g, '<br>');
+    } else {
+      console.error('Invalid job data or missing properties');
+    }
+
+    // Check if jobsData exists and contains the required properties
+    if (jobsData && jobsData.companyName && jobsData.jobCategory && jobsData.salary && jobsData.location && jobsData.jobType && jobsData.jobDescription) {
+      // Populate the HTML elements with the job data
+      document.getElementById('companyName').textContent = jobsData.companyName;
+      document.getElementById('jobCategory').textContent = jobsData.jobCategory;
+      document.getElementById('salary').textContent = jobsData.salary;
+      document.getElementById('location').textContent = jobsData.location;
+      document.getElementById('jobType').textContent = jobsData.jobType;
+      document.getElementById('jobDescription').innerHTML = jobsData.jobDescription.replace(/\n/g, '<br>');
     } else {
       console.error('Invalid job data or missing properties');
     }
