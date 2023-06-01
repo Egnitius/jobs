@@ -124,28 +124,53 @@
 <section class="candidate-style-two pt-100 pb-70">
 <div class="container">
 <div class="row">
-<div class="col-lg-3 col-sm-6">
-<div class="candidate-card">
-<div class="candidate-img">
-<img src="assets/img/candidate/1.jpg" alt="candidate image">
-</div>
-<div class="candidate-text">
-<h3>
-<a href="candidate-details.html">Mibraj Alex</a>
-</h3>
-<ul>
-<li>
-Web Developer
-</li>
-</ul>
-</div>
-<div class="candidate-social">
-<a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-<a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-<a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
-</div>
-</div>
-</div>
+  <div class="col-lg-3 col-sm-6">
+    <div class="candidate-card">
+      <div class="candidate-img">
+        <img src="assets/img/candidate/1.jpg" alt="candidate image">
+      </div>
+      <div class="candidate-text">
+        <h3>
+          <a href="resume.html" id="name"></a>
+        </h3>
+        <ul>
+          <li id="jobTitle"></li>
+        </ul>
+      </div>
+      <div class="candidate-social">
+        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
+        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
+        <a href="#" target="_blank"><i class="bx bxl-linkedin"></i></a>
+        <a href="#" target="_blank"><i class="bx bxl-github"></i></a>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Fetch data from details.json
+      $.getJSON("details.json", function (data) {
+  
+        // Update job information
+        $("#name").text(data.name);
+        $("#jobTitle").text(data.jobTitle);
+  
+        // Update social links
+        $(".candidate-social").find("a:nth-child(1)").attr("href", data.social.facebook);
+        $(".candidate-social").find("a:nth-child(2)").attr("href", data.social.twitter);
+        $(".candidate-social").find("a:nth-child(3)").attr("href", data.social.github);
+        $(".candidate-social").find("a:nth-child(4)").attr("href", data.social.linkedin);
+      })
+      .done(function () {
+        console.log("Successfully fetched job details.");
+      })
+      .fail(function () {
+        console.error("Failed to fetch job details.");
+        alert("Failed to fetch job details.");
+      });
+    });
+  </script>   
+
 <div class="col-lg-3 col-sm-6">
 <div class="candidate-card">
 <div class="candidate-img">

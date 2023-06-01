@@ -143,149 +143,265 @@
       </div>
     </section>
 <br>
-    <section class="recruiter-dashboard-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="dashboard-sidebar">
-              <div class="user-info">
-                <div class="thumb">
-                  <img src="assets/img/4.jpg" alt="User Image" />
-                </div>
-                <div class="content">
-                  <h4 id="companyName"></h4>
-                  <span class="email" id="email"></span>
-                </div>
-              </div>
-              <ul class="dashboard-menu">
-                <li>
-                  <a href="#">
-                    <i class="bx bx-dashboard"></i>
-                    <span>Dashboard</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="candidate.html">
-                    <i class="bx bx-file"></i>
-                    <span>Candidates</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="job-grid.html">
-                    <i class="bx bx-briefcase"></i>
-                    <span>My Jobs</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="recruiterprofile.html">
-                    <i class='bx bx-edit-alt'></i>
-                    <span>Company Profile</span>
-                  </a>
-                </li>
-              </ul>
+<section class="recruiter-dashboard-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="dashboard-sidebar">
+          <div class="user-info">
+            <div class="thumb">
+              <img src="assets/img/4.jpg" alt="User Image" />
+            </div>
+            <div class="content">
+              <h4 id="companyName"></h4>
+              <span class="email" id="email"></span>
             </div>
           </div>
-          <div class="col-md-9">
-            <div class="dashboard-content">
-              <h2>Welcome to your Dashboard</h2>
-              <p>
-                This is your recruiter dashboard. You can manage your jobs, view
-                resumes, and perform various other actions related to your
-                recruiting activities.
-              </p>
-  
-              <!-- Applications Received -->
-              <div class="card">
-                <div class="card-header">
-                  Applications Received
-                </div>
-                <div class="card-body">
-                  <p id="applicationsReceived">No applications received yet.</p>
-                </div>
-              </div>
-              
-              <script>
-                // Function to update the "Applications Received" section
-                function updateApplicationsReceived(applications) {
-                  const applicationsReceived = document.getElementById('applicationsReceived');
-              
-                  if (applications.length > 0) {
-                    // Clear the existing content
-                    applicationsReceived.innerHTML = '';
-              
-                    // Create an unordered list to display the applications
-                    const ul = document.createElement('ul');
-              
-                    applications.forEach((application) => {
-                      // Create a list item for each application
-                      const li = document.createElement('li');
-                      li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
-                      ul.appendChild(li);
-                    });
-              
-                    // Append the unordered list to the "Applications Received" section
-                    applicationsReceived.appendChild(ul);
-                  } else {
-                    // Display a message if no applications are received
-                    applicationsReceived.textContent = 'No applications received yet.';
-                  }
-                }
-              
-                // Fetch the session data from the server
-                fetch('/session')
-                  .then((response) => response.json())
-                  .then((data) => {
-                    const sessionData = data.application;
-              
-                    if (sessionData) {
-                      // Update the "Applications Received" section with the session data
-                      updateApplicationsReceived([sessionData]);
-                    }
-                  })
-                  .catch((error) => {
-                    // Handle any errors that occurred while fetching the session data
-                    console.error(error);
-                  });
-              </script>              
+          <ul class="dashboard-menu">
+            <li>
+              <a href="#">
+                <i class="bx bx-dashboard"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="candidate.html">
+                <i class="bx bx-file"></i>
+                <span>Candidates</span>
+              </a>
+            </li>
+            <li>
+              <a href="job-grid.html">
+                <i class="bx bx-briefcase"></i>
+                <span>My Jobs</span>
+              </a>
+            </li>
+            <li>
+              <a href="recruiterprofile.html">
+                <i class='bx bx-edit-alt'></i>
+                <span>Company Profile</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="dashboard-content">
+          <h2>Welcome to your Dashboard</h2>
+          <p>
+            This is your recruiter dashboard. You can manage your jobs, view
+            resumes, and perform various other actions related to your
+            recruiting activities.
+          </p>
 
-              <!-- Status of Applications -->
-              <div class="card">
-                <div class="card-header">
-                  Status of Applications
-                </div>
-                <div class="card-body">
-                  <p>No applications in progress.</p>
-                </div>
-              </div>
-  
-              <!-- Applications Accepted -->
-              <div class="card">
-                <div class="card-header">
-                  Applications Accepted
-                </div>
-                <div class="card-body">
-                  <p>No applications accepted yet.</p>
-                </div>
-              </div>
+          <!-- Applications Received -->
+          <div class="card">
+            <div class="card-header">
+              Applications Received
+            </div>
+            <div class="card-body">
+              <ul id="applicationsReceived"></ul>
+              <p id="noApplicationsMessage">No applications received yet.</p>
+            </div>
+          </div>
+
+          <!-- Status of Applications -->
+          <div class="card">
+            <div class="card-header">
+              Status of Applications
+            </div>
+            <div class="card-body">
+              <ul id="applicationsStatus"></ul>
+              <p id="noApplicationsStatusMessage">No applications in progress.</p>
+            </div>
+          </div>
+
+          <!-- Applications Accepted -->
+          <div class="card">
+            <div class="card-header">
+              Applications Accepted
+            </div>
+            <div class="card-body">
+              <ul id="applicationsAccepted"></ul>
+              <p id="noApplicationsAcceptedMessage"></p>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <br>
-    <script>
-      $(document).ready(function () {
-        // Fetch data from jobDetails.json
-        $.getJSON("jobDetails.json", function (data) {
-          // Update job information
-          $("#companyName").text(data.companyName);
-          $("#email").text(data.email);
-        }).fail(function () {
-          console.error("Failed to fetch job details.");
-          alert("Failed to fetch job details.");
-        });
+    </div>
+  </div>
+</section>
+<br>
+<script>
+  $(document).ready(function () {
+    // Fetch data from jobDetails.json
+    $.getJSON("jobDetails.json", function (data) {
+      // Update job information
+      $("#companyName").text(data.companyName);
+      $("#email").text(data.email);
+    }).fail(function () {
+      console.error("Failed to fetch job details.");
+      alert("Failed to fetch job details.");
+    });
+  });
+
+  const status = "pending";
+  // Function to update the "Applications Received" section
+  function updateApplicationsReceived(applications) {
+    const applicationsReceived = document.getElementById('applicationsReceived');
+    const noApplicationsMessage = document.getElementById('noApplicationsMessage');
+
+    if (applications.length > 0) {
+      // Remove the "No applications received yet" message
+      noApplicationsMessage.style.display = 'none';
+
+      applications.forEach((application) => {
+        // Check if the application is already accepted
+        if (!isApplicationAccepted(application)) {
+          const li = document.createElement('li');
+          li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
+
+          // Create accept and decline buttons
+          const acceptButton = document.createElement('button');
+          acceptButton.textContent = 'Accept';
+          acceptButton.addEventListener('click', () => acceptApplication(application, li));
+          li.appendChild(acceptButton);
+
+          const declineButton = document.createElement('button');
+          declineButton.textContent = 'Decline';
+          declineButton.addEventListener('click', () => declineApplication(application.name, li));
+          li.appendChild(declineButton);
+
+          applicationsReceived.appendChild(li);
+        }
       });
-    </script>
+    } else {
+      // Display the "No applications received yet" message
+      noApplicationsMessage.style.display = 'block';
+    }
+  }
+
+  // Function to update the "Status of Applications" section
+  function updateApplicationsStatus(applications) {
+    const applicationsStatus = document.getElementById('applicationsStatus');
+    const noApplicationsStatusMessage = document.getElementById('noApplicationsStatusMessage');
+
+    if (applications.length > 0) {
+      // Remove the "No applications in progress" message
+      noApplicationsStatusMessage.style.display = 'none';
+
+      applications.forEach((application) => {
+        const li = document.createElement('li');
+        li.textContent = `${application.name} - ${application.jobData.job} - ${status}`;
+        applicationsStatus.appendChild(li);
+      });
+    } else {
+      // Display the "No applications in progress" message
+      noApplicationsStatusMessage.style.display = 'block';
+    }
+  }
+
+  // Function to update the "Applications Accepted" section
+  function updateApplicationsAccepted(applications) {
+    const applicationsAccepted = document.getElementById('applicationsAccepted');
+    const noApplicationsAcceptedMessage = document.getElementById('noApplicationsAcceptedMessage');
+
+    // Clear the existing list
+    applicationsAccepted.innerHTML = '';
+
+    if (applications.length > 0) {
+      // Display the number of applications accepted
+      const acceptedApplications = applications.filter(isApplicationAccepted);
+      const acceptedCount = acceptedApplications.length;
+      const acceptedCountElement = document.createElement('p');
+      acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
+      applicationsAccepted.appendChild(acceptedCountElement);
+
+      // Display the accepted applications
+      acceptedApplications.forEach((application) => {
+        const li = document.createElement('li');
+        li.textContent = `${application.name} - ${application.jobData.job}`;
+        applicationsAccepted.appendChild(li);
+      });
+    } else {
+      // Display "0" for the number of applications accepted
+      const acceptedCountElement = document.createElement('p');
+      acceptedCountElement.textContent = 'Total Applications Accepted: 0';
+      applicationsAccepted.appendChild(acceptedCountElement);
+
+      // Display the "No applications accepted yet" message
+      noApplicationsAcceptedMessage.style.display = 'block';
+    }
+  }
+
+  // Function to check if an application is already accepted
+  function isApplicationAccepted(application) {
+    const applicationsAccepted = document.getElementById('applicationsAccepted');
+    const acceptedItems = applicationsAccepted.getElementsByTagName('li');
+
+    for (let i = 0; i < acceptedItems.length; i++) {
+      const acceptedItemText = acceptedItems[i].textContent;
+      if (acceptedItemText.includes(application.name) && acceptedItemText.includes(application.jobData.job)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Function to accept an application
+function acceptApplication(application, li) {
+  // Remove the accepted application from the "Applications Received" section
+  const applicationsReceived = document.getElementById('applicationsReceived');
+  applicationsReceived.removeChild(li);
+
+  // Update the status of the accepted application
+  application.status = 'accepted';
+
+  // Add the accepted application to the "Applications Accepted" section
+  const applicationsAccepted = document.getElementById('applicationsAccepted');
+  const liAccepted = document.createElement('li');
+  liAccepted.textContent = `${application.name} - ${application.jobData.job}`;
+  applicationsAccepted.appendChild(liAccepted);
+
+  // Update the count of accepted applications
+  const acceptedCountElement = document.querySelector('#applicationsAccepted p');
+  let acceptedCount = parseInt(acceptedCountElement.textContent.split(':')[1].trim(), 10);
+  acceptedCount++;
+  acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
+}
+
+
+  // Function to decline an application
+  function declineApplication(name, li) {
+    // Remove the declined application from the "Applications Received" section
+    const applicationsReceived = document.getElementById('applicationsReceived');
+    applicationsReceived.removeChild(li);
+  }
+
+  // Fetch the session data from the server
+  fetch('/session')
+    .then((response) => response.json())
+    .then((data) => {
+      const sessionData = data.applications;
+
+      if (sessionData && sessionData.length > 0) {
+        // Update the "Applications Received" section with the session data
+        updateApplicationsReceived(sessionData);
+
+        // Update the "Status of Applications" section with the session data
+        updateApplicationsStatus(sessionData);
+
+        // Update the "Applications Accepted" section with the session data
+        updateApplicationsAccepted(sessionData);
+      }
+    })
+    .catch((error) => {
+      // Handle any errors that occurred while fetching the session data
+      console.error(error);
+    });
+</script>
+
 
     <section class="subscribe-section">
       <div class="container">

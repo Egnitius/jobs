@@ -411,22 +411,22 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.method === 'POST' && req.url === '/apply') {
     let body = '';
-
+  
     // Collect the request data
     req.on('data', (chunk) => {
       body += chunk;
     });
-
+  
     // Process the request data
     req.on('end', () => {
       // Parse the request body as JSON
       const applicationData = JSON.parse(body);
-
+  
       // Save the application data in the session
       if (sessionData.applications.length < 5) {
         sessionData.applications.push(applicationData);
       }
-
+  
       // Send a response indicating success
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
@@ -434,7 +434,7 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.method === 'GET' && req.url === '/details.json') {
     const filePath = path.join(__dirname, 'details.json');
-
+  
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         res.statusCode = 500;
@@ -450,6 +450,17 @@ const server = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(sessionData));
+  } else if (req.url === '/candidate-details') {
+    // Read the candidate details from the JSON file
+    fs.readFile('candidate-details.json', 'utf8', (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.end('Internal Server Error');
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(data);
+      }
+    });
   } else {
     // Serve the requested file
 let filePath;

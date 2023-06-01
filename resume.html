@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
-    <title></title>
+    <title>JobQuest/resume</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -213,6 +213,25 @@
         </div>
       </div>
     </div>
+
+    <section class="page-title title-bg8">
+      <div class="d-table">
+      <div class="d-table-cell">
+      <h2>Resume</h2>
+      <ul>
+      <li>
+      <a href="index.html">Home</a>
+      </li>
+      <li>Resume</li>
+      </ul>
+      </div>
+      </div>
+      <div class="lines">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      </div>
+    </section>
 
     <section class="resume-section ptb-100">
       <div class="container">
@@ -398,20 +417,20 @@
         var updatedData = {
           name: name,
           jobTitle: jobTitle,
-          aboutMe: aboutMe,
-          education: {
-            school: educationSchool,
-            qualification: educationQualification,
-            yearStarted: educationYearStarted,
-            yearCompleted: educationYearCompleted,
-          },
-          experience: {
-            position: experiencePosition,
-            company: experienceCompany,
-            year: experienceYear,
-            reason: experienceReason,
-          },
-          skills: [skill1, skill2, skill3, skill4],
+          aboutMe: aboutMe
+          // education: {
+          //   school: educationSchool,
+          //   qualification: educationQualification,
+          //   yearStarted: educationYearStarted,
+          //   yearCompleted: educationYearCompleted,
+          // },
+          // experience: {
+          //   position: experiencePosition,
+          //   company: experienceCompany,
+          //   year: experienceYear,
+          //   reason: experienceReason,
+          // },
+          // skills: [skill1, skill2, skill3, skill4],
         };
 
         fetch("/api/update-details", {

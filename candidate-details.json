@@ -1,0 +1,267 @@
+{
+    "candidates":[
+        {
+            "name": "John Smith",
+            "jobTitle": "Web Developer",
+            "phone": "+101 023 0342",
+            "email": "job@quest.org.za",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Short about me.",
+            "education": [
+              {
+                "degree": "School",
+                "institution": "Amherst School, SA",
+                "years": "2000-2010"
+              },
+              {
+                "degree": "College",
+                "institution": "Swarthmore College, SA",
+                "years": "2010-2012"
+              },
+              {
+                "degree": "University",
+                "institution": "Princeton University, SA",
+                "years": "2012-2016"
+              }
+            ],
+            "experience": [
+              "Proficient in HTML, CSS, Server-Scripting, C/C++, and Oracle",
+              "Experience with SEO",
+              "Experience Teaching Web Development",
+              "Knowledgeable in Online Advertising",
+              "Expert in LAMP Web Service Stacks"
+            ],
+            "skills": [
+              "HTML",
+              "CSS",
+              "JS",
+              "PHP",
+              "Oracle",
+              "C/C++",
+              "SQL",
+              "Ruby"
+            ]
+          },
+          {
+            "name": "Jane Doe",
+            "jobTitle": "Software Engineer",
+            "phone": "+123 456 7890",
+            "email": "jane.doe@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Passionate software engineer with expertise in web development.",
+            "education": [
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "University of Example",
+                "years": "2015-2019"
+              },
+              {
+                "degree": "High School",
+                "institution": "Example High School",
+                "years": "2011-2015"
+              }
+            ],
+            "experience": [
+              "Full-stack web development",
+              "Agile software development",
+              "Database management"
+            ],
+            "skills": [
+              "JavaScript",
+              "Python",
+              "HTML",
+              "CSS",
+              "React",
+              "Node.js"
+            ]
+          },
+          {
+            "name": "Mark Johnson",
+            "jobTitle": "Graphic Designer",
+            "phone": "+987 654 3210",
+            "email": "mark.johnson@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Experienced graphic designer with a strong passion for visual storytelling.",
+            "education": [
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "Art Institute",
+                "years": "2012-2016"
+              },
+              {
+                "degree": "High School",
+                "institution": "Design School",
+                "years": "2008-2012"
+              }
+            ],
+            "experience": [
+              "Logo design",
+              "Brand identity development",
+              "Print and digital media design"
+            ],
+            "skills": [
+              "Adobe Photoshop",
+              "Adobe Illustrator",
+              "Adobe InDesign",
+              "Typography",
+              "Layout design"
+            ]
+          },
+          {
+            "name": "Sarah Williams",
+            "jobTitle": "Marketing Specialist",
+            "phone": "+555 123 4567",
+            "email": "sarah.williams@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Results-driven marketing specialist with expertise in digital marketing strategies.",
+            "education": [
+              {
+                "degree": "Master's Degree",
+                "institution": "Marketing University",
+                "years": "2016-2018"
+              },
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "Business School",
+                "years": "2012-2016"
+              }
+            ],
+            "experience": [
+              "Digital marketing campaign management",
+              "Social media marketing",
+              "Content creation and optimization"
+            ],
+            "skills": [
+              "Digital advertising",
+              "SEO",
+              "Google Analytics",
+              "Email marketing",
+              "Copywriting"
+            ]
+          },
+          {
+            "name": "Michael Thompson",
+            "jobTitle": "Data Scientist",
+            "phone": "+111 222 3333",
+            "email": "michael.thompson@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Passionate data scientist with a strong background in statistical analysis and machine learning.",
+            "education": [
+              {
+                "degree": "Master's Degree",
+                "institution": "Data Science Institute",
+                "years": "2014-2016"
+              },
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "Statistics University",
+                "years": "2010-2014"
+              }
+            ],
+            "experience": [
+              "Data analysis",
+              "Machine learning model development",
+              "Predictive analytics"
+            ],
+            "skills": [
+              "Python",
+              "R",
+              "SQL",
+              "Machine learning",
+              "Statistical analysis"
+            ]
+          },
+          {
+            "name": "Emily Brown",
+            "jobTitle": "UX/UI Designer",
+            "phone": "+999 888 7777",
+            "email": "emily.brown@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Creative UX/UI designer with a passion for designing user-centered digital experiences.",
+            "education": [
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "Design College",
+                "years": "2012-2016"
+              },
+              {
+                "degree": "High School",
+                "institution": "Art School",
+                "years": "2008-2012"
+              }
+            ],
+            "experience": [
+              "User research",
+              "Wireframing and prototyping",
+              "Usability testing"
+            ],
+            "skills": [
+              "Adobe XD",
+              "Sketch",
+              "Figma",
+              "User testing",
+              "Interaction design"
+            ]
+          },
+          {
+            "name": "Robert Davis",
+            "jobTitle": "Software Engineer",
+            "phone": "+777 555 4444",
+            "email": "robert.davis@example.com",
+            "social": {
+              "facebook": "#",
+              "twitter": "#",
+              "linkedin": "#"
+            },
+            "aboutMe": "Skilled software engineer with expertise in backend development and system architecture.",
+            "education": [
+              {
+                "degree": "Bachelor's Degree",
+                "institution": "Computer Science University",
+                "years": "2010-2014"
+              },
+              {
+                "degree": "High School",
+                "institution": "Technical School",
+                "years": "2006-2010"
+              }
+            ],
+            "experience": [
+              "Backend web development",
+              "Database management",
+              "API design and implementation"
+            ],
+            "skills": [
+              "Java",
+              "Python",
+              "Spring Framework",
+              "SQL",
+              "RESTful APIs"
+            ]
+          }      
+    ]
+}
