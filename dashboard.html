@@ -226,6 +226,17 @@
               <p id="noApplicationsAcceptedMessage"></p>
             </div>
           </div>
+
+          <!-- Applications Declined -->
+<div class="card">
+  <div class="card-header">
+    Applications Declined
+  </div>
+  <div class="card-body">
+    <ul id="applicationsDeclined"></ul>
+    <p id="noApplicationsDeclinedMessage"></p>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -236,16 +247,16 @@
   $(document).ready(function () {
     // Fetch data from jobDetails.json
     $.getJSON("jobDetails.json", function (data) {
+      const firstJob = data.jobs[0];
       // Update job information
-      $("#companyName").text(data.companyName);
-      $("#email").text(data.email);
+      $("#companyName").text(firstJob.companyName);
+      $("#email").text(firstJob.email);
     }).fail(function () {
       console.error("Failed to fetch job details.");
       alert("Failed to fetch job details.");
     });
   });
 
-  const status = "pending";
   // Function to update the "Applications Received" section
   function updateApplicationsReceived(applications) {
     const applicationsReceived = document.getElementById('applicationsReceived');
@@ -292,7 +303,7 @@
 
       applications.forEach((application) => {
         const li = document.createElement('li');
-        li.textContent = `${application.name} - ${application.jobData.job} - ${status}`;
+        li.textContent = `${application.name} - ${application.jobData.job} -  " Pending"`;
         applicationsStatus.appendChild(li);
       });
     } else {
@@ -349,11 +360,22 @@
     return false;
   }
 
-  // Function to accept an application
-function acceptApplication(application, li) {
+  function acceptApplication(application, li) {
   // Remove the accepted application from the "Applications Received" section
   const applicationsReceived = document.getElementById('applicationsReceived');
   applicationsReceived.removeChild(li);
+
+  // Remove the status of the accepted application from the "Status of Applications" section
+  const applicationsStatus = document.getElementById('applicationsStatus');
+  const statusItems = applicationsStatus.getElementsByTagName('li');
+
+  for (let i = 0; i < statusItems.length; i++) {
+    const statusItemText = statusItems[i].textContent;
+    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
+      applicationsStatus.removeChild(statusItems[i]);
+      break;
+    }
+  }
 
   // Update the status of the accepted application
   application.status = 'accepted';
@@ -370,7 +392,6 @@ function acceptApplication(application, li) {
   acceptedCount++;
   acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
 }
-
 
   // Function to decline an application
   function declineApplication(name, li) {
@@ -394,6 +415,9 @@ function acceptApplication(application, li) {
 
         // Update the "Applications Accepted" section with the session data
         updateApplicationsAccepted(sessionData);
+
+        // Update the "Applications Declined" section with the session data
+        updateApplicationsDeclined(sessionData);
       }
     })
     .catch((error) => {
