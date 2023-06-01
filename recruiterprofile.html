@@ -252,7 +252,7 @@
             <li>
               <a href="index.html">Home</a>
             </li>
-            <li>Recruiter Profile</li>
+            <li>Company Profile</li>
           </ul>
         </div>
       </div>
@@ -308,21 +308,30 @@
         </div>
       </div>
     </section>
+    
     <script>
       $(document).ready(function () {
         // Fetch data from jobDetails.json
         $.getJSON("jobDetails.json", function (data) {
+          // Retrieve the first job entry
+          const firstJob = data.jobs[0];
+    
           // Update job information
-          $("#companyName").text(data.companyName);
-          $("#email").text(data.email);
-          $("#location").text(data.location);
-          $("#companyWebsite").text(data.companyWebsite);
-        }).fail(function () {
+          $("#companyName").text(firstJob.companyName);
+          $("#email").text(firstJob.email);
+          $("#location").text(firstJob.location);
+          $("#companyWebsite").text(firstJob.companyWebsite);
+        })
+        .done(function () {
+          console.log("Successfully fetched job details.");
+        })
+        .fail(function () {
           console.error("Failed to fetch job details.");
           alert("Failed to fetch job details.");
         });
       });
-    </script>
+    </script>    
+    
 
 <footer class="footer-area pt-100 pb-70">
   <div class="container">

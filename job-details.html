@@ -216,6 +216,9 @@ applyButton.addEventListener('click', (event) => {
       const { name, email } = data;
       const resume = data.resume; // Assuming the resume field contains the resume file path
 
+      // Retrieve the job data from sessionStorage
+      const jobData = JSON.parse(sessionStorage.getItem('jobData'));
+
       // Construct the application data object
       const applicationData = {
         name,

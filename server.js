@@ -4,7 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 const port = 3000;
-const sessionData = {};
+const sessionData = {
+  applications: [],
+};
 
 // Create the server
 const server = http.createServer((req, res) => {
@@ -421,7 +423,9 @@ const server = http.createServer((req, res) => {
       const applicationData = JSON.parse(body);
 
       // Save the application data in the session
-      sessionData.application = applicationData;
+      if (sessionData.applications.length < 5) {
+        sessionData.applications.push(applicationData);
+      }
 
       // Send a response indicating success
       res.statusCode = 200;
