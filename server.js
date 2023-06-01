@@ -270,15 +270,15 @@ const server = http.createServer((req, res) => {
           existingData.name = updatedData.name;
           existingData.jobTitle = updatedData.jobTitle;
           existingData.aboutMe = updatedData.aboutMe;
-          existingData.education.school = updatedData.education.school;
-          existingData.education.qualification = updatedData.education.qualification;
-          existingData.education.yearStarted = updatedData.education.yearStarted;
-          existingData.education.yearCompleted = updatedData.education.yearCompleted;
-          existingData.experience.position = updatedData.experience.position;
-          existingData.experience.company = updatedData.experience.company;
-          existingData.experience.year = updatedData.experience.year;
-          existingData.experience.reason = updatedData.experience.reason;
-          existingData.skills = updatedData.skills;
+          // existingData.education.school = updatedData.education.school;
+          // existingData.education.qualification = updatedData.education.qualification;
+          // existingData.education.yearStarted = updatedData.education.yearStarted;
+          // existingData.education.yearCompleted = updatedData.education.yearCompleted;
+          // existingData.experience.position = updatedData.experience.position;
+          // existingData.experience.company = updatedData.experience.company;
+          // existingData.experience.year = updatedData.experience.year;
+          // existingData.experience.reason = updatedData.experience.reason;
+          // existingData.skills = updatedData.skills;
   
           // Write the updated data back to the JSON file
           fs.writeFile(filePath, JSON.stringify(existingData), (err) => {
