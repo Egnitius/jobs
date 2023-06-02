@@ -3,6 +3,21 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
+const nodemailer = require('nodemailer');
+const qs = require('querystring');
+
+// Create a nodemailer transporter for sending emails
+const transporter = nodemailer.createTransport({
+  // configure the transporter options (e.g., SMTP settings)
+  host: 'mail.capaciti.org.za', // Replace with your email provider SMTP server
+      port: 465, // Replace with the port number provided by your email provider
+      secure: true, // Use SSL
+      auth: {
+        user: 'paledi.egnitius@capaciti.org.za', // Replace with your email address
+        pass: 'Egni@pal', // Replace with your email password
+      },
+});
+ 
 
 const port = 3000;
 const sessionData = {
@@ -574,6 +589,31 @@ const server = http.createServer((req, res) => {
       // End the PDF document
       doc.end();
     });
+  } else if (req.method === 'POST' && req.url === '/subscribe') {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
+
+    req.on('end', () => {
+      const formData = qs.parse(body);
+      const email = formData.EMAIL;
+
+      // Process the email subscription here
+      saveToDatabase(email)
+        .then(() => sendConfirmationEmail(email))
+        .then(() => {
+          // Send a response indicating successful subscription
+          res.writeHead(200, { 'Content-Type': 'text/plain' });
+          res.end('Thank you for subscribing!');
+        })
+        .catch((error) => {
+          // Handle any errors that occurred during subscription processing
+          console.error('Subscription error:', error);
+          res.writeHead(500, { 'Content-Type': 'text/plain' });
+          res.end('An error occurred during subscription.');
+        });
+    });
   } else {
     // Serve the requested file
 let filePath;
@@ -691,6 +731,42 @@ function filterJobs(searchQuery, locationQuery, categoryQuery) {
   });
 
   return filteredJobs;
+}
+
+// Simulate saving the email to a database
+function saveToDatabase(email) {
+  return new Promise((resolve) => {
+    // Save the email to the database (replace with your actual database logic)
+    // For example, using a MongoDB connection:
+    // const collection = db.collection('subscribers');
+    // collection.insertOne({ email }, (error) => {
+    //   if (error) {
+    //     reject(error);
+    //   } else {
+    //     resolve();
+    //   }
+    // });
+    resolve(); // Placeholder resolve
+  });
+}
+// Simulate sending a confirmation email
+function sendConfirmationEmail(email) {
+  return new Promise((resolve, reject) => {
+    const mailOptions = {
+      from: 'JobQuest <paledi.egnitius@capaciti.org.za>',
+      to: email,
+      subject: 'Subscription Confirmation',
+      text: 'Thank you for subscribing to our job notifications!',
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+      }
+    });
+  });
 }
 
 // Start the server

@@ -790,7 +790,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <form class="newsletter-form" data-toggle="validator">
+            <form class="newsletter-form" data-toggle="validator" method="post" action="/subscribe">
               <input
                 type="email"
                 class="form-control"
@@ -808,6 +808,38 @@
         </div>
       </div>
     </section>
+    <script>
+      // Handle form submission
+      document.querySelector('.newsletter-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        const emailInput = document.querySelector('input[name="EMAIL"]');
+        const email = emailInput.value;
+
+        // Send the form data to the server using AJAX
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/subscribe', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              // Display success message
+              document.getElementById('validator-newsletter').textContent = 'Thank you for subscribing!';
+              emailInput.value = '';
+            } else {
+              // Display error message
+              document.getElementById('validator-newsletter').textContent = 'An error occurred during subscription.';
+            }
+          }
+        };
+
+        const formData = new URLSearchParams();
+        formData.append('EMAIL', email);
+
+        xhr.send(formData);
+      });
+    </script>
 
     <footer class="footer-area pt-100 pb-70">
       <div class="container">
