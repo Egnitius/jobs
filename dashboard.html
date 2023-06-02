@@ -226,6 +226,17 @@
               <p id="noApplicationsAcceptedMessage"></p>
             </div>
           </div>
+
+          <!-- Applications Declined -->
+<div class="card">
+  <div class="card-header">
+    Applications Declined
+  </div>
+  <div class="card-body">
+    <ul id="applicationsDeclined"></ul>
+    <p id="noApplicationsDeclinedMessage"></p>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -236,16 +247,16 @@
   $(document).ready(function () {
     // Fetch data from jobDetails.json
     $.getJSON("jobDetails.json", function (data) {
+      const firstJob = data.jobs[0];
       // Update job information
-      $("#companyName").text(data.companyName);
-      $("#email").text(data.email);
+      $("#companyName").text(firstJob.companyName);
+      $("#email").text(firstJob.email);
     }).fail(function () {
       console.error("Failed to fetch job details.");
       alert("Failed to fetch job details.");
     });
   });
 
-  const status = "pending";
   // Function to update the "Applications Received" section
   function updateApplicationsReceived(applications) {
     const applicationsReceived = document.getElementById('applicationsReceived');
@@ -257,20 +268,30 @@
 
       applications.forEach((application) => {
         // Check if the application is already accepted
-        if (!isApplicationAccepted(application)) {
+        if (!isApplicationAccepted(application) || !isApplicationDeclined(application)) {
           const li = document.createElement('li');
           li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
 
-          // Create accept and decline buttons
-          const acceptButton = document.createElement('button');
-          acceptButton.textContent = 'Accept';
-          acceptButton.addEventListener('click', () => acceptApplication(application, li));
-          li.appendChild(acceptButton);
+          // Create a container element for the buttons
+const buttonContainer = document.createElement('div');
+buttonContainer.style.display = 'inline-block'; // Set the container to display as inline-block
 
-          const declineButton = document.createElement('button');
-          declineButton.textContent = 'Decline';
-          declineButton.addEventListener('click', () => declineApplication(application.name, li));
-          li.appendChild(declineButton);
+// Create the accept button
+const acceptButton = document.createElement('button');
+acceptButton.textContent = 'Accept';
+acceptButton.style.color = 'red'; // Set the text color to red
+acceptButton.addEventListener('click', () => acceptApplication(application, li));
+buttonContainer.appendChild(acceptButton);
+
+// Create the decline button
+const declineButton = document.createElement('button');
+declineButton.textContent = 'Decline';
+declineButton.style.color = 'red'; // Set the text color to red
+declineButton.addEventListener('click', () => declineApplication(application, li));
+buttonContainer.appendChild(declineButton);
+
+// Append the button container to the list item
+li.appendChild(buttonContainer);
 
           applicationsReceived.appendChild(li);
         }
@@ -292,7 +313,7 @@
 
       applications.forEach((application) => {
         const li = document.createElement('li');
-        li.textContent = `${application.name} - ${application.jobData.job} - ${status}`;
+        li.textContent = `${application.name} - ${application.jobData.job} -  Pending`;
         applicationsStatus.appendChild(li);
       });
     } else {
@@ -349,11 +370,22 @@
     return false;
   }
 
-  // Function to accept an application
-function acceptApplication(application, li) {
+  function acceptApplication(application, li) {
   // Remove the accepted application from the "Applications Received" section
   const applicationsReceived = document.getElementById('applicationsReceived');
   applicationsReceived.removeChild(li);
+
+  // Remove the status of the accepted application from the "Status of Applications" section
+  const applicationsStatus = document.getElementById('applicationsStatus');
+  const statusItems = applicationsStatus.getElementsByTagName('li');
+
+  for (let i = 0; i < statusItems.length; i++) {
+    const statusItemText = statusItems[i].textContent;
+    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
+      applicationsStatus.removeChild(statusItems[i]);
+      break;
+    }
+  }
 
   // Update the status of the accepted application
   application.status = 'accepted';
@@ -371,13 +403,93 @@ function acceptApplication(application, li) {
   acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
 }
 
+function updateApplicationsDeclined(applications) {
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const noApplicationsDeclinedMessage = document.getElementById('noApplicationsDeclinedMessage');
 
-  // Function to decline an application
-  function declineApplication(name, li) {
-    // Remove the declined application from the "Applications Received" section
-    const applicationsReceived = document.getElementById('applicationsReceived');
-    applicationsReceived.removeChild(li);
+  // Clear the existing list
+  applicationsDeclined.innerHTML = '';
+
+  if (applications.length > 0) {
+    // Display the number of applications declined
+    const declinedApplications = applications.filter(isApplicationDeclined);
+    const declinedCount = declinedApplications.length;
+    const declinedCountElement = document.createElement('p');
+    declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
+    applicationsDeclined.appendChild(declinedCountElement);
+
+    // Display the declined applications
+    declinedApplications.forEach((application) => {
+      const li = document.createElement('li');
+      li.textContent = `${application.name} - ${application.jobData.job}`;
+      applicationsDeclined.appendChild(li);
+    });
+  } else {
+    // Display "0" for the number of applications declined
+    const declinedCountElement = document.createElement('p');
+    declinedCountElement.textContent = 'Total Applications Declined: 0';
+    applicationsDeclined.appendChild(declinedCountElement);
+
+    // Display the "No applications declined yet" message
+    noApplicationsDeclinedMessage.style.display = 'block';
   }
+}
+
+// Function to check if an application is already declined
+function isApplicationDeclined(application) {
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const declinedItems = applicationsDeclined.getElementsByTagName('li');
+
+  for (let i = 0; i < declinedItems.length; i++) {
+    const declinedItemText = declinedItems[i].textContent;
+    if (declinedItemText.includes(application.name) && declinedItemText.includes(application.jobData.job)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function declineApplication(application, li) {
+  // Remove the declined application from the "Applications Received" section
+  const applicationsReceived = document.getElementById('applicationsReceived');
+  applicationsReceived.removeChild(li);
+
+  // Remove the status of the declined application from the "Status of Applications" section
+  const applicationsStatus = document.getElementById('applicationsStatus');
+  const statusItems = applicationsStatus.getElementsByTagName('li');
+
+  for (let i = 0; i < statusItems.length; i++) {
+    const statusItemText = statusItems[i].textContent;
+    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
+      applicationsStatus.removeChild(statusItems[i]);
+      break;
+    }
+  }
+
+  // Update the status of the declined application
+  application.status = 'declined';
+
+  // Add the declined application to the "Applications declined" section
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const liDeclined = document.createElement('li');
+
+  // Check if the necessary properties are defined in the application object
+  if (application.name && application.jobData && application.jobData.job) {
+    liDeclined.textContent = `${application.name} - ${application.jobData.job}`;
+  } else {
+    liDeclined.textContent = 'Invalid application data';
+    liDeclined.classList.add('error');
+  }
+
+  applicationsDeclined.appendChild(liDeclined);
+
+  // Update the count of declined applications
+  const declinedCountElement = document.querySelector('#applicationsDeclined p');
+  let declinedCount = parseInt(declinedCountElement.textContent.split(':')[1].trim(), 10);
+  declinedCount++;
+  declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
+}
 
   // Fetch the session data from the server
   fetch('/session')
@@ -394,6 +506,9 @@ function acceptApplication(application, li) {
 
         // Update the "Applications Accepted" section with the session data
         updateApplicationsAccepted(sessionData);
+
+        // Update the "Applications Declined" section with the session data
+        updateApplicationsDeclined(sessionData);
       }
     })
     .catch((error) => {

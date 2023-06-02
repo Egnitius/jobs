@@ -338,6 +338,9 @@
                 <button type="submit" id="edit" class="account-btn">
                   EDIT
                 </button>
+                <button type="submit" id="download" class="account-btn">
+                  DOWNLOAD
+                </button>
               </div>
             </div>
           </div>
@@ -453,6 +456,91 @@
           .catch(function (error) {
             console.error("Error updating data:", error);
           });
+      });
+
+      // Add an event listener to the download button
+      const downloadButton = document.getElementById('download');
+
+      downloadButton.addEventListener('click', function () {
+      $(document).ready(function () {
+        // Fetch data from details.json
+        $.getJSON("details.json", function (data) {
+          // Retrieve data from the JSON object
+          const name = data.name;
+          const jobTitle = data.jobTitle;
+          const aboutMe = data.aboutMe;
+          const email = data.email;
+          const phone = data.phone;
+          const country = data.country;
+          const city = data.city;
+          const zipCode = data.zipCode;
+          const region = data.region;
+          const educationSchool = data.education.school;
+          const educationQualification = data.education.qualification;
+          const educationYearStarted = data.education.yearStarted;
+          const educationYearCompleted = data.education.yearCompleted;
+          const workPosition = data.experience.position;
+          const workCompany = data.experience.company;
+          const workYear = data.experience.year;
+          const workReasonForLeaving = data.experience.reason;
+          const skill1 = data.skills[0];
+          const skill2 = data.skills[1];
+          const skill3 = data.skills[2];
+          const skill4 = data.skills[3];
+  
+
+          const userData = {
+              name: name,
+              jobTitle: jobTitle,
+              aboutMe: aboutMe,
+              email: email,
+              phone: phone,
+              country: country,
+              city: city,
+              zipCode: zipCode,
+              region: region,
+              educationSchool: educationSchool,
+              educationQualification: educationQualification,
+              educationYearStarted: educationYearStarted,
+              educationYearCompleted: educationYearCompleted,
+              workPosition: workPosition,
+              workCompany: workCompany,
+              workYear: workYear,
+              workReasonForLeaving: workReasonForLeaving,
+              skill1: skill1,
+              skill2: skill2,
+              skill3: skill3,
+              skill4: skill4
+          };
+
+            // Send a POST request to the server to generate and download the PDF
+            fetch('/api/resume', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(userData)
+            })
+              .then(response => {
+                if (response.ok) {
+                  // Trigger the download by creating a temporary anchor element
+                  return response.blob().then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'myResume.pdf';
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                  });
+                } else {
+                  throw new Error('Error: ' + response.status);
+                }
+              })
+              .catch(function (error) {
+                console.error('Error generating PDF:', error);
+              });
+          });
+        });
       });
     </script>
 

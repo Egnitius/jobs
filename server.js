@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
+const PDFDocument = require('pdfkit');
 
 const port = 3000;
 const sessionData = {
@@ -411,30 +412,30 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.method === 'POST' && req.url === '/apply') {
     let body = '';
-  
+
     // Collect the request data
     req.on('data', (chunk) => {
       body += chunk;
     });
-  
+
     // Process the request data
     req.on('end', () => {
       // Parse the request body as JSON
       const applicationData = JSON.parse(body);
-  
+
       // Save the application data in the session
       if (sessionData.applications.length < 5) {
         sessionData.applications.push(applicationData);
       }
-  
+
       // Send a response indicating success
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ message: 'Application submitted successfully' }));
     });
-  } else if (req.method === 'GET' && req.url === '/details.json') {
-    const filePath = path.join(__dirname, 'details.json');
-  
+  } else if (req.method === 'GET' && req.url === '/jobDetails.json') {
+    const filePath = path.join(__dirname, 'jobDetails.json');
+
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         res.statusCode = 500;
@@ -450,16 +451,92 @@ const server = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(sessionData));
-  } else if (req.url === '/candidate-details') {
-    // Read the candidate details from the JSON file
-    fs.readFile('candidate-details.json', 'utf8', (err, data) => {
-      if (err) {
-        res.statusCode = 500;
-        res.end('Internal Server Error');
-      } else {
-        res.setHeader('Content-Type', 'application/json');
-        res.end(data);
-      }
+  } else if (req.method === 'POST' && req.url === '/api/resume') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+    req.on('end', () => {
+  
+      // Parse the received data
+      const userData = JSON.parse(body);
+  
+      // Generate the PDF
+      const doc = new PDFDocument({ margin: 50 });
+  
+      // Set the response headers for downloading the PDF
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="myResume.pdf"`);
+  
+      // Pipe the PDF document to the response
+      doc.pipe(res);
+  
+      // Set font colors and styles
+      const headingColor = '#333333';
+      const subheadingColor = '#666666';
+      const contentColor = '#000000';
+  
+      // Add a border around the content
+      doc.rect(40, 40, doc.page.width - 80, doc.page.height - 80).stroke();
+  
+      // Add content to the PDF
+      const imageWidth = 120;
+      const pageWidth = doc.page.width;
+      const imageX = (pageWidth - imageWidth) / 2;
+      
+      // Add the image on top
+      doc.image('assets/img/blackman.jpg', {
+        fit: [120, 120],
+        align: 'center',
+        valign: 'top' // Align the image to the top
+      });
+      doc.moveDown();
+  
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(20).text(userData.name);
+  
+      doc.font('Helvetica').fillColor(subheadingColor).fontSize(14).text(userData.jobTitle);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+  
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('About Me:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.aboutMe);
+      doc.moveDown();
+  
+      // Personal Information
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Personal Information:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Email: ${userData.email}`);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Phone: ${userData.phone}`);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Address: ${userData.city}, ${userData.region}, ${userData.country}, ${userData.zipCode}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Education
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Education:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.educationQualification);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.educationSchool);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`${userData.educationYearStarted} - ${userData.educationYearCompleted}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Work Experience
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Work Experience:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workPosition);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workCompany);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workYear);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Reason for Leaving: ${userData.workReasonForLeaving}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Skills
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Skills:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill1);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill2);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill3);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill4);
+  
+      // End the PDF document
+      doc.end();
     });
   } else {
     // Serve the requested file
