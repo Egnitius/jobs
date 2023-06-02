@@ -26,8 +26,49 @@
 
     <link rel="stylesheet" href="assets/css/responsive.css" />
 
-    <title></title>
+    <title>JobQuest/Find-Job</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      /* Modal Content */
+.modal-content {
+  background-color: #fff;
+  color:#000
+}
+
+/* Modal Header */
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: none;
+}
+
+/* Modal Title */
+.modal-title {
+      color: black;
+    }
+
+/* Modal Body */
+.modal-body {
+  color: #000;
+}
+
+/* Modal Footer */
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: none;
+}
+
+/* Close Button */
+.close {
+  color: #000;
+  opacity: 1;
+}
+
+/* Background Overlay */
+.modal-backdrop {
+  opacity: 0.5;
+  background-color: #000;
+}
+    </style>
   </head>
   <body>
     <div class="loader-content">
@@ -119,39 +160,25 @@
 
     <div class="find-section ptb-100">
       <div class="container">
-        <form class="find-form mt-0">
+        <form id="searchForm" class="find-form mt-0">
           <div class="row">
             <div class="col-lg-3">
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  placeholder="Job Title or Keyword"
-                />
+                <input type="text" class="form-control" id="job" placeholder="Job Title or Keyword" />
                 <i class="bx bx-search-alt"></i>
               </div>
             </div>
             <div class="col-lg-3">
               <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail2"
-                  placeholder="Location"
-                />
+                <input type="text" class="form-control" id="location" placeholder="Location" />
                 <i class="bx bx-location-plus"></i>
               </div>
             </div>
             <div class="col-lg-3">
-              <select class="category">
-                <option data-display="Category">Category</option>
-                <option value="1">Web Development</option>
-                <option value="2">Graphics Design</option>
-                <option value="4">Data Entry</option>
-                <option value="5">Visual Editor</option>
-                <option value="6">Office Assistant</option>
-              </select>
+              <div class="form-group">
+                <input type="text" class="form-control" id="jobCategory" placeholder="Job Category" />
+                <i class="bx bx-search-alt"></i>
+              </div>
             </div>
             <div class="col-lg-3">
               <button type="submit" class="find-btn">
@@ -163,41 +190,88 @@
         </form>
       </div>
     </div>
-
+    
+    <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resultsModalLabel">Search Results</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" id="resultsModalCloseIcon">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="resultsModalBody">
+            <!-- Results will be displayed here -->
+          </div>
+        </div>
+      </div>
+    </div>    
+    
     <script>
-      // Client-side JavaScript
-document.querySelector('.find-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent the form from submitting normally
+      document.getElementById("searchForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
+    
+        const searchQuery = document.getElementById("job").value;
+        const locationQuery = document.getElementById("location").value;
+        const categoryQuery = document.getElementById("jobCategory").value;
+    
+        const request = new XMLHttpRequest();
+        request.open("GET", "/api/search?searchQuery=" + searchQuery + "&locationQuery=" + locationQuery + "&categoryQuery=" + categoryQuery, true);
+        request.onreadystatechange = function () {
+          if (request.readyState === 4 && request.status === 200) {
+            const results = JSON.parse(request.responseText);
+            displayResults(results);
+          }
+        };
+        request.send();
+      });
+    
+      function displayResults(results) {
+        const modalBody = document.getElementById("resultsModalBody");
+        let modalContent = "";
+    
+        if (results.jobs && results.jobs.length > 0) {
+          // Build the table structure
+          modalContent = "<table class='table'><thead><tr><th>Company</th><th>Job Title</th><th>Location</th><th></th></tr></thead><tbody>";
+    
+          // Add each job as a table row
+          results.jobs.forEach(function (job) {
+            modalContent += "<tr><td>" + job.companyName + "</td><td>" + job.job + "</td><td>" + job.location + "</td><td><button class='apply-button' data-job='" + JSON.stringify(job) + "'>Apply</button></td></tr>";
+          });
 
-  const jobTitle = document.querySelector('#exampleInputEmail1').value;
-  const location = document.querySelector('#exampleInputEmail2').value;
-  const category = document.querySelector('.category').value;
-
-  // Create the request payload
-  const payload = {
-    jobTitle,
-    location,
-    category
-  };
-
-  // Send a POST request to the server
-  fetch('/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Display the search results in a popup
-      alert(JSON.stringify(data));
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-});
+          modalContent += "</tbody></table>";
+        } else {
+          modalContent = "No jobs found.";
+        }
+    
+        // Set the modal content
+        modalBody.innerHTML = modalContent;
+    
+        // Show the modal
+        $('#resultsModal').modal('show');
+    
+              // Attach event listeners to the "Apply" buttons
+        const applyButtons = document.getElementsByClassName('apply-button');
+        Array.from(applyButtons).forEach(button => {
+        button.addEventListener('click', (event) => {
+          const jobData = JSON.parse(event.target.getAttribute('data-job'));
+          handleBrowseJob(event, jobData);
+        });
+        });
+      }
+    
+      // Close the modal when clicking on the close button or the "x" icon
+      document.getElementById("resultsModalCloseIcon").addEventListener("click", function () {
+        $('#resultsModal').modal('hide');
+      });
+    
+      // Function to handle the "Apply" button click
+      function handleBrowseJob(event, jobData) {
+        // TODO: Implement your logic to handle the job application
+        console.log("Apply button clicked for job:", jobData);
+      }
     </script>
+         
 
     <div class="category-style-two pb-70">
       <div class="container">

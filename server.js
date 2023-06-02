@@ -9,11 +9,14 @@ const sessionData = {
   applications: [],
 };
 
+// Read the job details from the JSON file
+const jobDetailsPath = path.join(__dirname, 'jobDetails.json');
+const jobDetails = JSON.parse(fs.readFileSync(jobDetailsPath, 'utf8'));
+
 // Create the server
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
-  const pathname = parsedUrl.pathname;
-  const query = parsedUrl.query;
+  const { pathname, query } = parsedUrl;
 
   if (req.method === 'POST' && req.url === '/api/signup') {
     let body = '';
@@ -461,7 +464,22 @@ const server = http.createServer((req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.end(data);
       }
-    });
+    });} else if (req.method === 'GET' && pathname === '/api/search') {
+      // Retrieve the searchQuery, locationQuery, and categoryQuery from the query parameters
+      const searchQuery = query.searchQuery;
+      const locationQuery = query.locationQuery;
+      const categoryQuery = query.categoryQuery;
+  
+      // Implement your logic to filter jobs based on the search query, location, and category
+      const filteredJobs = filterJobs(searchQuery, locationQuery, categoryQuery);
+  
+      // Prepare the job results
+      const results = { jobs: filteredJobs };
+  
+      // Send the response as JSON
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      res.end(JSON.stringify(results));
   } else {
     // Serve the requested file
 let filePath;
@@ -564,6 +582,21 @@ function generateUniqueId(jobDetails) {
   }
 
   return id;
+}
+
+function filterJobs(searchQuery, locationQuery, categoryQuery) {
+  const search = searchQuery.toLowerCase();
+  const location = locationQuery.toLowerCase();
+  const jobCategory = categoryQuery.toLowerCase();
+
+  const filteredJobs = jobDetails.jobs.filter(job => {
+    const jobTitleMatch = job.job.toLowerCase().includes(search);
+    const locationMatch = job.location.toLowerCase().includes(location);
+    const categoryMatch = job.jobCategory && job.jobCategory.toLowerCase().includes(jobCategory); // Check if category exists before accessing it
+    return jobTitleMatch && locationMatch && (!jobCategory || categoryMatch); // Only check categoryMatch if category is provided
+  });
+
+  return filteredJobs;
 }
 
 // Start the server
