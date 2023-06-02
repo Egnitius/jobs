@@ -480,6 +480,100 @@ const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.statusCode = 200;
       res.end(JSON.stringify(results));
+  } else if (req.method === 'POST' && req.url === '/api/resume') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk;
+    });
+    req.on('end', () => {
+  
+      // Parse the received data
+      const userData = JSON.parse(body);
+  
+      // Generate the PDF
+      const doc = new PDFDocument({ margin: 50 });
+  
+      // Set the response headers for downloading the PDF
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="myResume.pdf"`);
+  
+      // Pipe the PDF document to the response
+      doc.pipe(res);
+  
+      // Set font colors and styles
+      const headingColor = '#333333';
+      const subheadingColor = '#666666';
+      const contentColor = '#000000';
+  
+      // Add a border around the content
+     const borderWidth = 2;
+     const borderX = 40;
+     const borderY = 40;
+     const borderWidthWithMargin = doc.page.width - (2 * borderX);
+     const borderHeightWithMargin = doc.page.height - (2 * borderY);
+     doc.rect(borderX, borderY, borderWidthWithMargin, borderHeightWithMargin).lineWidth(borderWidth).stroke();
+  
+      // Add content to the PDF
+      const imageWidth = 120;
+      const imageHeight = 120;
+      const pageWidth = doc.page.width;
+      const pageHeight = doc.page.height;
+
+      // Calculate the horizontal position to center the image
+      const imageX = (pageWidth - imageWidth) / 2;
+      const imageY = borderY + 5;
+
+      // Add the image above the name
+      doc.image('assets/img/blackman.jpg', imageX, imageY, { fit: [imageWidth, imageHeight], align: 'center' });
+
+      doc.moveDown(6);
+  
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(20).text(userData.name, {align: 'center'});
+  
+      doc.font('Helvetica').fillColor(subheadingColor).fontSize(14).text(userData.jobTitle, {align: 'center'});
+  
+      doc.moveDown(); // Add vertical spacing
+  
+  
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('About Me:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.aboutMe);
+      doc.moveDown();
+  
+      // Personal Information
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Personal Information:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Email: ${userData.email}`);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Phone: ${userData.phone}`);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Address: ${userData.city}, ${userData.region}, ${userData.country}, ${userData.zipCode}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Education
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Education:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.educationQualification);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.educationSchool);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`${userData.educationYearStarted} - ${userData.educationYearCompleted}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Work Experience
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Work Experience:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workPosition);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workCompany);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.workYear);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(`Reason for Leaving: ${userData.workReasonForLeaving}`);
+  
+      doc.moveDown(); // Add vertical spacing
+  
+      // Skills
+      doc.font('Helvetica-Bold').fillColor(headingColor).fontSize(14).text('Skills:');
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill1);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill2);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill3);
+      doc.font('Helvetica').fillColor(contentColor).fontSize(12).text(userData.skill4);
+  
+      // End the PDF document
+      doc.end();
+    });
   } else {
     // Serve the requested file
 let filePath;
