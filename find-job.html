@@ -164,6 +164,41 @@
       </div>
     </div>
 
+    <script>
+      // Client-side JavaScript
+document.querySelector('.find-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent the form from submitting normally
+
+  const jobTitle = document.querySelector('#exampleInputEmail1').value;
+  const location = document.querySelector('#exampleInputEmail2').value;
+  const category = document.querySelector('.category').value;
+
+  // Create the request payload
+  const payload = {
+    jobTitle,
+    location,
+    category
+  };
+
+  // Send a POST request to the server
+  fetch('/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Display the search results in a popup
+      alert(JSON.stringify(data));
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
+    </script>
+
     <div class="category-style-two pb-70">
       <div class="container">
         <div class="section-title text-center">
