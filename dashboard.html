@@ -32,6 +32,43 @@
     <title></title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 10px; /* Adjust the padding value as desired */
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      #applicationsReceived th,
+      #applicationsStatus th,
+      #applicationsAccepted th,
+      #applicationsDeclined th {
+        font-weight: bold;
+      }
+
+      #applicationsReceived td:first-child,
+      #applicationsStatus td:first-child,
+      #applicationsAccepted td:first-child,
+      #applicationsDeclined td:first-child {
+        width: 60%; /* Adjust the width value as desired */
+      }
+
+      #applicationsReceived td:last-child,
+      #applicationsStatus td:last-child,
+      #applicationsAccepted td:last-child,
+      #applicationsDeclined td:last-child {
+        width: 40%; /* Adjust the width value as desired */
+      }
+    </style>
   </head>
   <body>
     <div class="loader-content">
@@ -194,49 +231,37 @@
             recruiting activities.
           </p>
 
-          <!-- Applications Received -->
-          <div class="card">
-            <div class="card-header">
-              Applications Received
-            </div>
-            <div class="card-body">
-              <ul id="applicationsReceived"></ul>
-              <p id="noApplicationsMessage">No applications received yet.</p>
-            </div>
-          </div>
+          <h2>Applications Received</h2>
+    <table id="applicationsReceived">
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+      </tr>
+    </table>
 
-          <!-- Status of Applications -->
-          <div class="card">
-            <div class="card-header">
-              Status of Applications
-            </div>
-            <div class="card-body">
-              <ul id="applicationsStatus"></ul>
-              <p id="noApplicationsStatusMessage">No applications in progress.</p>
-            </div>
-          </div>
+    <h2>Status of Applications</h2>
+    <table id="applicationsStatus">
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+      </tr>
+    </table>
 
-          <!-- Applications Accepted -->
-          <div class="card">
-            <div class="card-header">
-              Applications Accepted
-            </div>
-            <div class="card-body">
-              <ul id="applicationsAccepted"></ul>
-              <p id="noApplicationsAcceptedMessage"></p>
-            </div>
-          </div>
+    <h2>Applications Accepted</h2>
+    <table id="applicationsAccepted">
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+      </tr>
+    </table>
 
-          <!-- Applications Declined -->
-<div class="card">
-  <div class="card-header">
-    Applications Declined
-  </div>
-  <div class="card-body">
-    <ul id="applicationsDeclined"></ul>
-    <p id="noApplicationsDeclinedMessage"></p>
-  </div>
-</div>
+    <h2>Applications Declined</h2>
+    <table id="applicationsDeclined">
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+      </tr>
+    </table>
         </div>
       </div>
     </div>
@@ -256,259 +281,231 @@
       alert("Failed to fetch job details.");
     });
   });
+      // Function to update the "Applications Received" section
+      function updateApplicationsReceived(applications) {
+        const applicationsReceived = document.getElementById('applicationsReceived');
 
-  // Function to update the "Applications Received" section
-  function updateApplicationsReceived(applications) {
-    const applicationsReceived = document.getElementById('applicationsReceived');
-    const noApplicationsMessage = document.getElementById('noApplicationsMessage');
+        applications.forEach((application) => {
+          // Check if the application is already accepted or declined
+          if (!isApplicationAccepted(application) && !isApplicationDeclined(application)) {
+            const row = applicationsReceived.insertRow();
 
-    if (applications.length > 0) {
-      // Remove the "No applications received yet" message
-      noApplicationsMessage.style.display = 'none';
+            const nameCell = row.insertCell();
+            nameCell.textContent = application.name;
 
-      applications.forEach((application) => {
-        // Check if the application is already accepted
-        if (!isApplicationAccepted(application) || !isApplicationDeclined(application)) {
-          const li = document.createElement('li');
-          li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
+            const emailCell = row.insertCell();
+            emailCell.textContent = application.email;
 
-          // Create a container element for the buttons
-          const buttonContainer = document.createElement('div');
-          buttonContainer.style.display = 'inline-block'; // Set the container to display as inline-block
-          buttonContainer.style.textAlign = 'right';
+            const jobCell = row.insertCell();
+            jobCell.textContent = application.jobData.job;
 
-          // Create the accept button
-          const acceptButton = document.createElement('button');
-          acceptButton.textContent = 'Accept';
-          acceptButton.style.color = 'green'; // Set the text color to red
-          acceptButton.addEventListener('click', () => acceptApplication(application, li));
-          buttonContainer.appendChild(acceptButton);
+            const actionCell = row.insertCell();
+            const acceptButton = document.createElement('button');
+            acceptButton.textContent = 'Accept';
+            acceptButton.style.color = 'green';
+            acceptButton.addEventListener('click', () => acceptApplication(application, row));
+            actionCell.appendChild(acceptButton);
 
-          // Create the decline button
-          const declineButton = document.createElement('button');
-          declineButton.textContent = 'Decline';
-          declineButton.style.color = 'red'; // Set the text color to red
-          declineButton.addEventListener('click', () => declineApplication(application, li));
-          buttonContainer.appendChild(declineButton);
+            const declineButton = document.createElement('button');
+            declineButton.textContent = 'Decline';
+            declineButton.style.color = 'red';
+            declineButton.addEventListener('click', () => declineApplication(application, row));
+            actionCell.appendChild(declineButton);
+          }
+        });
+      }
 
-          // Append the button container to the list item
-          li.appendChild(buttonContainer);
+      // Function to update the "Status of Applications" section
+      function updateApplicationsStatus(applications) {
+        const applicationsStatus = document.getElementById('applicationsStatus');
 
-          applicationsReceived.appendChild(li);
+        applications.forEach((application) => {
+          const row = applicationsStatus.insertRow();
+
+          const nameCell = row.insertCell();
+          nameCell.textContent = application.name;
+
+          const jobCell = row.insertCell();
+          jobCell.textContent = application.jobData.job;
+
+          const statusCell = row.insertCell();
+          statusCell.textContent = 'Pending';
+        });
+      }
+
+      // Function to update the "Applications Accepted" section
+      function updateApplicationsAccepted(applications) {
+        const applicationsAccepted = document.getElementById('applicationsAccepted');
+        applicationsAccepted.innerHTML = ''; // Clear the existing table content
+
+        const acceptedApplications = applications.filter(isApplicationAccepted);
+        const acceptedCount = acceptedApplications.length;
+
+        if (acceptedCount > 0) {
+          const countRow = applicationsAccepted.insertRow();
+          const countCell = countRow.insertCell();
+          countCell.colSpan = 2;
+          countCell.textContent = `Total Applications Accepted: ${acceptedCount}`;
+
+          acceptedApplications.forEach((application) => {
+            const row = applicationsAccepted.insertRow();
+            const nameCell = row.insertCell();
+            nameCell.textContent = application.name;
+
+            const jobCell = row.insertCell();
+            jobCell.textContent = application.jobData.job;
+          });
+        } else {
+          const countRow = applicationsAccepted.insertRow();
+          const countCell = countRow.insertCell();
+          countCell.colSpan = 2;
+          countCell.textContent = 'Total Applications Accepted: 0';
         }
-      });
-    } else {
-      // Display the "No applications received yet" message
-      noApplicationsMessage.style.display = 'block';
-    }
-  }
-
-  // Function to update the "Status of Applications" section
-  function updateApplicationsStatus(applications) {
-    const applicationsStatus = document.getElementById('applicationsStatus');
-    const noApplicationsStatusMessage = document.getElementById('noApplicationsStatusMessage');
-
-    if (applications.length > 0) {
-      // Remove the "No applications in progress" message
-      noApplicationsStatusMessage.style.display = 'none';
-
-      applications.forEach((application) => {
-        const li = document.createElement('li');
-        li.textContent = `${application.name} - ${application.jobData.job} - pending`;
-        applicationsStatus.appendChild(li);
-      });
-    } else {
-      // Display the "No applications in progress" message
-      noApplicationsStatusMessage.style.display = 'block';
-    }
-  }
-
-  // Function to update the "Applications Accepted" section
-  function updateApplicationsAccepted(applications) {
-    const applicationsAccepted = document.getElementById('applicationsAccepted');
-    const noApplicationsAcceptedMessage = document.getElementById('noApplicationsAcceptedMessage');
-
-    // Clear the existing list
-    applicationsAccepted.innerHTML = '';
-
-    if (applications.length > 0) {
-      // Display the number of applications accepted
-      const acceptedApplications = applications.filter(isApplicationAccepted);
-      const acceptedCount = acceptedApplications.length;
-      const acceptedCountElement = document.createElement('p');
-      acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
-      applicationsAccepted.appendChild(acceptedCountElement);
-
-      // Display the accepted applications
-      acceptedApplications.forEach((application) => {
-        const li = document.createElement('li');
-        li.textContent = `${application.name} - ${application.jobData.job}`;
-        applicationsAccepted.appendChild(li);
-      });
-    } else {
-      // Display "0" for the number of applications accepted
-      const acceptedCountElement = document.createElement('p');
-      acceptedCountElement.textContent = 'Total Applications Accepted: 0';
-      applicationsAccepted.appendChild(acceptedCountElement);
-
-      // Display the "No applications accepted yet" message
-      noApplicationsAcceptedMessage.style.display = 'block';
-    }
-  }
-
-  // Function to check if an application is already accepted
-  function isApplicationAccepted(application) {
-    const applicationsAccepted = document.getElementById('applicationsAccepted');
-    const acceptedItems = applicationsAccepted.getElementsByTagName('li');
-
-    for (let i = 0; i < acceptedItems.length; i++) {
-      const acceptedItemText = acceptedItems[i].textContent;
-      if (acceptedItemText.includes(application.name) && acceptedItemText.includes(application.jobData.job)) {
-        return true;
       }
-    }
 
-    return false;
-  }
+      // Function to update the "Applications Declined" section
+      function updateApplicationsDeclined(applications) {
+        const applicationsDeclined = document.getElementById('applicationsDeclined');
+        applicationsDeclined.innerHTML = ''; // Clear the existing table content
 
-  function acceptApplication(application, li) {
-  // Remove the accepted application from the "Applications Received" section
-  const applicationsReceived = document.getElementById('applicationsReceived');
-  applicationsReceived.removeChild(li);
+        const declinedApplications = applications.filter(isApplicationDeclined);
+        const declinedCount = declinedApplications.length;
 
-  // Remove the status of the accepted application from the "Status of Applications" section
-  const applicationsStatus = document.getElementById('applicationsStatus');
-  const statusItems = applicationsStatus.getElementsByTagName('li');
+        if (declinedCount > 0) {
+          const countRow = applicationsDeclined.insertRow();
+          const countCell = countRow.insertCell();
+          countCell.colSpan = 2;
+          countCell.textContent = `Total Applications Declined: ${declinedCount}`;
 
-  for (let i = 0; i < statusItems.length; i++) {
-    const statusItemText = statusItems[i].textContent;
-    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
-      applicationsStatus.removeChild(statusItems[i]);
-      break;
-    }
-  }
+          declinedApplications.forEach((application) => {
+            const row = applicationsDeclined.insertRow();
+            const nameCell = row.insertCell();
+            nameCell.textContent = application.name;
 
-  // Update the status of the accepted application
-  application.status = 'accepted';
-
-  // Add the accepted application to the "Applications Accepted" section
-  const applicationsAccepted = document.getElementById('applicationsAccepted');
-  const liAccepted = document.createElement('li');
-  liAccepted.textContent = `${application.name} - ${application.jobData.job}`;
-  applicationsAccepted.appendChild(liAccepted);
-
-  // Update the count of accepted applications
-  const acceptedCountElement = document.querySelector('#applicationsAccepted p');
-  let acceptedCount = parseInt(acceptedCountElement.textContent.split(':')[1].trim(), 10);
-  acceptedCount++;
-  acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
-}
-
-function updateApplicationsDeclined(applications) {
-  const applicationsDeclined = document.getElementById('applicationsDeclined');
-  const noApplicationsDeclinedMessage = document.getElementById('noApplicationsDeclinedMessage');
-
-  // Clear the existing list
-  applicationsDeclined.innerHTML = '';
-
-  if (applications.length > 0) {
-    // Display the number of applications declined
-    const declinedApplications = applications.filter(isApplicationDeclined);
-    const declinedCount = declinedApplications.length;
-    const declinedCountElement = document.createElement('p');
-    declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
-    applicationsDeclined.appendChild(declinedCountElement);
-
-    // Display the declined applications
-    declinedApplications.forEach((application) => {
-      const li = document.createElement('li');
-      li.textContent = `${application.name} - ${application.jobData.job}`;
-      applicationsDeclined.appendChild(li);
-    });
-  } else {
-    // Display "0" for the number of applications declined
-    const declinedCountElement = document.createElement('p');
-    declinedCountElement.textContent = 'Total Applications Declined: 0';
-    applicationsDeclined.appendChild(declinedCountElement);
-
-    // Display the "No applications declined yet" message
-    noApplicationsDeclinedMessage.style.display = 'block';
-  }
-}
-
-// Function to check if an application is already declined
-function isApplicationDeclined(application) {
-  const applicationsDeclined = document.getElementById('applicationsDeclined');
-  const declinedItems = applicationsDeclined.getElementsByTagName('li');
-
-  for (let i = 0; i < declinedItems.length; i++) {
-    const declinedItemText = declinedItems[i].textContent;
-    if (declinedItemText.includes(application.name) && declinedItemText.includes(application.jobData.job)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function declineApplication(application, li) {
-  // Remove the accepted application from the "Applications Received" section
-  const applicationsReceived = document.getElementById('applicationsReceived');
-  applicationsReceived.removeChild(li);
-
-  // Remove the status of the accepted application from the "Status of Applications" section
-  const applicationsStatus = document.getElementById('applicationsStatus');
-  const statusItems = applicationsStatus.getElementsByTagName('li');
-
-  for (let i = 0; i < statusItems.length; i++) {
-    const statusItemText = statusItems[i].textContent;
-    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
-      applicationsStatus.removeChild(statusItems[i]);
-      break;
-    }
-  }
-
-  // Update the status of the declined application
-  application.status = 'declined';
-
-  // Add the accepted application to the "Applications Accepted" section
-  const applicationsDeclined = document.getElementById('applicationsDeclined');
-  const liDeclined = document.createElement('li');
-  liDeclined.textContent = `${application.name} - ${application.jobData.job}`;
-  applicationsDeclined.appendChild(liDeclined);
-
-  // Update the count of Declined applications
-  const declinedCountElement = document.querySelector('#applicationsDeclined p');
-  let declinedCount = parseInt(declinedCountElement.textContent.split(':')[1].trim(), 10);
-  declinedCount++;
-  declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
-}
-
-  // Fetch the session data from the server
-  fetch('/session')
-    .then((response) => response.json())
-    .then((data) => {
-      const sessionData = data.applications;
-
-      if (sessionData && sessionData.length > 0) {
-        // Update the "Applications Received" section with the session data
-        updateApplicationsReceived(sessionData);
-
-        // Update the "Status of Applications" section with the session data
-        updateApplicationsStatus(sessionData);
-
-        // Update the "Applications Accepted" section with the session data
-        updateApplicationsAccepted(sessionData);
-
-        // Update the "Applications Declined" section with the session data
-        updateApplicationsDeclined(sessionData);
+            const jobCell = row.insertCell();
+            jobCell.textContent = application.jobData.job;
+          });
+        } else {
+          const countRow = applicationsDeclined.insertRow();
+          const countCell = countRow.insertCell();
+          countCell.colSpan = 2;
+          countCell.textContent = 'Total Applications Declined: 0';
+        }
       }
-    })
-    .catch((error) => {
-      // Handle any errors that occurred while fetching the session data
-      console.error(error);
-    });
-</script>
+
+      // Function to check if an application is already accepted
+      function isApplicationAccepted(application) {
+        const applicationsAccepted = document.getElementById('applicationsAccepted');
+
+        for (let i = 1; i < applicationsAccepted.rows.length; i++) {
+          const nameCell = applicationsAccepted.rows[i].cells[0];
+          const jobCell = applicationsAccepted.rows[i].cells[1];
+
+          if (nameCell.textContent === application.name && jobCell.textContent === application.jobData.job) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      // Function to check if an application is already declined
+      function isApplicationDeclined(application) {
+        const applicationsDeclined = document.getElementById('applicationsDeclined');
+
+        for (let i = 1; i < applicationsDeclined.rows.length; i++) {
+          const nameCell = applicationsDeclined.rows[i].cells[0];
+          const jobCell = applicationsDeclined.rows[i].cells[1];
+
+          if (nameCell.textContent === application.name && jobCell.textContent === application.jobData.job) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      function acceptApplication(application, row) {
+        // Remove the accepted application from the "Applications Received" section
+        const applicationsReceived = document.getElementById('applicationsReceived');
+        applicationsReceived.deleteRow(row.rowIndex);
+
+        // Remove the status of the accepted application from the "Status of Applications" section
+        const applicationsStatus = document.getElementById('applicationsStatus');
+        applicationsStatus.deleteRow(row.rowIndex);
+
+        // Update the status of the accepted application
+        application.status = 'Accepted';
+
+        // Add the accepted application to the "Applications Accepted" section
+        const applicationsAccepted = document.getElementById('applicationsAccepted');
+        const newRow = applicationsAccepted.insertRow();
+        const nameCell = newRow.insertCell();
+        nameCell.textContent = application.name;
+
+        const jobCell = newRow.insertCell();
+        jobCell.textContent = application.jobData.job;
+
+        // Update the count of accepted applications
+        const acceptedCountElement = document.querySelector('#applicationsAccepted tr:first-child td');
+        let acceptedCount = parseInt(acceptedCountElement.textContent.split(':')[1].trim(), 10);
+        acceptedCount++;
+        acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
+      }
+
+      function declineApplication(application, row) {
+        // Remove the declined application from the "Applications Received" section
+        const applicationsReceived = document.getElementById('applicationsReceived');
+        applicationsReceived.deleteRow(row.rowIndex);
+
+        // Remove the status of the declined application from the "Status of Applications" section
+        const applicationsStatus = document.getElementById('applicationsStatus');
+        applicationsStatus.deleteRow(row.rowIndex);
+
+        // Update the status of the declined application
+        application.status = 'Declined';
+
+        // Add the declined application to the "Applications Declined" section
+        const applicationsDeclined = document.getElementById('applicationsDeclined');
+        const newRow = applicationsDeclined.insertRow();
+        const nameCell = newRow.insertCell();
+        nameCell.textContent = application.name;
+
+        const jobCell = newRow.insertCell();
+        jobCell.textContent = application.jobData.job;
+
+        // Update the count of declined applications
+        const declinedCountElement = document.querySelector('#applicationsDeclined tr:first-child td');
+        let declinedCount = parseInt(declinedCountElement.textContent.split(':')[1].trim(), 10);
+        declinedCount++;
+        declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
+      }
+
+      // Fetch the session data from the server
+      fetch('/session')
+        .then((response) => response.json())
+        .then((data) => {
+          const sessionData = data.applications;
+
+          if (sessionData && sessionData.length > 0) {
+            // Update the "Applications Received" section with the session data
+            updateApplicationsReceived(sessionData);
+
+            // Update the "Status of Applications" section with the session data
+            updateApplicationsStatus(sessionData);
+
+            // Update the "Applications Accepted" section with the session data
+            updateApplicationsAccepted(sessionData);
+
+            // Update the "Applications Declined" section with the session data
+            updateApplicationsDeclined(sessionData);
+          }
+        })
+        .catch((error) => {
+          // Handle any errors that occurred while fetching the session data
+          console.error(error);
+        });
+    </script>
 
 
     <section class="subscribe-section">
