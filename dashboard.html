@@ -273,25 +273,26 @@
           li.textContent = `${application.name} - ${application.email} - ${application.jobData.job} position`;
 
           // Create a container element for the buttons
-const buttonContainer = document.createElement('div');
-buttonContainer.style.display = 'inline-block'; // Set the container to display as inline-block
+          const buttonContainer = document.createElement('div');
+          buttonContainer.style.display = 'inline-block'; // Set the container to display as inline-block
+          buttonContainer.style.textAlign = 'right';
 
-// Create the accept button
-const acceptButton = document.createElement('button');
-acceptButton.textContent = 'Accept';
-acceptButton.style.color = 'red'; // Set the text color to red
-acceptButton.addEventListener('click', () => acceptApplication(application, li));
-buttonContainer.appendChild(acceptButton);
+          // Create the accept button
+          const acceptButton = document.createElement('button');
+          acceptButton.textContent = 'Accept';
+          acceptButton.style.color = 'green'; // Set the text color to red
+          acceptButton.addEventListener('click', () => acceptApplication(application, li));
+          buttonContainer.appendChild(acceptButton);
 
-// Create the decline button
-const declineButton = document.createElement('button');
-declineButton.textContent = 'Decline';
-declineButton.style.color = 'red'; // Set the text color to red
-declineButton.addEventListener('click', () => declineApplication(application, li));
-buttonContainer.appendChild(declineButton);
+          // Create the decline button
+          const declineButton = document.createElement('button');
+          declineButton.textContent = 'Decline';
+          declineButton.style.color = 'red'; // Set the text color to red
+          declineButton.addEventListener('click', () => declineApplication(application, li));
+          buttonContainer.appendChild(declineButton);
 
-// Append the button container to the list item
-li.appendChild(buttonContainer);
+          // Append the button container to the list item
+          li.appendChild(buttonContainer);
 
           applicationsReceived.appendChild(li);
         }
@@ -313,7 +314,7 @@ li.appendChild(buttonContainer);
 
       applications.forEach((application) => {
         const li = document.createElement('li');
-        li.textContent = `${application.name} - ${application.jobData.job} - ${status}`;
+        li.textContent = `${application.name} - ${application.jobData.job} - pending`;
         applicationsStatus.appendChild(li);
       });
     } else {
@@ -403,13 +404,85 @@ li.appendChild(buttonContainer);
   acceptedCountElement.textContent = `Total Applications Accepted: ${acceptedCount}`;
 }
 
+function updateApplicationsDeclined(applications) {
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const noApplicationsDeclinedMessage = document.getElementById('noApplicationsDeclinedMessage');
 
-  // Function to decline an application
-  function declineApplication(name, li) {
-    // Remove the declined application from the "Applications Received" section
-    const applicationsReceived = document.getElementById('applicationsReceived');
-    applicationsReceived.removeChild(li);
+  // Clear the existing list
+  applicationsDeclined.innerHTML = '';
+
+  if (applications.length > 0) {
+    // Display the number of applications declined
+    const declinedApplications = applications.filter(isApplicationDeclined);
+    const declinedCount = declinedApplications.length;
+    const declinedCountElement = document.createElement('p');
+    declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
+    applicationsDeclined.appendChild(declinedCountElement);
+
+    // Display the declined applications
+    declinedApplications.forEach((application) => {
+      const li = document.createElement('li');
+      li.textContent = `${application.name} - ${application.jobData.job}`;
+      applicationsDeclined.appendChild(li);
+    });
+  } else {
+    // Display "0" for the number of applications declined
+    const declinedCountElement = document.createElement('p');
+    declinedCountElement.textContent = 'Total Applications Declined: 0';
+    applicationsDeclined.appendChild(declinedCountElement);
+
+    // Display the "No applications declined yet" message
+    noApplicationsDeclinedMessage.style.display = 'block';
   }
+}
+
+// Function to check if an application is already declined
+function isApplicationDeclined(application) {
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const declinedItems = applicationsDeclined.getElementsByTagName('li');
+
+  for (let i = 0; i < declinedItems.length; i++) {
+    const declinedItemText = declinedItems[i].textContent;
+    if (declinedItemText.includes(application.name) && declinedItemText.includes(application.jobData.job)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function declineApplication(application, li) {
+  // Remove the accepted application from the "Applications Received" section
+  const applicationsReceived = document.getElementById('applicationsReceived');
+  applicationsReceived.removeChild(li);
+
+  // Remove the status of the accepted application from the "Status of Applications" section
+  const applicationsStatus = document.getElementById('applicationsStatus');
+  const statusItems = applicationsStatus.getElementsByTagName('li');
+
+  for (let i = 0; i < statusItems.length; i++) {
+    const statusItemText = statusItems[i].textContent;
+    if (statusItemText.includes(application.name) && statusItemText.includes(application.jobData.job)) {
+      applicationsStatus.removeChild(statusItems[i]);
+      break;
+    }
+  }
+
+  // Update the status of the declined application
+  application.status = 'declined';
+
+  // Add the accepted application to the "Applications Accepted" section
+  const applicationsDeclined = document.getElementById('applicationsDeclined');
+  const liDeclined = document.createElement('li');
+  liDeclined.textContent = `${application.name} - ${application.jobData.job}`;
+  applicationsDeclined.appendChild(liDeclined);
+
+  // Update the count of Declined applications
+  const declinedCountElement = document.querySelector('#applicationsDeclined p');
+  let declinedCount = parseInt(declinedCountElement.textContent.split(':')[1].trim(), 10);
+  declinedCount++;
+  declinedCountElement.textContent = `Total Applications Declined: ${declinedCount}`;
+}
 
   // Fetch the session data from the server
   fetch('/session')

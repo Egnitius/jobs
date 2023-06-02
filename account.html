@@ -1030,5 +1030,30 @@
         }
       }
     </script>
+    <script>
+      // Add an event listener to listen for the "notificationSent" event
+      window.addEventListener('notificationSent', () => {
+        // Retrieve the notification data from session storage
+        const notificationData = sessionStorage.getItem('notificationData');
+    
+        if (notificationData) {
+          // Create a notification item element and populate it with the data
+          const notificationItem = document.createElement('div');
+          notificationItem.className = 'notifi-item';
+          notificationItem.innerHTML = JSON.parse(notificationData);
+    
+          // Append the notification item to the notification box
+          const notificationBox = document.getElementById('box');
+          notificationBox.appendChild(notificationItem);
+    
+          // Update the notification count
+          const notificationCount = document.getElementById('notificationCount');
+          notificationCount.textContent = parseInt(notificationCount.textContent) + 1;
+    
+          // Clear the notification data from session storage
+          sessionStorage.removeItem('notificationData');
+        }
+      });
+    </script>
   </body>
 </html>
