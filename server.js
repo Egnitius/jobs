@@ -575,6 +575,32 @@ const server = http.createServer((req, res) => {
       // End the PDF document
       doc.end();
     });
+  } else if (req.url === '/apply' && req.method === 'POST') {
+    let requestBody = '';
+
+    // Accumulate the request body data
+    req.on('data', (chunk) => {
+      requestBody += chunk.toString();
+    });
+
+    // Process the request after receiving the complete body
+    req.on('end', () => {
+      try {
+        // Parse the request body as JSON
+        const applicationData = JSON.parse(requestBody);
+
+        // Perform any necessary processing with the application data
+        // For example, you can save it to a database or send it via email
+
+        // Respond with a success message
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Application submitted successfully' }));
+      } catch (error) {
+        // Handle any errors that occurred during JSON parsing or processing
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid request payload' }));
+      }
+    });
   } else {
     // Serve the requested file
 let filePath;

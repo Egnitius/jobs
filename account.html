@@ -73,14 +73,34 @@
         padding: 0.2em;
         height: 2em;
       }
-      .box {
+
+      #box {
         margin: 0 auto;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 35px;
+        background: rgba(255, 255, 255, 0.048);
         border: 2px solid #fff;
         border-radius: 20px/50px;
         background-clip: padding-box;
         text-align: center;
+        display: none;
+        height: 0px;
+        opacity: 0;
+        transition: height 0.3s, opacity 0.3s;
+        max-height: 500px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+      }
+
+      #box::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      #box::-webkit-scrollbar-thumb {
+        background-color: transparent;
+      }
+
+      .notificationContent {
+        font-size: 10px;
       }
 
       .button {
@@ -211,7 +231,7 @@
             >
               <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                  <a href="index.html" class="nav-link active">Home</a>
+                  <a href="index.html" class="nav-link ">Home</a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link dropdown-toggle">Jobs</a>
@@ -239,11 +259,13 @@
               </ul>
             </div>
             <div class="icon" onclick="toggleNotifi()">
-              <img src="assets/img/bell.png" alt="" /> <span></span>
+              <img src="assets/img/bell.png" alt="" /> 
+              <span id="notificationCount" class="new-count"></span>
             </div>
             <div class="notifi-box" id="box">
-              <h2>Notifications <span></span></h2>
-            </div>            
+              <h2>Notifications</h2>
+              <div id="notificationContent"></div>
+            </div>                                                                  
           </nav>
         </div>
       </div>
@@ -943,13 +965,10 @@
       <i class="bx bx-chevrons-up bx-fade-up"></i>
     </div>
 
-    <script src="assets/js/script.js"></script>
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 
-    <script
-      data-cfasync="false"
-      src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-    ></script>
     <script src="assets/js/jquery.min.js"></script>
+
     <script src="assets/js/bootstrap.bundle.min.js"></script>
 
     <script src="assets/js/owl.carousel.min.js"></script>
@@ -1026,5 +1045,71 @@
         }
       });
     </script>
+    <script>
+      let down = false; // Flag to track the visibility of the notification box
+    
+      function toggleNotifi() {
+        var box = document.getElementById('box');
+        if (down) {
+          box.style.height = '0px';
+          box.style.opacity = 0;
+          down = false;
+          
+          // Reset the notification count to 0
+          const notificationCount = document.getElementById('notificationCount');
+          notificationCount.textContent = '0';
+        } else {
+          box.style.height = '510px';
+          box.style.opacity = 1;
+          down = true;
+        }
+      }
+    
+      // Retrieve the application data from sessionStorage
+      const applicationData = JSON.parse(sessionStorage.getItem('applicationData'));
+      console.log(applicationData);
+    
+      // Check if applicationData exists and contains the required properties
+      if (applicationData && applicationData.name && applicationData.email && applicationData.jobData) {
+        // Save the notification data to sessionStorage
+        const notifications = JSON.parse(sessionStorage.getItem('notifications')) || [];
+        notifications.push(applicationData);
+        if (notifications.length > 5) {
+          notifications.shift(); // Remove the oldest notification if more than 5 are stored
+        }
+        sessionStorage.setItem('notifications', JSON.stringify(notifications));
+    
+        // Update the notification count
+        const notificationCount = document.getElementById('notificationCount');
+        const previousCount = parseInt(notificationCount.textContent) || 0;
+        const newCount = previousCount + 1;
+        notificationCount.textContent = newCount;
+    
+        // Display the notifications
+        const storedNotifications = JSON.parse(sessionStorage.getItem('notifications'));
+        const notificationContainer = document.getElementById('notificationContent');
+        notificationContainer.innerHTML = ''; // Clear the existing notifications
+    
+        storedNotifications.forEach((notification) => {
+          const notificationElement = document.createElement('div');
+          notificationElement.classList.add('notification');
+    
+          notificationElement.innerHTML = `
+            <h3>Application Submitted</h3>
+            <p>Thank you for your application. Your application for ${notification.jobData.job} has been submitted successfully.</p>
+          `;
+    
+          notificationContainer.appendChild(notificationElement);
+        });
+    
+        // Display the notification box
+        const box = document.getElementById('box');
+        box.style.display = 'block';
+        box.style.height = '0px';
+        box.style.opacity = 0;
+      } else {
+        console.error('Invalid application data or missing properties');
+      }
+    </script>                             
   </body>
 </html>

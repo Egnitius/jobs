@@ -227,6 +227,9 @@ applyButton.addEventListener('click', (event) => {
         jobData
       };
 
+      // Store the application data in sessionStorage
+      sessionStorage.setItem('applicationData', JSON.stringify(applicationData));
+      
       // Send a POST request to the server with the application data
       fetch('/apply', {
         method: 'POST',
